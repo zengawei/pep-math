@@ -12,59 +12,131 @@ for (const kp of knowledgePoints) {
   if (!categories.has(cat)) categories.set(cat, []);
   categories.get(cat)!.push(kp);
 }
+
+// Collect textbooks from applied_in
+const textbookSet = new Set<string>();
+for (const kp of knowledgePoints) {
+  const appliedIn = (kp.data as any).applied_in as Array<{ textbook: string }> | undefined;
+  if (appliedIn) {
+    for (const ref of appliedIn) {
+      textbookSet.add(ref.textbook);
+    }
+  }
+}
+const textbooks = Array.from(textbookSet).sort();
+
+const textbookLabels: Record<string, string> = {
+  'required-1': '必修一',
+  'required-2': '必修二',
+  'selective-required-1': '选择性必修一',
+  'selective-required-2': '选择性必修二',
+  'selective-required-3': '选择性必修三',
+};
+
+// Pre-compute textbook list per knowledge point for data attributes
+const kpTextbooks = new Map<string, string>();
+for (const kp of knowledgePoints) {
+  const appliedIn = (kp.data as any).applied_in;
+  if (Array.isArray(appliedIn)) {
+    kpTextbooks.set(kp.data.id, appliedIn.map((r: any) => r.textbook).join(','));
+  } else {
+    kpTextbooks.set(kp.data.id, '');
+  }
+}
 ---
 <BaseLayout title="知识点">
   <h1 class="text-2xl font-bold mb-4">知识点列表</h1>
   <p class="text-gray-600 mb-6">共 {knowledgePoints.length} 个知识点</p>
 
   <!-- Filter by category -->
-  <div class="flex flex-wrap gap-2 mb-6">
-    <button class="category-filter px-3 py-1 rounded bg-blue-600 text-white text-sm" data-category="all">
-      全部
-    </button>
-    {Array.from(categories.keys()).map(cat => (
-      <button class="category-filter px-3 py-1 rounded bg-gray-200 text-gray-700 text-sm hover:bg-gray-300" data-category={cat}>
-        {cat}
+  <div class="mb-4">
+    <span class="text-sm text-gray-500 mr-2">分类：</span>
+    <div class="inline-flex flex-wrap gap-2">
+      <button class="category-filter px-3 py-1 rounded bg-blue-600 text-white text-sm" data-category="all">
+        全部
       </button>
-    ))}
+      {Array.from(categories.keys()).map(cat => (
+        <button class="category-filter px-3 py-1 rounded bg-gray-200 text-gray-700 text-sm hover:bg-gray-300" data-category={cat}>
+          {cat}
+        </button>
+      ))}
+    </div>
+  </div>
+
+  <!-- Filter by textbook -->
+  <div class="mb-6">
+    <span class="text-sm text-gray-500 mr-2">教材：</span>
+    <div class="inline-flex flex-wrap gap-2">
+      <button class="textbook-filter px-3 py-1 rounded bg-blue-600 text-white text-sm" data-textbook="all">
+        全部
+      </button>
+      {textbooks.map(tb => (
+        <button class="textbook-filter px-3 py-1 rounded bg-gray-200 text-gray-700 text-sm hover:bg-gray-300" data-textbook={tb}>
+          {textbookLabels[tb] || tb}
+        </button>
+      ))}
+    </div>
   </div>
 
   <!-- Knowledge points grid -->
   <div class="grid grid-cols-1 md:grid-cols-2 gap-4" id="kp-grid">
     {knowledgePoints.map((kp) => (
-      <a
-        href={`/pep-math/knowledge/${kp.data.id}`}
-        class="kp-card border rounded-lg p-4 hover:shadow transition-shadow"
-        data-category={kp.data.category}
-      >
-        <h3 class="font-bold text-blue-600">{kp.data.name}</h3>
-        <span class="text-xs text-gray-400">{kp.data.category}</span>
-        <p class="text-sm text-gray-600 mt-1 line-clamp-2">{kp.data.description}</p>
-        {kp.data.formulas.length > 0 && (
-          <div class="mt-2 text-xs text-gray-400">
-            {kp.data.formulas.length} 个公式
-          </div>
-        )}
-      </a>
+        <a
+          href={`/pep-math/knowledge/${kp.data.id}`}
+          class="kp-card border rounded-lg p-4 hover:shadow transition-shadow"
+          data-category={kp.data.category}
+          data-textbooks={kpTextbooks.get(kp.data.id) || ''}
+        >
+          <h3 class="font-bold text-blue-600">{kp.data.name}</h3>
+          <span class="text-xs text-gray-400">{kp.data.category}</span>
+          <p class="text-sm text-gray-600 mt-1 line-clamp-2">{kp.data.description}</p>
+          {kp.data.formulas.length > 0 && (
+            <div class="mt-2 text-xs text-gray-400">
+              {kp.data.formulas.length} 个公式
+            </div>
+          )}
+        </a>
     ))}
   </div>
 
   <script>
+    let activeCategory = 'all';
+    let activeTextbook = 'all';
+
+    function applyFilters() {
+      document.querySelectorAll('.kp-card').forEach(card => {
+        const el = card as HTMLElement;
+        const cat = el.dataset.category || '';
+        const tbs = (el.dataset.textbooks || '').split(',');
+
+        const catMatch = activeCategory === 'all' || cat === activeCategory;
+        const tbMatch = activeTextbook === 'all' || tbs.includes(activeTextbook);
+
+        el.style.display = (catMatch && tbMatch) ? '' : 'none';
+      });
+    }
+
+    function setActiveButton(group: string, btn: Element) {
+      const cls = group === 'category' ? 'category-filter' : 'textbook-filter';
+      document.querySelectorAll(`.${cls}`).forEach(b => {
+        b.className = b.className.replace('bg-blue-600 text-white', 'bg-gray-200 text-gray-700');
+      });
+      btn.className = btn.className.replace('bg-gray-200 text-gray-700', 'bg-blue-600 text-white');
+    }
+
     document.querySelectorAll('.category-filter').forEach(btn => {
       btn.addEventListener('click', () => {
-        const cat = (btn as HTMLElement).dataset.category;
-        document.querySelectorAll('.category-filter').forEach(b => {
-          b.className = b.className.replace('bg-blue-600 text-white', 'bg-gray-200 text-gray-700');
-        });
-        btn.className = btn.className.replace('bg-gray-200 text-gray-700', 'bg-blue-600 text-white');
+        activeCategory = (btn as HTMLElement).dataset.category || 'all';
+        setActiveButton('category', btn);
+        applyFilters();
+      });
+    });
 
-        document.querySelectorAll('.kp-card').forEach(card => {
-          if (cat === 'all' || (card as HTMLElement).dataset.category === cat) {
-            (card as HTMLElement).style.display = '';
-          } else {
-            (card as HTMLElement).style.display = 'none';
-          }
-        });
+    document.querySelectorAll('.textbook-filter').forEach(btn => {
+      btn.addEventListener('click', () => {
+        activeTextbook = (btn as HTMLElement).dataset.textbook || 'all';
+        setActiveButton('textbook', btn);
+        applyFilters();
       });
     });
   </script>
