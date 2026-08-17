@@ -1,0 +1,176 @@
+---
+// src/pages/textbook/[id]/chapter/[chapter]/section/[section].astro
+import BaseLayout from '../../../../../../layouts/BaseLayout.astro';
+import Navigation from '../../../../../../components/Navigation';
+import fs from 'fs';
+import path from 'path';
+
+export function getStaticPaths() {
+  const textbooksDir = path.resolve('src/content/textbooks');
+  const paths: { params: { id: string; chapter: string; section: string } }[] = [];
+
+  const textbooks = fs.readdirSync(textbooksDir).filter(f =>
+    fs.statSync(path.join(textbooksDir, f)).isDirectory()
+  );
+
+  for (const textbook of textbooks) {
+    const textbookDir = path.join(textbooksDir, textbook);
+    const chapters = fs.readdirSync(textbookDir).filter(f =>
+      fs.statSync(path.join(textbookDir, f)).isDirectory()
+    );
+    for (const chapterDir of chapters) {
+      const chapterPath = path.join(textbookDir, chapterDir);
+      const chapterNum = parseInt(chapterDir.replace('chapter-', ''), 10);
+      const sections = fs.readdirSync(chapterPath).filter(f =>
+        fs.statSync(path.join(chapterPath, f)).isDirectory()
+      );
+      for (const sectionDir of sections) {
+        const sectionNum = parseInt(sectionDir.replace('section-', ''), 10);
+        paths.push({
+          params: {
+            id: textbook,
+            chapter: String(chapterNum),
+            section: String(sectionNum),
+          },
+        });
+      }
+    }
+  }
+  return paths;
+}
+
+const { id } = Astro.params;
+const chapterNum = parseInt(Astro.params.chapter!, 10);
+const sectionNum = parseInt(Astro.params.section!, 10);
+
+// Load section data from pre-built JSON
+const sectionDataFile = path.resolve(
+  `public/data/sections/${id}-ch${chapterNum}-s${sectionNum}.json`
+);
+const sectionData = JSON.parse(fs.readFileSync(sectionDataFile, 'utf-8'));
+
+// Build navigation data
+const textbooksDir = path.resolve('src/content/textbooks');
+const textbookDir = path.join(textbooksDir, id!);
+const allChapters = fs.readdirSync(textbookDir)
+  .filter(f => fs.statSync(path.join(textbookDir, f)).isDirectory())
+  .sort()
+  .map(chDir => {
+    const chNum = parseInt(chDir.replace('chapter-', ''), 10);
+    const chPath = path.join(textbookDir, chDir);
+    const sects = fs.readdirSync(chPath)
+      .filter(f => fs.statSync(path.join(chPath, f)).isDirectory())
+      .sort()
+      .map(sDir => ({
+        number: parseInt(sDir.replace('section-', ''), 10),
+        title: '',
+      }));
+    return { number: chNum, title: '', sections: sects };
+  });
+---
+<BaseLayout title={`第${chapterNum}章 第${sectionNum}节`}>
+  <div class="flex gap-6">
+    <!-- Sidebar Navigation -->
+    <aside class="w-64 flex-shrink-0 hidden md:block">
+      <Navigation
+        textbookId={id!}
+        chapters={allChapters}
+        currentChapter={chapterNum}
+        currentSection={sectionNum}
+      />
+    </aside>
+
+    <!-- Main Content -->
+    <div class="flex-1">
+      <h1 class="text-2xl font-bold mb-4">
+        第{chapterNum}章 第{sectionNum}节
+      </h1>
+
+      <!-- Definitions -->
+      {sectionData.definitions.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-2 border-b pb-1">📖 定义</h2>
+          <ul class="space-y-2">
+            {sectionData.definitions.map((def: any) => (
+              <li class="border rounded p-3">
+                <span class="font-medium">{def.name}</span>
+                <div class="flex flex-wrap gap-1 mt-1">
+                  {def.related_knowledge_points.map((kp: string) => (
+                    <a href={`/pep-math/knowledge/${kp}`} class="text-xs text-blue-600 hover:underline">
+                      {kp}
+                    </a>
+                  ))}
+                </div>
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+
+      <!-- Exercises (loaded from JSON) -->
+      {sectionData.exercises.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-2 border-b pb-1">📝 习题</h2>
+          <div id="exercises-container" data-section-id={`${id}-ch${chapterNum}-s${sectionNum}`}>
+            {sectionData.exercises.map((ex: any) => (
+              <div id={`exercise-${ex.id}`} class="mb-2 text-sm text-gray-600">
+                第{ex.number}题 —
+                <span class={`px-1 rounded text-xs ${
+                  ex.difficulty === 'basic' ? 'bg-green-100 text-green-800' :
+                  ex.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {ex.difficulty === 'basic' ? '基础' : ex.difficulty === 'medium' ? '中等' : '拔尖'}
+                </span>
+              </div>
+            ))}
+          </div>
+          <p class="text-xs text-gray-400 mt-2">
+            💡 习题详细内容通过 JSON 按需加载，点击题目可展开解答。
+          </p>
+        </section>
+      )}
+
+      <!-- Examples -->
+      {sectionData.examples.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-2 border-b pb-1">📚 例题</h2>
+          <ul class="space-y-2">
+            {sectionData.examples.map((ex: any) => (
+              <li class="text-sm text-gray-600">
+                例题 {ex.number}
+              </li>
+            ))}
+          </ul>
+        </section>
+      )}
+    </div>
+  </div>
+
+  <!-- Client-side: load full exercise JSON on click -->
+  <script define:vars={{ base: '/pep-math' }}>
+    document.querySelectorAll('[id^="exercise-"]').forEach(el => {
+      el.style.cursor = 'pointer';
+      el.addEventListener('click', async () => {
+        const exId = el.id.replace('exercise-', '');
+        if (el.querySelector('.exercise-detail')) {
+          el.querySelector('.exercise-detail')!.remove();
+          return;
+        }
+        try {
+          const resp = await fetch(`${base}/data/exercises/${exId}.json`);
+          const data = await resp.json();
+          const detail = document.createElement('div');
+          detail.className = 'exercise-detail mt-2 p-3 bg-gray-50 rounded text-sm';
+          detail.innerHTML = `<div>${data.question}</div>`;
+          if (data.warning) {
+            detail.innerHTML += `<div class="mt-2 text-yellow-700">⚠️ ${data.warning}</div>`;
+          }
+          el.appendChild(detail);
+        } catch (e) {
+          console.error('Failed to load exercise:', e);
+        }
+      });
+    });
+  </script>
+</BaseLayout>
