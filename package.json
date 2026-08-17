@@ -13,6 +13,7 @@
     "check": "astro check",
     "test": "vitest run",
     "test:watch": "vitest",
+    "build:scripts": "npx tsx scripts/build-knowledge-graph.ts && npx tsx scripts/build-exercise-index.ts && npx tsx scripts/build-exercise-data.ts && npx tsx scripts/build-related-exercises.ts",
     "validate": "npx tsx scripts/validate-content.ts && npx tsx scripts/validate-knowledge-graph.ts",
     "report": "npx tsx scripts/generate-quality-report.ts"
   },
