@@ -6,11 +6,15 @@ description: |
   x = (-b±√(b²-4ac))/(2a)。判别式 Δ=b²-4ac 决定根的情况：
   Δ>0 两个不等实根，Δ=0 两个相等实根，Δ<0 无实根。
   韦达定理：x₁+x₂=-b/a，x₁·x₂=c/a。
-prerequisites: []
+prerequisites:
+  - quadratic-function
 follow_ups:
   - quadratic-inequality
 related:
   - quadratic-function
+  - inequality-properties
+  - quadratic-inequality
+  - exponent-logarithm
 formulas:
   - "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}"
   - "\\Delta = b^2 - 4ac"

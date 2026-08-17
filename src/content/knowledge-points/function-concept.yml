@@ -17,6 +17,7 @@ follow_ups:
   - trig-function
 related:
   - quadratic-function
+  - function-properties
 formulas:
   - "y = f(x), \\quad x \\in A"
 common_mistakes:

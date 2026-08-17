@@ -11,6 +11,9 @@ follow_ups:
   - quadratic-equation
 related:
   - function-concept
+  - quadratic-inequality
+  - basic-inequality
+  - quadratic-equation
 formulas:
   - "y = ax^2 + bx + c \\quad (a \\neq 0)"
   - "x_{\\text{顶点}} = -\\frac{b}{2a}"

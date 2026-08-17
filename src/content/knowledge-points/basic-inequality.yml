@@ -7,10 +7,12 @@ description: |
   即算术平均数不小于几何平均数。常用于求最值。
 prerequisites:
   - inequality-properties
+  - quadratic-inequality
 follow_ups: []
 related:
   - quadratic-inequality
   - quadratic-function
+  - function-application
 formulas:
   - "a + b \\geq 2\\sqrt{ab} \\quad (a > 0, b > 0)"
   - "\\frac{a+b}{2} \\geq \\sqrt{ab}"
