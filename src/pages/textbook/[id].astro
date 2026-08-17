@@ -1,0 +1,87 @@
+---
+// src/pages/textbook/[id].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+export function getStaticPaths() {
+  const textbooksDir = path.resolve('src/content/textbooks');
+  const ids = fs.readdirSync(textbooksDir).filter(f =>
+    fs.statSync(path.join(textbooksDir, f)).isDirectory()
+  );
+
+  const textbookNames: Record<string, string> = {
+    'required-1': '必修 第一册',
+    'required-2': '必修 第二册',
+    'selective-1': '选择性必修 第一册',
+    'selective-2': '选择性必修 第二册',
+    'selective-3': '选择性必修 第三册',
+  };
+
+  return ids.map(id => ({
+    params: { id },
+    props: { name: textbookNames[id] || id },
+  }));
+}
+
+const { id } = Astro.params;
+const name = Astro.props.name;
+const textbooksDir = path.resolve('src/content/textbooks');
+const textbookDir = path.join(textbooksDir, id!);
+
+// Read chapter structure
+const chapters = fs.readdirSync(textbookDir)
+  .filter(f => fs.statSync(path.join(textbookDir, f)).isDirectory())
+  .sort()
+  .map(chapterDir => {
+    const chapterNum = parseInt(chapterDir.replace('chapter-', ''), 10);
+    const chapterPath = path.join(textbookDir, chapterDir);
+    const sections = fs.readdirSync(chapterPath)
+      .filter(f => fs.statSync(path.join(chapterPath, f)).isDirectory())
+      .sort()
+      .map(sectionDir => {
+        const sectionNum = parseInt(sectionDir.replace('section-', ''), 10);
+        return { number: sectionNum };
+      });
+    return { number: chapterNum, sections };
+  });
+
+// Chapter titles mapping
+const chapterTitles: Record<string, string[]> = {
+  'required-1': [
+    '', // 0-index placeholder
+    '集合与常用逻辑用语',
+    '一元二次函数、方程和不等式',
+    '函数的概念与性质',
+    '指数函数与对数函数',
+    '三角函数',
+  ],
+};
+
+const titles = chapterTitles[id!] || [];
+---
+<BaseLayout title={name}>
+  <h1 class="text-2xl font-bold mb-4">{name}</h1>
+
+  <div class="space-y-6">
+    {chapters.map((chapter) => (
+      <div class="border rounded-lg p-4">
+        <h2 class="text-lg font-bold mb-2">
+          第{chapter.number}章 {titles[chapter.number] || ''}
+        </h2>
+        <ul class="space-y-1 ml-4">
+          {chapter.sections.map((section) => (
+            <li>
+              <a
+                href={`/pep-math/textbook/${id}/chapter/${chapter.number}/section/${section.number}`}
+                class="text-blue-600 hover:underline"
+              >
+                第{section.number}节
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    ))}
+  </div>
+</BaseLayout>
