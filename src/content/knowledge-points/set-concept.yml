@@ -10,6 +10,7 @@ prerequisites: []
 follow_ups:
   - set-representation
   - set-operations
+  - function-concept
 related: []
 formulas: []
 common_mistakes:

@@ -1,0 +1,20 @@
+id: power-function
+name: 幂函数
+category: 函数
+description: |
+  形如 y = x^α 的函数称为幂函数，其中 α 是常数。
+  常见的幂函数：y = x, y = x², y = x³, y = x^(1/2), y = x^(-1)。
+  所有幂函数都过点 (1, 1)。
+prerequisites:
+  - function-concept
+  - function-properties
+follow_ups: []
+related: []
+formulas:
+  - "y = x^{\\alpha}"
+common_mistakes:
+  - mistake: "混淆幂函数与指数函数"
+    correction: "幂函数 y=x^α 底数是变量；指数函数 y=a^x 指数是变量"
+applied_in:
+  - textbook: required-1
+    chapters: [3]

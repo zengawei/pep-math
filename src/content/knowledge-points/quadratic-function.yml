@@ -9,7 +9,8 @@ prerequisites: []
 follow_ups:
   - quadratic-inequality
   - quadratic-equation
-related: []
+related:
+  - function-concept
 formulas:
   - "y = ax^2 + bx + c \\quad (a \\neq 0)"
   - "x_{\\text{顶点}} = -\\frac{b}{2a}"

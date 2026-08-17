@@ -1,0 +1,28 @@
+id: function-properties
+name: 函数的性质（单调性与奇偶性）
+category: 函数
+description: |
+  单调性：对于定义域内区间 D 上的任意 x₁, x₂，
+  若 x₁ < x₂ 时 f(x₁) < f(x₂)，则 f 在 D 上单调递增；
+  若 f(x₁) > f(x₂)，则 f 在 D 上单调递减。
+  奇偶性：若对定义域内任意 x，f(-x) = f(x) 则为偶函数（图像关于 y 轴对称），
+  f(-x) = -f(x) 则为奇函数（图像关于原点对称）。
+prerequisites:
+  - function-concept
+follow_ups:
+  - power-function
+  - exponential-function
+  - logarithmic-function
+related:
+  - function-concept
+formulas:
+  - "\\text{偶函数：} f(-x) = f(x)"
+  - "\\text{奇函数：} f(-x) = -f(x)"
+common_mistakes:
+  - mistake: "判断奇偶性时不先检查定义域是否关于原点对称"
+    correction: "奇偶性的前提条件是定义域关于原点对称，不对称则非奇非偶"
+  - mistake: "证明单调性时只取特殊值验证"
+    correction: "单调性证明必须取'任意' x₁ < x₂，不能只取特殊值"
+applied_in:
+  - textbook: required-1
+    chapters: [3, 4]

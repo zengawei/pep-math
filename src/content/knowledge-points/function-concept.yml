@@ -1,0 +1,26 @@
+id: function-concept
+name: 函数的概念
+category: 函数
+description: |
+  设 A, B 是非空的数集，如果按照某种确定的对应关系 f，
+  使集合 A 中的任意一个数 x，在集合 B 中都有唯一确定的数 f(x) 和它对应，
+  那么就称 f: A→B 为从集合 A 到集合 B 的一个函数。
+  记作 y = f(x)，x ∈ A。其中 x 叫自变量，A 叫定义域，{f(x)|x∈A} 叫值域。
+prerequisites:
+  - set-concept
+follow_ups:
+  - function-properties
+  - power-function
+  - exponential-function
+  - logarithmic-function
+  - trig-function
+related:
+  - quadratic-function
+formulas:
+  - "y = f(x), \\quad x \\in A"
+common_mistakes:
+  - mistake: "认为值域就是 B"
+    correction: "值域是 {f(x)|x∈A}，是 B 的子集，不一定等于 B"
+applied_in:
+  - textbook: required-1
+    chapters: [3, 4, 5]
