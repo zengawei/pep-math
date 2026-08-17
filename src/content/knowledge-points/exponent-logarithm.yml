@@ -1,0 +1,29 @@
+id: exponent-logarithm
+name: 指数与对数运算
+category: 函数
+description: |
+  指数运算法则：a^m · a^n = a^(m+n)，(a^m)^n = a^(mn)，(ab)^n = a^n · b^n。
+  对数：若 a^b = N（a>0, a≠1），则 b = log_a(N)。
+  对数运算法则：log_a(MN) = log_a(M) + log_a(N)，
+  log_a(M/N) = log_a(M) - log_a(N)，log_a(M^n) = n·log_a(M)。
+  换底公式：log_a(b) = ln(b)/ln(a)。
+prerequisites:
+  - function-concept
+follow_ups:
+  - exponential-function
+  - logarithmic-function
+related:
+  - quadratic-equation
+formulas:
+  - "a^m \\cdot a^n = a^{m+n}"
+  - "(a^m)^n = a^{mn}"
+  - "\\log_a(MN) = \\log_a M + \\log_a N"
+  - "\\log_a \\frac{M}{N} = \\log_a M - \\log_a N"
+  - "\\log_a M^n = n \\log_a M"
+  - "\\log_a b = \\frac{\\ln b}{\\ln a}"
+common_mistakes:
+  - mistake: "混淆 log_a(M+N) = log_a(M) + log_a(N)"
+    correction: "对数没有'加法公式'，log_a(M+N) ≠ log_a(M) + log_a(N)"
+applied_in:
+  - textbook: required-1
+    chapters: [4]

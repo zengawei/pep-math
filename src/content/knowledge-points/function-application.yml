@@ -1,0 +1,20 @@
+id: function-application
+name: 函数应用
+category: 函数
+description: |
+  利用函数模型（指数增长模型、对数增长模型等）解决实际问题。
+  常见模型：指数增长模型 y = a·b^x，对数模型 y = a·ln(x) + b。
+  解题步骤：审题→建模→求解→验证。
+prerequisites:
+  - exponential-function
+  - logarithmic-function
+follow_ups: []
+related:
+  - basic-inequality
+formulas: []
+common_mistakes:
+  - mistake: "建立模型后不验证结果的合理性"
+    correction: "数学模型的结果要回到实际问题中检验是否符合实际意义"
+applied_in:
+  - textbook: required-1
+    chapters: [4]

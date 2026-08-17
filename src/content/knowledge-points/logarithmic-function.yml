@@ -1,0 +1,24 @@
+id: logarithmic-function
+name: 对数函数
+category: 函数
+description: |
+  形如 y = log_a(x)（a>0, a≠1）的函数称为对数函数。
+  定义域为 (0, +∞)，值域为 R。
+  当 a>1 时在 (0,+∞) 上单调递增；当 0<a<1 时单调递减。
+  图像过点 (1, 0)。对数函数是指数函数的反函数。
+prerequisites:
+  - exponent-logarithm
+  - exponential-function
+  - function-concept
+follow_ups:
+  - function-application
+related:
+  - exponential-function
+formulas:
+  - "y = \\log_a x \\quad (a > 0, a \\neq 1)"
+common_mistakes:
+  - mistake: "忘记对数函数的定义域为 (0, +∞)"
+    correction: "对数函数的真数必须大于 0，log_a(x) 中 x>0"
+applied_in:
+  - textbook: required-1
+    chapters: [4]

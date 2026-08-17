@@ -1,0 +1,25 @@
+id: exponential-function
+name: 指数函数
+category: 函数
+description: |
+  形如 y = a^x（a>0, a≠1）的函数称为指数函数。
+  定义域为 R，值域为 (0, +∞)。
+  当 a>1 时在 R 上单调递增；当 0<a<1 时在 R 上单调递减。
+  图像过点 (0, 1)。
+prerequisites:
+  - exponent-logarithm
+  - function-concept
+  - function-properties
+follow_ups:
+  - logarithmic-function
+  - function-application
+related:
+  - logarithmic-function
+formulas:
+  - "y = a^x \\quad (a > 0, a \\neq 1)"
+common_mistakes:
+  - mistake: "认为 a^x 可以等于 0 或负数"
+    correction: "指数函数值域为 (0, +∞)，a^x 恒大于 0"
+applied_in:
+  - textbook: required-1
+    chapters: [4]
