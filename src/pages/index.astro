@@ -1,12 +1,23 @@
 ---
-// PEP Math - placeholder index
+// src/pages/index.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
 ---
-<html lang="zh-CN">
-<head>
-  <meta charset="utf-8" />
-  <title>PEP Math</title>
-</head>
-<body>
-  <h1>PEP Math</h1>
-</body>
-</html>
+<BaseLayout title="首页">
+  <h1 class="text-3xl font-bold mb-4">人教版高中数学知识库</h1>
+  <p class="text-gray-600 mb-8">覆盖全部 5 册教材的习题、知识点、定义和例题</p>
+
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+    <a href="/pep-math/textbook/required-1" class="border rounded p-4 hover:shadow">
+      <h2 class="font-bold">必修 第一册</h2>
+      <p class="text-sm text-gray-500">集合与逻辑、函数、不等式</p>
+    </a>
+    <a href="/pep-math/textbook/required-2" class="border rounded p-4 hover:shadow opacity-50">
+      <h2 class="font-bold">必修 第二册</h2>
+      <p class="text-sm text-gray-500">即将上线</p>
+    </a>
+    <a href="/pep-math/knowledge-graph" class="border rounded p-4 hover:shadow">
+      <h2 class="font-bold">知识图谱</h2>
+      <p class="text-sm text-gray-500">探索知识点之间的关联</p>
+    </a>
+  </div>
+</BaseLayout>
