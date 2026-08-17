@@ -13,8 +13,10 @@ follow_ups:
   - power-function
   - exponential-function
   - logarithmic-function
+  - trig-graph
 related:
   - function-concept
+  - trig-function
 formulas:
   - "\\text{偶函数：} f(-x) = f(x)"
   - "\\text{奇函数：} f(-x) = -f(x)"

@@ -1,0 +1,21 @@
+id: angle-concept
+name: 角的概念与弧度制
+category: 三角函数
+description: |
+  角的推广：正角（逆时针旋转）、负角（顺时针旋转）、零角。
+  弧度制：弧长等于半径的圆弧所对的圆心角为 1 弧度。
+  换算：π rad = 180°。弧长公式 l = |α|r，扇形面积 S = ½|α|r²。
+prerequisites: []
+follow_ups:
+  - trig-function
+related: []
+formulas:
+  - "\\pi \\text{ rad} = 180°"
+  - "l = |\\alpha| r"
+  - "S = \\frac{1}{2} |\\alpha| r^2"
+common_mistakes:
+  - mistake: "角度制和弧度制混用"
+    correction: "在同一个表达式中不能混用角度和弧度，如 α = 30° 不能写成 α = π/6 + 2kπ"
+applied_in:
+  - textbook: required-1
+    chapters: [5]

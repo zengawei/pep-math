@@ -1,0 +1,24 @@
+id: trig-graph
+name: 三角函数图像与性质
+category: 三角函数
+description: |
+  y = sin x：周期 2π，值域 [-1, 1]，奇函数。
+  y = cos x：周期 2π，值域 [-1, 1]，偶函数。
+  y = tan x：周期 π，值域 R，奇函数，有无穷间断点。
+  y = A sin(ωx + φ) + B：振幅 A，周期 2π/|ω|，相移 -φ/ω，上下平移 B。
+prerequisites:
+  - trig-function
+  - function-properties
+follow_ups: []
+related:
+  - trig-function
+  - trig-identity
+formulas:
+  - "T = \\frac{2\\pi}{|\\omega|}"
+  - "y = A\\sin(\\omega x + \\varphi) + B"
+common_mistakes:
+  - mistake: "混淆周期公式中的 ω 的正负"
+    correction: "周期 T = 2π/|ω|，ω 取绝对值"
+applied_in:
+  - textbook: required-1
+    chapters: [5]

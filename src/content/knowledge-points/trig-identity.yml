@@ -1,0 +1,28 @@
+id: trig-identity
+name: 三角恒等变换
+category: 三角函数
+description: |
+  诱导公式：将任意角的三角函数转化为锐角三角函数。
+  核心口诀："奇变偶不变，符号看象限"。
+  和差角公式：
+  sin(α±β) = sin α cos β ± cos α sin β
+  cos(α±β) = cos α cos β ∓ sin α sin β
+  二倍角公式：
+  sin 2α = 2 sin α cos α
+  cos 2α = cos²α - sin²α = 2cos²α - 1 = 1 - 2sin²α
+prerequisites:
+  - trig-function
+follow_ups: []
+related:
+  - trig-function
+formulas:
+  - "\\sin(\\alpha \\pm \\beta) = \\sin\\alpha\\cos\\beta \\pm \\cos\\alpha\\sin\\beta"
+  - "\\cos(\\alpha \\pm \\beta) = \\cos\\alpha\\cos\\beta \\mp \\sin\\alpha\\sin\\beta"
+  - "\\sin 2\\alpha = 2\\sin\\alpha\\cos\\alpha"
+  - "\\cos 2\\alpha = \\cos^2\\alpha - \\sin^2\\alpha"
+common_mistakes:
+  - mistake: "混淆 cos(α+β) 展开式中的符号"
+    correction: "cos(α+β) = cosαcosβ - sinαsinβ（中间是减号）"
+applied_in:
+  - textbook: required-1
+    chapters: [5]

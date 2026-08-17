@@ -1,0 +1,26 @@
+id: trig-function
+name: 三角函数的定义
+category: 三角函数
+description: |
+  设角 α 的终边与单位圆交于点 P(x, y)，则：
+  sin α = y，cos α = x，tan α = y/x（x≠0）。
+  各象限符号：一全正、二正弦、三正切、四余弦。
+  同角基本关系：sin²α + cos²α = 1，tan α = sin α / cos α。
+prerequisites:
+  - angle-concept
+  - function-concept
+follow_ups:
+  - trig-identity
+  - trig-graph
+related:
+  - function-properties
+formulas:
+  - "\\sin \\alpha = y, \\quad \\cos \\alpha = x, \\quad \\tan \\alpha = \\frac{y}{x}"
+  - "\\sin^2 \\alpha + \\cos^2 \\alpha = 1"
+  - "\\tan \\alpha = \\frac{\\sin \\alpha}{\\cos \\alpha}"
+common_mistakes:
+  - mistake: "忘记 tan α 的定义域要求 cos α ≠ 0"
+    correction: "tan α = sin α / cos α，当 cos α = 0 时 tan α 无意义"
+applied_in:
+  - textbook: required-1
+    chapters: [5]
