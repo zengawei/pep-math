@@ -1,0 +1,26 @@
+id: quadratic-inequality
+name: 一元二次不等式
+category: 不等式
+description: |
+  形如 ax²+bx+c>0 或 ax²+bx+c<0 (a≠0) 的不等式。
+  求解步骤：先求对应方程的根，再根据二次函数图像判断解集。
+  当 Δ>0 时有两个不等实根，Δ=0 时有一个重根，Δ<0 时无实根。
+prerequisites:
+  - inequality-properties
+  - quadratic-equation
+  - quadratic-function
+follow_ups:
+  - basic-inequality
+related:
+  - quadratic-function
+  - quadratic-equation
+formulas:
+  - "ax^2 + bx + c > 0 \\ (a > 0)"
+common_mistakes:
+  - mistake: "忽略 a 的正负对解集的影响"
+    correction: "当 a<0 时，先两边除以 a 并变号，化为 a>0 的标准形式"
+  - mistake: "混淆 Δ>0, Δ=0, Δ<0 三种情况的解集"
+    correction: "Δ<0 且 a>0 时，ax²+bx+c>0 的解集为 R；ax²+bx+c<0 的解集为 ∅"
+applied_in:
+  - textbook: required-1
+    chapters: [2]

@@ -1,0 +1,24 @@
+id: basic-inequality
+name: 基本不等式
+category: 不等式
+description: |
+  基本不等式：对于任意正数 a, b，有 a+b ≥ 2√(ab)，
+  当且仅当 a=b 时等号成立。也写作 (a+b)/2 ≥ √(ab)，
+  即算术平均数不小于几何平均数。常用于求最值。
+prerequisites:
+  - inequality-properties
+follow_ups: []
+related:
+  - quadratic-inequality
+  - quadratic-function
+formulas:
+  - "a + b \\geq 2\\sqrt{ab} \\quad (a > 0, b > 0)"
+  - "\\frac{a+b}{2} \\geq \\sqrt{ab}"
+common_mistakes:
+  - mistake: "使用基本不等式求最值时忽略等号成立条件"
+    correction: "必须验证等号成立条件：a=b 时是否满足题目约束"
+  - mistake: "在 a, b 不保证为正数时直接使用基本不等式"
+    correction: "基本不等式要求 a>0, b>0，使用前必须确认条件"
+applied_in:
+  - textbook: required-1
+    chapters: [2]

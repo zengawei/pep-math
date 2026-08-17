@@ -1,0 +1,22 @@
+id: quadratic-function
+name: 一元二次函数
+category: 函数
+description: |
+  形如 y = ax²+bx+c (a≠0) 的函数称为二次函数。
+  其图像是抛物线，当 a>0 时开口向上，a<0 时开口向下。
+  顶点坐标为 (-b/(2a), (4ac-b²)/(4a))，对称轴为 x = -b/(2a)。
+prerequisites: []
+follow_ups:
+  - quadratic-inequality
+  - quadratic-equation
+related: []
+formulas:
+  - "y = ax^2 + bx + c \\quad (a \\neq 0)"
+  - "x_{\\text{顶点}} = -\\frac{b}{2a}"
+  - "y_{\\text{顶点}} = \\frac{4ac - b^2}{4a}"
+common_mistakes:
+  - mistake: "混淆顶点坐标公式中的符号"
+    correction: "顶点横坐标为 -b/(2a)，注意负号"
+applied_in:
+  - textbook: required-1
+    chapters: [2, 3, 4]

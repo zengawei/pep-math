@@ -1,0 +1,23 @@
+id: quadratic-equation
+name: 一元二次方程
+category: 方程
+description: |
+  形如 ax²+bx+c=0 (a≠0) 的方程。求根公式：
+  x = (-b±√(b²-4ac))/(2a)。判别式 Δ=b²-4ac 决定根的情况：
+  Δ>0 两个不等实根，Δ=0 两个相等实根，Δ<0 无实根。
+  韦达定理：x₁+x₂=-b/a，x₁·x₂=c/a。
+prerequisites: []
+follow_ups:
+  - quadratic-inequality
+related:
+  - quadratic-function
+formulas:
+  - "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}"
+  - "\\Delta = b^2 - 4ac"
+  - "x_1 + x_2 = -\\frac{b}{a}, \\quad x_1 \\cdot x_2 = \\frac{c}{a}"
+common_mistakes:
+  - mistake: "使用求根公式时忘记 a≠0 的条件"
+    correction: "使用求根公式前必须确认 a≠0，否则不是二次方程"
+applied_in:
+  - textbook: required-1
+    chapters: [2, 4]

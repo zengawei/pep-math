@@ -1,0 +1,24 @@
+id: inequality-properties
+name: 不等式的性质
+category: 不等式
+description: |
+  不等式的基本性质包括：传递性（若 a>b, b>c 则 a>c）、
+  加法性质（若 a>b 则 a+c>b+c）、
+  乘法性质（若 a>b, c>0 则 ac>bc；若 a>b, c<0 则 ac<bc）。
+  这些性质是不等式变形和求解的理论基础。
+prerequisites: []
+follow_ups:
+  - quadratic-inequality
+  - basic-inequality
+related:
+  - quadratic-equation
+formulas:
+  - "a > b, b > c \\Rightarrow a > c"
+  - "a > b \\Rightarrow a + c > b + c"
+  - "a > b, c > 0 \\Rightarrow ac > bc"
+common_mistakes:
+  - mistake: "不等式两边同乘负数时忘记变号"
+    correction: "不等式两边同乘负数时，不等号方向必须改变"
+applied_in:
+  - textbook: required-1
+    chapters: [2]
