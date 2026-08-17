@@ -1,23 +1,81 @@
 ---
 // src/pages/index.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+// Count knowledge points
+const kpDir = path.resolve('src/content/knowledge-points');
+const kpCount = fs.readdirSync(kpDir).filter(f => f.endsWith('.yml')).length;
+
+// Count exercises
+const exercisesIndexFile = path.resolve('public/data/exercises-index.json');
+const exercisesIndex = JSON.parse(fs.readFileSync(exercisesIndexFile, 'utf-8'));
+const exerciseCount = exercisesIndex.length;
 ---
 <BaseLayout title="首页">
-  <h1 class="text-3xl font-bold mb-4">人教版高中数学知识库</h1>
-  <p class="text-gray-600 mb-8">覆盖全部 5 册教材的习题、知识点、定义和例题</p>
-
-  <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-    <a href="/pep-math/textbook/required-1" class="border rounded p-4 hover:shadow">
-      <h2 class="font-bold">必修 第一册</h2>
-      <p class="text-sm text-gray-500">集合与逻辑、函数、不等式</p>
-    </a>
-    <a href="/pep-math/textbook/required-2" class="border rounded p-4 hover:shadow opacity-50">
-      <h2 class="font-bold">必修 第二册</h2>
-      <p class="text-sm text-gray-500">即将上线</p>
-    </a>
-    <a href="/pep-math/knowledge-graph" class="border rounded p-4 hover:shadow">
-      <h2 class="font-bold">知识图谱</h2>
-      <p class="text-sm text-gray-500">探索知识点之间的关联</p>
-    </a>
+  <div class="text-center mb-8">
+    <h1 class="text-3xl font-bold mb-4">人教版高中数学知识库</h1>
+    <p class="text-gray-600 mb-2">覆盖全部 5 册教材的习题、知识点、定义和例题</p>
+    <p class="text-sm text-gray-400">{exerciseCount} 道习题 · {kpCount} 个知识点</p>
   </div>
+
+  <!-- Textbook Entry -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">📚 教材浏览</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <a href="/pep-math/textbook/required-1" class="border rounded-lg p-4 hover:shadow transition-shadow">
+        <h3 class="font-bold text-blue-600">必修 第一册</h3>
+        <p class="text-sm text-gray-500 mt-1">集合与逻辑、函数、不等式、三角函数</p>
+        <p class="text-xs text-gray-400 mt-2">5 章 · 14 节</p>
+      </a>
+      <a href="/pep-math/textbook/required-2" class="border rounded-lg p-4 hover:shadow transition-shadow opacity-50">
+        <h3 class="font-bold">必修 第二册</h3>
+        <p class="text-sm text-gray-500 mt-1">即将上线</p>
+      </a>
+      <a href="/pep-math/textbook/selective-1" class="border rounded-lg p-4 hover:shadow transition-shadow opacity-50">
+        <h3 class="font-bold">选择性必修 第一册</h3>
+        <p class="text-sm text-gray-500 mt-1">即将上线</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Knowledge Entry -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">🧠 知识点</h2>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+      <a href="/pep-math/knowledge" class="border rounded-lg p-4 hover:shadow transition-shadow">
+        <h3 class="font-bold text-blue-600">知识点列表</h3>
+        <p class="text-sm text-gray-500 mt-1">按分类浏览所有知识点，查看定义、公式和关联</p>
+        <p class="text-xs text-gray-400 mt-2">{kpCount} 个知识点</p>
+      </a>
+      <a href="/pep-math/knowledge-graph" class="border rounded-lg p-4 hover:shadow transition-shadow">
+        <h3 class="font-bold text-blue-600">知识图谱</h3>
+        <p class="text-sm text-gray-500 mt-1">可视化探索知识点之间的前置、后续和关联关系</p>
+      </a>
+    </div>
+  </section>
+
+  <!-- Quick Access -->
+  <section class="mb-8">
+    <h2 class="text-xl font-bold mb-4">🔍 快速访问</h2>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      <a href="/pep-math/search" class="border rounded-lg p-3 text-center hover:shadow transition-shadow text-sm">
+        <div class="text-2xl mb-1">🔎</div>
+        搜索习题
+      </a>
+      <a href="/pep-math/textbook/required-1/chapter/1/section/1" class="border rounded-lg p-3 text-center hover:shadow transition-shadow text-sm">
+        <div class="text-2xl mb-1">📖</div>
+        集合的概念
+      </a>
+      <a href="/pep-math/knowledge/set-concept" class="border rounded-lg p-3 text-center hover:shadow transition-shadow text-sm">
+        <div class="text-2xl mb-1">📐</div>
+        集合知识点
+      </a>
+      <a href="/pep-math/knowledge/quadratic-function" class="border rounded-lg p-3 text-center hover:shadow transition-shadow text-sm">
+        <div class="text-2xl mb-1">📊</div>
+        二次函数
+      </a>
+    </div>
+  </section>
 </BaseLayout>
