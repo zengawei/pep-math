@@ -2,6 +2,11 @@ import fs from 'fs';
 import path from 'path';
 import yaml from 'js-yaml';
 
+interface AppliedIn {
+  textbook: string;
+  chapters: number[];
+}
+
 interface KnowledgePoint {
   id: string;
   name: string;
@@ -10,12 +15,16 @@ interface KnowledgePoint {
   prerequisites: string[];
   follow_ups: string[];
   related: string[];
+  applied_in?: AppliedIn[];
 }
 
 interface GraphNode {
   id: string;
   name: string;
   category: string;
+  textbooks: string[];
+  x?: number;
+  y?: number;
 }
 
 interface GraphEdge {
@@ -29,6 +38,39 @@ interface KnowledgeGraph {
   edges: GraphEdge[];
 }
 
+/**
+ * Compute layout coordinates for graph nodes.
+ * Groups nodes by category, arranging each group in a grid within its own region.
+ */
+export function computeLayout(nodes: GraphNode[], edges: GraphEdge[]): void {
+  const categories = [...new Set(nodes.map(n => n.category))];
+  const catWidth = 200;
+  const catHeight = 150;
+
+  categories.forEach((cat, ci) => {
+    const catNodes = nodes.filter(n => n.category === cat);
+    const cols = Math.ceil(Math.sqrt(catNodes.length));
+    catNodes.forEach((node, ni) => {
+      const row = Math.floor(ni / cols);
+      const col = ni % cols;
+      node.x = ci * catWidth + col * 80 + 50;
+      node.y = row * 80 + 50;
+    });
+  });
+}
+
+/**
+ * Filter graph to only include nodes/edges for a specific textbook.
+ */
+export function filterByTextbook(graph: KnowledgeGraph, textbookId: string): KnowledgeGraph {
+  const filteredNodes = graph.nodes.filter(n => n.textbooks.includes(textbookId));
+  const nodeIds = new Set(filteredNodes.map(n => n.id));
+  const filteredEdges = graph.edges.filter(
+    e => nodeIds.has(e.source) && nodeIds.has(e.target)
+  );
+  return { nodes: filteredNodes, edges: filteredEdges };
+}
+
 export function buildKnowledgeGraph(contentDir: string): KnowledgeGraph {
   const files = fs.readdirSync(contentDir).filter(f => f.endsWith('.yml') || f.endsWith('.yaml'));
   const nodes: GraphNode[] = [];
@@ -38,7 +80,8 @@ export function buildKnowledgeGraph(contentDir: string): KnowledgeGraph {
     const raw = fs.readFileSync(path.join(contentDir, file), 'utf-8');
     const kp = yaml.load(raw) as KnowledgePoint;
 
-    nodes.push({ id: kp.id, name: kp.name, category: kp.category });
+    const textbooks = (kp.applied_in || []).map(a => a.textbook);
+    nodes.push({ id: kp.id, name: kp.name, category: kp.category, textbooks });
 
     for (const prereq of kp.prerequisites || []) {
       edges.push({ source: prereq, target: kp.id, type: 'prerequisite' });
@@ -57,6 +100,9 @@ export function buildKnowledgeGraph(contentDir: string): KnowledgeGraph {
       }
     }
   }
+
+  // Pre-compute layout coordinates
+  computeLayout(nodes, edges);
 
   return { nodes, edges };
 }
