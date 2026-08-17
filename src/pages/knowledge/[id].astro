@@ -1,0 +1,150 @@
+---
+// src/pages/knowledge/[id].astro
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import MathFormula from '../../components/MathFormula';
+import { getCollection } from 'astro:content';
+import fs from 'fs';
+import path from 'path';
+
+export async function getStaticPaths() {
+  const knowledgePoints = await getCollection('knowledge-points');
+  return knowledgePoints.map((kp) => ({
+    params: { id: kp.data.id },
+    props: { kp },
+  }));
+}
+
+const { kp } = Astro.props;
+const { data } = kp;
+
+// Load related exercises from pre-built JSON
+const exercisesByKpFile = path.resolve(`public/data/exercises-by-kp/${data.id}.json`);
+let exercises: any[] = [];
+if (fs.existsSync(exercisesByKpFile)) {
+  exercises = JSON.parse(fs.readFileSync(exercisesByKpFile, 'utf-8'));
+}
+---
+<BaseLayout title={data.name}>
+  <div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-6">
+      <span class="text-sm text-gray-400">{data.category}</span>
+      <h1 class="text-2xl font-bold">{data.name}</h1>
+    </div>
+
+    <!-- Description -->
+    <section class="mb-6">
+      <h2 class="text-lg font-bold mb-2 border-b pb-1">📖 定义与核心概念</h2>
+      <p class="text-gray-700 whitespace-pre-line">{data.description}</p>
+    </section>
+
+    <!-- Formulas -->
+    {data.formulas.length > 0 && (
+      <section class="mb-6">
+        <h2 class="text-lg font-bold mb-2 border-b pb-1">📐 关键公式</h2>
+        <div class="space-y-2">
+          {data.formulas.map((formula: string) => (
+            <div class="bg-gray-50 rounded p-3 overflow-x-auto">
+              <MathFormula formula={formula} displayMode={true} />
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Knowledge Relations -->
+    <section class="mb-6">
+      <h2 class="text-lg font-bold mb-2 border-b pb-1">🔗 知识关联</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+        {data.prerequisites.length > 0 && (
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-1">前置知识</h3>
+            <ul class="space-y-1">
+              {data.prerequisites.map((p: string) => (
+                <li>
+                  <a href={`/pep-math/knowledge/${p}`} class="text-blue-600 hover:underline text-sm">
+                    ← {p}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {data.follow_ups.length > 0 && (
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-1">后续知识</h3>
+            <ul class="space-y-1">
+              {data.follow_ups.map((f: string) => (
+                <li>
+                  <a href={`/pep-math/knowledge/${f}`} class="text-blue-600 hover:underline text-sm">
+                    {f} →
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+        {data.related.length > 0 && (
+          <div>
+            <h3 class="text-sm font-medium text-gray-500 mb-1">横向关联</h3>
+            <ul class="space-y-1">
+              {data.related.map((r: string) => (
+                <li>
+                  <a href={`/pep-math/knowledge/${r}`} class="text-blue-600 hover:underline text-sm">
+                    ↔ {r}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
+    </section>
+
+    <!-- Common Mistakes -->
+    {data.common_mistakes.length > 0 && (
+      <section class="mb-6">
+        <h2 class="text-lg font-bold mb-2 border-b pb-1">⚠️ 常见错误</h2>
+        <div class="space-y-3">
+          {data.common_mistakes.map((cm: any) => (
+            <div class="bg-red-50 border border-red-200 rounded p-3">
+              <div class="text-sm">
+                <span class="font-medium text-red-700">❌ 错误：</span>
+                {cm.mistake}
+              </div>
+              <div class="text-sm mt-1">
+                <span class="font-medium text-green-700">✅ 纠正：</span>
+                {cm.correction}
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    <!-- Related Exercises -->
+    {exercises.length > 0 && (
+      <section class="mb-6">
+        <h2 class="text-lg font-bold mb-2 border-b pb-1">📝 相关习题</h2>
+        <p class="text-sm text-gray-500 mb-2">共 {exercises.length} 道习题，按难度排序</p>
+        <ul class="space-y-1">
+          {exercises.map((ex: any) => (
+            <li class="flex items-center gap-2 text-sm">
+              <a href={`/pep-math/textbook/${ex.textbook}/chapter/${ex.chapter}/section/${ex.section}`}
+                 class="text-blue-600 hover:underline">
+                {ex.textbook} 第{ex.chapter}章 第{ex.section}节 第{ex.number}题
+              </a>
+              <span class={`px-1 rounded text-xs ${
+                ex.difficulty === 'basic' ? 'bg-green-100 text-green-800' :
+                ex.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                'bg-red-100 text-red-800'
+              }`}>
+                {ex.difficulty === 'basic' ? '基础' : ex.difficulty === 'medium' ? '中等' : '拔尖'}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </section>
+    )}
+  </div>
+</BaseLayout>
