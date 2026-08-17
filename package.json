@@ -13,7 +13,9 @@
     "check": "astro check",
     "test": "vitest run",
     "test:watch": "vitest",
-    "build:scripts": "npx tsx scripts/build-knowledge-graph.ts && npx tsx scripts/build-exercise-index.ts && npx tsx scripts/build-exercise-data.ts && npx tsx scripts/build-related-exercises.ts",
+    "prebuild": "npm run build:scripts",
+    "build:section-data": "npx tsx scripts/build-section-data.ts",
+    "build:scripts": "npx tsx scripts/build-knowledge-graph.ts && npx tsx scripts/build-exercise-index.ts && npx tsx scripts/build-exercise-data.ts && npx tsx scripts/build-related-exercises.ts && npx tsx scripts/build-section-data.ts",
     "validate": "npx tsx scripts/validate-content.ts && npx tsx scripts/validate-knowledge-graph.ts",
     "report": "npx tsx scripts/generate-quality-report.ts"
   },
@@ -24,7 +26,9 @@
     "@astrojs/react": "^6.0.2",
     "@astrojs/tailwind": "^6.0.2",
     "astro": "^5.18.2",
+    "cytoscape": "^3.34.1",
     "gray-matter": "^4.0.3",
+    "katex": "^0.18.4",
     "react": "^19.2.8",
     "react-dom": "^19.2.8",
     "tailwindcss": "^3.4.19"
@@ -32,8 +36,11 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
+    "@types/cytoscape": "^3.31.0",
     "@types/js-yaml": "^4.0.9",
+    "@types/katex": "^0.16.8",
     "jsdom": "^30.0.1",
+    "pagefind": "^1.5.2",
     "typescript": "^7.0.2",
     "vitest": "^4.1.10"
   }
