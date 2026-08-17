@@ -17,7 +17,8 @@
     "build:section-data": "npx tsx scripts/build-section-data.ts",
     "build:scripts": "npx tsx scripts/build-knowledge-graph.ts && npx tsx scripts/build-exercise-index.ts && npx tsx scripts/build-exercise-data.ts && npx tsx scripts/build-related-exercises.ts && npx tsx scripts/build-section-data.ts",
     "validate": "npx tsx scripts/validate-content.ts && npx tsx scripts/validate-knowledge-graph.ts",
-    "report": "npx tsx scripts/generate-quality-report.ts"
+    "report": "npx tsx scripts/generate-quality-report.ts",
+    "postbuild": "npx pagefind --site dist --output-subdir pagefind"
   },
   "keywords": [],
   "author": "",
@@ -34,6 +35,7 @@
     "tailwindcss": "^3.4.19"
   },
   "devDependencies": {
+    "@testing-library/dom": "^10.4.1",
     "@testing-library/jest-dom": "^7.0.1",
     "@testing-library/react": "^16.3.2",
     "@types/cytoscape": "^3.31.0",

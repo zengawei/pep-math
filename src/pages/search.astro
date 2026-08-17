@@ -1,0 +1,12 @@
+---
+// src/pages/search.astro
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SearchBox from '../components/SearchBox';
+---
+<BaseLayout title="搜索">
+  <h1 class="text-2xl font-bold mb-4">搜索</h1>
+
+  <div class="mb-6">
+    <SearchBox client:load />
+  </div>
+</BaseLayout>
