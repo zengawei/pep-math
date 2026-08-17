@@ -1,0 +1,20 @@
+id: set-concept
+name: 集合的概念
+category: 集合与逻辑
+description: |
+  集合是一些确定的对象组成的整体。集合中的元素具有三个特性：
+  确定性（一个对象要么属于集合要么不属于）、
+  互异性（集合中的元素不重复）、
+  无序性（元素的排列顺序不影响集合）。
+prerequisites: []
+follow_ups:
+  - set-representation
+  - set-operations
+related: []
+formulas: []
+common_mistakes:
+  - mistake: "认为 {1, 1, 2} 是合法集合"
+    correction: "集合元素具有互异性，不能重复出现，应写为 {1, 2}"
+applied_in:
+  - textbook: required-1
+    chapters: [1]

@@ -1,0 +1,19 @@
+id: set-representation
+name: 集合的表示方法
+category: 集合与逻辑
+description: |
+  集合有两种常用表示方法：
+  列举法——把集合的元素一一列举出来，用花括号括起来；
+  描述法——用集合中元素的共同特征来描述集合。
+prerequisites:
+  - set-concept
+follow_ups:
+  - set-operations
+related: []
+formulas: []
+common_mistakes:
+  - mistake: "列举法中遗漏元素"
+    correction: "要确保列出满足条件的所有元素，不重不漏"
+applied_in:
+  - textbook: required-1
+    chapters: [1]

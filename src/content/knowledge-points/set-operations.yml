@@ -1,0 +1,22 @@
+id: set-operations
+name: 集合的基本运算
+category: 集合与逻辑
+description: |
+  集合的基本运算包括交集、并集和补集：
+  交集 A∩B = {x | x∈A 且 x∈B}；
+  并集 A∪B = {x | x∈A 或 x∈B}；
+  补集 ∁ᵤA = {x | x∈U 且 x∉A}。
+prerequisites:
+  - set-concept
+  - set-representation
+follow_ups: []
+related: []
+formulas:
+  - "A \\cap B = \\{x \\mid x \\in A \\text{ 且 } x \\in B\\}"
+  - "A \\cup B = \\{x \\mid x \\in A \\text{ 或 } x \\in B\\}"
+common_mistakes:
+  - mistake: "混淆交集和并集"
+    correction: "交集取公共元素（且），并集取全部元素（或）"
+applied_in:
+  - textbook: required-1
+    chapters: [1]
