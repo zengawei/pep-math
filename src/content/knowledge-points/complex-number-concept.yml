@@ -1,0 +1,29 @@
+id: complex-number-concept
+name: 复数的概念
+category: 数与代数
+description: |
+  形如 z = a + bi（a, b ∈ R）的数叫做复数，其中 i 是虚数单位，i² = -1。
+  a 叫做复数的实部，b 叫做复数的虚部。
+  当 b = 0 时为实数；当 b ≠ 0 时为虚数；当 a = 0 且 b ≠ 0 时为纯虚数。
+  复数集 C = {a + bi | a, b ∈ R}。R ⊂ C。
+  两个复数相等：a + bi = c + di ⟺ a = c 且 b = d。
+  共轭复数：z = a + bi 的共轭复数为 z̄ = a - bi。
+prerequisites:
+  - quadratic-equation
+follow_ups:
+  - complex-number-operations
+related:
+  - quadratic-equation
+  - complex-number-operations
+formulas:
+  - "i^2 = -1"
+  - "z = a + bi \\quad (a, b \\in \\mathbb{R})"
+  - "z = \\bar{z} \\Leftrightarrow z \\in \\mathbb{R}"
+common_mistakes:
+  - mistake: "认为 i 是 -1 的平方根所以 i = -1"
+    correction: "i² = -1，但 i ≠ -1。i 是一个新的数，不是实数"
+  - mistake: "忽略复数为实数/纯虚数的条件"
+    correction: "a+bi 为实数 ⟺ b=0；为纯虚数 ⟺ a=0 且 b≠0（两个条件缺一不可）"
+applied_in:
+  - textbook: required-2
+    chapters: [7]

@@ -1,0 +1,28 @@
+id: complex-number-operations
+name: 复数的四则运算
+category: 数与代数
+description: |
+  加减法：(a+bi) ± (c+di) = (a±c) + (b±d)i。
+  乘法：(a+bi)(c+di) = (ac-bd) + (ad+bc)i。
+  除法：(a+bi)/(c+di) = (a+bi)(c-di)/((c+di)(c-di)) = ((ac+bd)+(bc-ad)i)/(c²+d²)。
+  关键技巧：除法中分子分母同乘分母的共轭复数实现"分母实数化"。
+  模：|z| = |a+bi| = √(a²+b²)。性质：|z₁z₂| = |z₁||z₂|，|z₁/z₂| = |z₁|/|z₂|。
+prerequisites:
+  - complex-number-concept
+follow_ups: []
+related:
+  - complex-number-concept
+  - quadratic-equation
+formulas:
+  - "(a+bi)(c+di) = (ac-bd) + (ad+bc)i"
+  - "\\frac{a+bi}{c+di} = \\frac{(a+bi)(c-di)}{c^2+d^2}"
+  - "|z| = \\sqrt{a^2 + b^2}"
+  - "z \\cdot \\bar{z} = |z|^2"
+common_mistakes:
+  - mistake: "复数乘法中忘记 i² = -1"
+    correction: "展开后所有 i² 都要替换为 -1，再合并实部和虚部"
+  - mistake: "除法中不乘共轭复数而直接除"
+    correction: "复数除法必须分子分母同乘分母的共轭复数，使分母变为实数"
+applied_in:
+  - textbook: required-2
+    chapters: [7]
