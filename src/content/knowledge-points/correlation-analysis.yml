@@ -1,0 +1,44 @@
+id: correlation-analysis
+name: 相关分析
+category: 统计
+description: |
+  相关分析是研究两个变量之间相关关系的一种统计方法。
+  两个变量之间的关系可以分为：函数关系（确定性关系）和相关关系（非确定性关系）。
+  相关关系是一种非确定性关系，即自变量取值一定时，因变量的取值带有一定的随机性。
+
+  散点图：将样本数据表示的点 (xᵢ, yᵢ) 在直角坐标系中表示出来，
+  从图形上可以直观看出两个变量之间是否具有相关关系及相关关系的强弱。
+
+  相关系数 r：
+  r = (Σxᵢyᵢ - nx̄ȳ) / √[(Σxᵢ² - nx̄²)(Σyᵢ² - nȳ²)]
+
+  相关系数 r 的性质：
+  - |r| ≤ 1
+  - |r| 越接近 1，两个变量的线性相关性越强
+  - |r| 越接近 0，两个变量的线性相关性越弱
+  - r > 0 表示正相关，r < 0 表示负相关
+  - r = 1 表示完全正相关，r = -1 表示完全负相关
+
+  通常认为 |r| ≥ 0.75 时，两个变量有很强的线性相关性。
+
+  注意：相关系数只衡量线性相关程度，r ≈ 0 不代表两个变量无关，
+  它们之间可能存在非线性关系。
+prerequisites:
+  - sample-estimate-population
+follow_ups:
+  - regression-analysis
+related:
+  - regression-analysis
+formulas:
+  - "r = \\frac{\\sum x_i y_i - n\\bar{x}\\bar{y}}{\\sqrt{(\\sum x_i^2 - n\\bar{x}^2)(\\sum y_i^2 - n\\bar{y}^2)}}"
+common_mistakes:
+  - mistake: "认为 r ≈ 0 就意味着两个变量之间没有关系"
+    correction: "r ≈ 0 只说明两个变量之间线性相关性很弱，但可能存在非线性关系（如二次关系、指数关系等）"
+  - mistake: "将相关关系等同于因果关系"
+    correction: "相关关系不等于因果关系；两个变量相关可能由第三个变量引起，也可能纯属巧合；因果关系需要理论支撑和实验验证"
+  - mistake: "认为相关系数 r 可以大于 1 或小于 -1"
+    correction: "相关系数 r 的取值范围是 [-1, 1]，即 |r| ≤ 1"
+applied_in:
+  - textbook: selective-3
+    chapters: [18]
+source: 自编

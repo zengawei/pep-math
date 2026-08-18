@@ -1,0 +1,45 @@
+id: regression-analysis
+name: 回归分析
+category: 统计
+description: |
+  回归分析是对具有相关关系的两个变量进行统计分析的一种方法。
+  若两个变量之间具有线性相关关系，则可通过回归直线方程来刻画这种关系。
+
+  回归直线方程：ŷ = b̂x + â，其中
+  - b̂ = (Σxᵢyᵢ - nx̄ȳ) / (Σxᵢ² - nx̄²) 为回归系数（斜率）
+  - â = ȳ - b̂x̄ 为截距
+  - (x̄, ȳ) 为样本中心点，回归直线必过样本中心点
+
+  相关指数 R²（决定系数）：
+  R² = 1 - Σ(yᵢ - ŷᵢ)² / Σ(yᵢ - ȳ)²
+  R² 越接近 1，说明回归模型的拟合效果越好；R² 越接近 0，拟合效果越差。
+
+  残差分析：残差 eᵢ = yᵢ - ŷᵢ，通过残差图可以判断模型的适用性。
+  若残差点比较均匀地落在水平带状区域内，说明模型选择较合适。
+
+  回归分析的基本步骤：
+  1. 画散点图，判断变量间是否存在线性相关关系
+  2. 求回归直线方程
+  3. 利用回归直线方程进行预测和估计
+prerequisites:
+  - sample-estimate-population
+follow_ups:
+  - statistical-case
+related:
+  - correlation-analysis
+formulas:
+  - "\\hat{y} = \\hat{b}x + \\hat{a}"
+  - "\\hat{b} = \\frac{\\sum x_i y_i - n\\bar{x}\\bar{y}}{\\sum x_i^2 - n\\bar{x}^2}"
+  - "\\hat{a} = \\bar{y} - \\hat{b}\\bar{x}"
+  - "R^2 = 1 - \\frac{\\sum(y_i - \\hat{y}_i)^2}{\\sum(y_i - \\bar{y})^2}"
+common_mistakes:
+  - mistake: "认为回归直线一定过原点"
+    correction: "回归直线必过样本中心点 (x̄, ȳ)，但不一定过原点；只有当 â = 0 时才过原点"
+  - mistake: "混淆相关关系与因果关系"
+    correction: "回归分析只能说明两个变量之间存在统计上的相关关系，不能说明因果关系；因果关系需要结合实际背景判断"
+  - mistake: "用回归方程对超出数据范围的值进行预测"
+    correction: "回归方程的适用范围仅限于样本数据所覆盖的区间附近，外推预测可能不可靠"
+applied_in:
+  - textbook: selective-3
+    chapters: [18]
+source: 自编

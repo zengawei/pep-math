@@ -1,0 +1,49 @@
+id: contingency-table
+name: 列联表与频率分析
+category: 统计
+description: |
+  列联表（也称交叉表）是用于记录两个分类变量频数分布的表格。
+  最常用的为 2×2 列联表，用于分析两个分类变量之间是否有关联。
+
+  2×2 列联表的一般形式：
+
+        | B₁    | B₂    | 合计
+  ─────────────────────────────
+  A₁   | a     | b     | a+b
+  A₂   | c     | d     | c+d
+  ─────────────────────────────
+  合计  | a+c   | b+d   | n
+
+  其中 n = a + b + c + d 为样本总量。
+
+  频率分析：
+  - 各格的频率 = 该格频数 / 样本总量
+  - 行频率 = 该行频数 / 该行合计
+  - 列频率 = 该列频数 / 该列合计
+
+  通过比较不同行（或列）中某一类别的条件频率是否有明显差异，
+  可以初步判断两个分类变量之间是否有关联。
+  若两个变量独立（无关），则各行的条件频率应大致相同。
+
+  列联表是进行独立性检验（χ² 检验）的基础。
+prerequisites:
+  - sample-estimate-population
+  - frequency-probability
+follow_ups:
+  - independence-test
+related:
+  - independence-test
+formulas:
+  - "n = a + b + c + d"
+  - "\\text{频率} = \\frac{\\text{频数}}{\\text{样本总量}} = \\frac{f_i}{n}"
+common_mistakes:
+  - mistake: "计算合计时出现加和错误"
+    correction: "列联表中行合计、列合计和总合计必须满足：各行之和等于总合计，各列之和等于总合计；计算后应进行交叉验证"
+  - mistake: "混淆频数与频率"
+    correction: "频数是绝对数（人数、次数等），频率是相对数（频数/总量）；列联表中记录的是频数，频率需要通过计算得到"
+  - mistake: "将列联表中的百分比直接当作结论依据"
+    correction: "百分比差异只是初步判断，不能代替独立性检验；即使百分比有差异，也需要通过 χ² 检验判断差异是否具有统计显著性"
+applied_in:
+  - textbook: selective-3
+    chapters: [18]
+source: 自编
