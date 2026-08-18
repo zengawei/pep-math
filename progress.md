@@ -41,3 +41,50 @@
 - **Commits:** 8c564ed (SearchBox), e419636 (search page), 4e1d936 (knowledge filtering)
 - **Implementer:** general-purpose subagent
 - **Summary:** Created SearchBox.tsx with Pagefind integration + test (2 tests). Created search.astro page with postbuild script for Pagefind index generation. Added client-side knowledge point filtering (by category + textbook). Pagefind indexed 38 pages, 666 words. 66/66 tests passing.
+
+## Task 25: 全量验证
+- **Status:** DONE
+- **Commit:** 09d532b
+- **Implementer:** general-purpose subagent
+- **Summary:** All verification steps passed. 66/66 tests, 38 pages built, 0 validation errors. Quality report: 19 knowledge points, 42 exercises, 14 sections, 70 edges. Final commit: "chore: Plan 2 complete — M3-M6 core features integrated"
+
+---
+
+# Plan 2 完成总结
+
+**完成时间:** 2026-08-17
+**总提交数:** 25 个任务，约 20+ commits
+**最终状态:** ✅ 全部通过
+
+## 交付成果
+
+### M3: 必修一完整内容
+- 5 章全部内容（第2-5章新增）
+- 19 个知识点 YAML
+- 42 道习题（22 基础 + 20 中等）
+- 约 10 道例题
+- 约 10 个定义
+- 14 个节内容
+
+### M4: 核心页面
+- 7 个 React 组件（MathFormula, DifficultyBadge, ExerciseCard, SolutionSteps, RelatedExercises, Navigation, SearchBox）
+- 5 个核心页面（教材浏览、节详情、知识点列表、知识点详情、知识图谱）
+- build-section-data 脚本
+
+### M5: 知识图谱
+- 布局预计算增强
+- Cytoscape.js 组件
+- 图谱页面（单册筛选）
+
+### M6: 搜索与筛选
+- Pagefind 集成（38 页面索引，666 词）
+- 搜索页面
+- 知识点筛选（按分类 + 按教材）
+
+## 技术统计
+
+- **测试:** 66/66 通过（16 个测试文件）
+- **页面:** 38 个静态页面
+- **知识图谱:** 19 节点，70 边
+- **构建时间:** ~4.67s
+- **新增依赖:** katex, cytoscape, pagefind, @types/katex, @types/cytoscape
