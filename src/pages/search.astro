@@ -6,16 +6,18 @@ import BaseLayout from '../layouts/BaseLayout.astro';
   <h1 class="text-2xl font-bold mb-4">搜索</h1>
 
   <link is:inline href="/pep-math/pagefind/pagefind-ui.css" rel="stylesheet" />
-  <script is:inline type="module" src="/pep-math/pagefind/pagefind-ui.js"></script>
-
   <div id="search"></div>
-
-  <script is:inline type="module">
-    import { PagefindUI } from '/pep-math/pagefind/pagefind-ui.js';
-    new PagefindUI({
-      element: "#search",
-      basePath: "/pep-math/pagefind/",
-      showSubResults: true,
-    });
+  <script is:inline>
+    // pagefind-ui.js is an IIFE that exposes window.PagefindUI
+    var s = document.createElement('script');
+    s.src = '/pep-math/pagefind/pagefind-ui.js';
+    s.onload = function() {
+      new window.PagefindUI({
+        element: "#search",
+        basePath: "/pep-math/pagefind/",
+        showSubResults: true
+      });
+    };
+    document.head.appendChild(s);
   </script>
 </BaseLayout>
