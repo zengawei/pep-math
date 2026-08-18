@@ -40,12 +40,12 @@ export function validateContent(contentDir: string): ValidationResult {
         if (data.type === 'exercise') {
           if (!data.textbook) errors.push(`${rel}: missing textbook`);
           if (!data.chapter) errors.push(`${rel}: missing chapter`);
-          if (!data.section) errors.push(`${rel}: missing section`);
+          if (data.section === undefined || data.section === null) errors.push(`${rel}: missing section`);
           if (!data.number) errors.push(`${rel}: missing number`);
           if (!data.difficulty) errors.push(`${rel}: missing difficulty`);
           if (!data.knowledge_points?.length) errors.push(`${rel}: missing knowledge_points`);
-          if (data.source !== '自编') errors.push(`${rel}: source must be "自编", got "${data.source}"`);
-          if (!data.references) warnings.push(`${rel}: missing references (课标条目)`);
+          if (data.source !== '人教A版2019') errors.push(`${rel}: source must be "人教A版2019", got "${data.source}"`);
+          if (!data.references) warnings.push(`${rel}: missing references`);
 
           // Validate knowledge point IDs exist
           for (const kpId of data.knowledge_points || []) {

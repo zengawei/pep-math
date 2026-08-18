@@ -6,6 +6,8 @@ interface SectionExercise {
   id: string;
   number: number;
   difficulty: string;
+  category: string;
+  group?: string;
   knowledge_points: string[];
 }
 
@@ -27,6 +29,7 @@ interface SectionData {
   exercises: SectionExercise[];
   definitions: SectionDefinition[];
   examples: SectionExample[];
+  review_exercises: SectionExercise[];
 }
 
 export function buildSectionData(textbooksDir: string): Record<string, SectionData> {
@@ -57,6 +60,7 @@ export function buildSectionData(textbooksDir: string): Record<string, SectionDa
           exercises: [],
           definitions: [],
           examples: [],
+          review_exercises: [],
         };
 
         const files = fs.readdirSync(sectionPath);
@@ -70,6 +74,8 @@ export function buildSectionData(textbooksDir: string): Record<string, SectionDa
               id: `${textbook}-ch${chapterNum}-s${sectionNum}-ex${data.number}`,
               number: data.number,
               difficulty: data.difficulty,
+              category: data.category || 'practice',
+              group: data.group,
               knowledge_points: data.knowledge_points,
             });
           } else if (data.type === 'definition') {
@@ -86,8 +92,30 @@ export function buildSectionData(textbooksDir: string): Record<string, SectionDa
           }
         }
 
+        // Scan review/ subdirectory for chapter review exercises
+        const reviewPath = path.join(chapterPath, 'review');
+        if (fs.existsSync(reviewPath) && fs.statSync(reviewPath).isDirectory()) {
+          const reviewFiles = fs.readdirSync(reviewPath);
+          for (const file of reviewFiles) {
+            if (!file.endsWith('.md')) continue;
+            const raw = fs.readFileSync(path.join(reviewPath, file), 'utf-8');
+            const { data } = matter(raw);
+            if (data.type === 'exercise') {
+              sectionData.review_exercises.push({
+                id: `${textbook}-ch${chapterNum}-review-ex${data.number}`,
+                number: data.number,
+                difficulty: data.difficulty,
+                category: data.category || 'review',
+                group: data.group,
+                knowledge_points: data.knowledge_points,
+              });
+            }
+          }
+        }
+
         // Sort exercises by number
         sectionData.exercises.sort((a, b) => a.number - b.number);
+        sectionData.review_exercises.sort((a, b) => a.number - b.number);
         result[key] = sectionData;
       }
     }

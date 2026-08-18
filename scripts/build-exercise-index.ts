@@ -9,6 +9,8 @@ export interface ExerciseMeta {
   section: number;
   number: number;
   difficulty: 'basic' | 'medium' | 'hard';
+  category: string;
+  group?: string;
   knowledge_points: string[];
 }
 
@@ -37,18 +39,24 @@ function extractExercises(contentDir: string): ExerciseMeta[] {
           const rel = path.relative(contentDir, fullPath);
           const parts = rel.split(path.sep);
           // e.g. required-1/chapter-01/section-01/exercise-1.md
+          // or   required-1/chapter-01/review/review-exercise-1.md
           const textbook = parts[0];
           const chapter = parseInt(parts[1].replace('chapter-', ''), 10);
-          const section = parseInt(parts[2].replace('section-', ''), 10);
-          const id = `${textbook}-ch${chapter}-s${section}-ex${data.number}`;
+          const isReview = parts[2] === 'review';
+          const section = isReview ? 0 : parseInt(parts[2].replace('section-', ''), 10);
+          const id = isReview
+            ? `${textbook}-ch${chapter}-review-ex${data.number}`
+            : `${textbook}-ch${chapter}-s${section}-ex${data.number}`;
 
           exercises.push({
             id,
             textbook: data.textbook,
             chapter: data.chapter,
-            section: data.section,
+            section: data.section ?? section,
             number: data.number,
             difficulty: data.difficulty,
+            category: data.category || 'practice',
+            group: data.group,
             knowledge_points: data.knowledge_points,
           });
         }

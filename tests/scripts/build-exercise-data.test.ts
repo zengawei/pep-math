@@ -9,12 +9,14 @@ chapter: 1
 section: 1
 number: 1
 difficulty: basic
+category: practice
+group: A
 is_exam_question: false
 knowledge_points:
   - set-concept
   - set-representation
-source: "自编"
-references: "课标1.1.1"
+source: "人教A版2019"
+references: "必修第一册 P5 练习A 第1题"
 ---
 
 **题目：** 用列举法表示下列集合：
@@ -60,6 +62,12 @@ $x = 2$ 或 $x = 3$
     expect(result.knowledge_points).toContain('set-representation');
   });
 
+  it('should parse category and group fields', () => {
+    const result = parseExerciseMarkdown(sampleMd);
+    expect(result.category).toBe('practice');
+    expect(result.group).toBe('A');
+  });
+
   it('should generate correct exercise ID', () => {
     const result = parseExerciseMarkdown(sampleMd);
     expect(result.id).toBe('required-1-ch1-s1-ex1');
@@ -102,8 +110,8 @@ difficulty: basic
 is_exam_question: false
 knowledge_points:
   - set-operations
-source: "自编"
-references: "课标1.1.2"
+source: "人教A版2019"
+references: "必修第一册 P6"
 ---
 
 **题目：** 已知集合 $A = \\{1, 2\\}$，$B = \\{2, 3\\}$，求 $A \\cap B$。
@@ -121,5 +129,36 @@ $A \\cap B = \\{2\\}$。`;
     expect(result.warning).toBeUndefined();
     expect(result.summary).toBeUndefined();
     expect(result.steps.length).toBe(1);
+  });
+
+  it('should default category to practice when omitted', () => {
+    const noCategoryMd = `---
+type: exercise
+textbook: required-1
+chapter: 1
+section: 1
+number: 3
+difficulty: medium
+is_exam_question: false
+knowledge_points:
+  - set-operations
+source: "人教A版2019"
+references: "必修第一册 P7"
+---
+
+**题目：** 测试
+
+---
+
+**解答：**
+
+**第1步：** 步骤
+> 📌 运用知识点：集合运算
+
+内容`;
+
+    const result = parseExerciseMarkdown(noCategoryMd);
+    expect(result.category).toBe('practice');
+    expect(result.group).toBeUndefined();
   });
 });

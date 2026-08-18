@@ -56,4 +56,17 @@ describe('buildExerciseIndex', () => {
     expect(setConcept).toBeDefined();
     expect(setConcept.length).toBe(2);
   });
+
+  it('should include category field (defaults to practice)', () => {
+    const ex1 = index.find(e => e.id === 'required-1-ch1-s1-ex1');
+    expect(ex1).toBeDefined();
+    expect(ex1!.category).toBe('practice');
+  });
+
+  it('should include group field (undefined when not set)', () => {
+    const ex1 = index.find(e => e.id === 'required-1-ch1-s1-ex1');
+    expect(ex1).toBeDefined();
+    // existing files don't have group, should be undefined
+    expect(ex1!.group).toBeUndefined();
+  });
 });

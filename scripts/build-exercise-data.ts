@@ -15,6 +15,8 @@ export interface ExerciseData {
   section: number;
   number: number;
   difficulty: string;
+  category: string;
+  group?: string;
   knowledge_points: string[];
   question: string;
   steps: ExerciseStep[];
@@ -69,6 +71,8 @@ export function parseExerciseMarkdown(raw: string, filePath?: string): ExerciseD
     section: data.section,
     number: data.number,
     difficulty: data.difficulty,
+    category: data.category || 'practice',
+    group: data.group,
     knowledge_points: data.knowledge_points,
     question,
     steps,

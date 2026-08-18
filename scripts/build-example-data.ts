@@ -19,6 +19,8 @@ interface ExampleData {
   steps: ExampleStep[];
   warning?: string;
   summary?: string;
+  source?: string;
+  references?: string;
 }
 
 function parseExampleMarkdown(raw: string, filePath: string): ExampleData {
@@ -67,6 +69,8 @@ function parseExampleMarkdown(raw: string, filePath: string): ExampleData {
     steps,
     warning,
     summary,
+    source: data.source,
+    references: data.references,
   };
 }
 
