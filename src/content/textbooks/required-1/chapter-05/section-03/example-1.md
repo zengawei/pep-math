@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - trig-graph
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求函数 $y = 2\cos(2x - \frac{\pi}{3})$ 的最大值、最小值及对应的 $x$ 的集合。

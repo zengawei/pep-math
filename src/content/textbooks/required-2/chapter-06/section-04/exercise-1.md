@@ -5,10 +5,11 @@ chapter: 6
 section: 4
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - vector-dot-product
-source: "自编"
+source: "人教A版2019"
 references: "课标6.4.1"
 ---
 

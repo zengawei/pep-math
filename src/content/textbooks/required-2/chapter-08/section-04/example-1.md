@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - perpendicular-judgment
   - spatial-angle
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 在正三棱柱 $ABC-A_1B_1C_1$ 中，所有棱长均为 $2$，$D$ 是 $CC_1$ 的中点。求证：$A_1B \perp$ 平面 $ABD$。

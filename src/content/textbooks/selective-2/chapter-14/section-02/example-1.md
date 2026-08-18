@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - arithmetic-sequence
   - arithmetic-sequence-sum
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 在等差数列 $\{a_n\}$ 中，已知 $a_2 + a_5 = 16$，$a_3 + a_4 = 16$，求前 $6$ 项和 $S_6$。

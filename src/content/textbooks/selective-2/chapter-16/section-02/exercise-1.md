@@ -5,10 +5,11 @@ chapter: 16
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - combination
-source: "自编"
+source: "人教A版2019"
 references: "教材P112"
 ---
 

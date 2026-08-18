@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - solid-geometry-drawing
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某几何体的正视图和侧视图都是边长为 $2$ 的正三角形，俯视图是边长为 $2$ 的正方形，求该几何体的体积。

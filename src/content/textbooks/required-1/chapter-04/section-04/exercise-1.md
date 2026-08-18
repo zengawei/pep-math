@@ -5,11 +5,12 @@ chapter: 4
 section: 4
 number: 1
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - function-application
   - exponential-function
-source: "自编"
+source: "人教A版2019"
 references: "课标4.4.1"
 ---
 

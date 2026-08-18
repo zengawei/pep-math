@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - parabola-definition
   - parabola-properties
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知抛物线 $y^2 = 2x$ 的焦点为 $F$，过 $F$ 的直线交抛物线于 $A, B$ 两点。若 $|AF| = 2|BF|$，求 $|AB|$。

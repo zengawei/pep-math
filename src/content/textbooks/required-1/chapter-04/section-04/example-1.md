@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - function-application
   - exponential-function
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某工厂 2020 年的年产值为 200 万元，计划每年产值增长 $10\%$。问：至少经过几年，年产值将超过 400 万元？（参考数据：$\lg 2 \approx 0.3010$，$\lg 1.1 \approx 0.0414$）

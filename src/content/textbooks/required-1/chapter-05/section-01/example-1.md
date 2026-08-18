@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - angle-concept
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 将下列弧度化为角度：(1) $\frac{5\pi}{12}$；(2) $-\frac{3\pi}{4}$。

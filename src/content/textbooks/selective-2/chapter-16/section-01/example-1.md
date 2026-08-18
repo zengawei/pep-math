@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - permutation
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 用 $0, 1, 2, 3, 4$ 五个数字组成没有重复数字的五位数，其中奇数有多少个？

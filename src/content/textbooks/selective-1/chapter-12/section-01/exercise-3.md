@@ -5,11 +5,12 @@ chapter: 12
 section: 1
 number: 3
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - line-equation
   - line-inclination-slope
-source: "自编"
+source: "人教A版2019"
 references: "课标12.1.2"
 ---
 

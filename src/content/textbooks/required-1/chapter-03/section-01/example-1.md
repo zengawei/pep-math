@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - function-concept
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 判断下列各组函数是否为同一函数：

@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - set-concept
   - set-representation
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 判断下列各组对象能否组成集合，并说明理由：

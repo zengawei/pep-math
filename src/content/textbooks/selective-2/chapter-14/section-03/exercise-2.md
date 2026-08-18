@@ -5,10 +5,11 @@ chapter: 14
 section: 3
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - geometric-sequence
-source: "自编"
+source: "人教A版2019"
 references: "课标14.3.2"
 ---
 

@@ -5,10 +5,11 @@ chapter: 15
 section: 2
 number: 3
 difficulty: hard
+category: practice
 is_exam_question: false
 knowledge_points:
   - derivative-monotonicity
-source: "自编"
+source: "人教A版2019"
 references: "课标15.2.3"
 ---
 

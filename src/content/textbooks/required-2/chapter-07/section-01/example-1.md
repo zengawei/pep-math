@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - complex-number-concept
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知复数 $z = \frac{m^2 - m - 6}{m + 3} + (m^2 + 5m + 6)i$，问 $m$ 为何值时 $z$ 为实数？

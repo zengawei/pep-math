@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - vector-concept
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 下列说法中正确的个数是（  ）

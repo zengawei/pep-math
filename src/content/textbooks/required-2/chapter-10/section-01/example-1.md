@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - random-event-probability
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 甲、乙两人各射击一次，甲命中的概率为 $0.8$，乙命中的概率为 $0.7$。求至少有一人命中的概率。

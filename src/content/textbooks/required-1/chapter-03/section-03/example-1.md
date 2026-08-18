@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - function-properties
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 判断函数 $f(x) = \frac{x^2 - 1}{x^2 + 1}$ 的奇偶性，并求其值域。

@@ -5,10 +5,11 @@ chapter: 1
 section: 1
 number: 2
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - set-operations
-source: "自编"
+source: "人教A版2019"
 references: "课标1.1.2"
 ---
 

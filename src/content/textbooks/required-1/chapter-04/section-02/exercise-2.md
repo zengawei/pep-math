@@ -5,10 +5,11 @@ chapter: 4
 section: 2
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - exponent-logarithm
-source: "自编"
+source: "人教A版2019"
 references: "课标4.2.1"
 ---
 

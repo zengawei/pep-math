@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - sequence-concept
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知数列 $\{a_n\}$ 的前 $n$ 项和 $S_n = 2n^2 + 3n$，求通项公式 $a_n$。

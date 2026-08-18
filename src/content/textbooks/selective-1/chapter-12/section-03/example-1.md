@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - line-circle-position
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知直线 $l: 2x - y + 1 = 0$ 与圆 $C: (x - 1)^2 + (y - 2)^2 = 5$ 相交于 $A, B$ 两点，求弦长 $|AB|$ 和弦的中点 $M$ 的坐标。

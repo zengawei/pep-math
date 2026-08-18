@@ -6,6 +6,8 @@ section: 5
 number: 1
 knowledge_points:
   - normal-distribution
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某次考试成绩 $X \sim N(100, 10^2)$。

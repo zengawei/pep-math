@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - sample-estimate-population
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 甲、乙两种棉花各抽取 5 株，测得纤维长度（mm）如下：

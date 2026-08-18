@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - random-sampling
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某工厂生产的产品用传送带输送，质检员每隔 10 分钟从传送带上取一件产品进行检验。这种抽样方法属于什么抽样？

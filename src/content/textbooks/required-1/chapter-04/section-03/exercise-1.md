@@ -5,10 +5,11 @@ chapter: 4
 section: 3
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - exponential-function
-source: "自编"
+source: "人教A版2019"
 references: "课标4.3.1"
 ---
 

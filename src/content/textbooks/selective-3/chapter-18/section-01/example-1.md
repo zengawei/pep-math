@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - regression-analysis
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某工厂记录了近5个月的月产量 $x$（单位：百件）与对应的能耗 $y$（单位：吨标准煤）的数据如下表：

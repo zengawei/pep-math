@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - binomial-distribution
   - hypergeometric-distribution
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某工厂生产的 $100$ 件产品中有 $5$ 件次品、$95$ 件正品。

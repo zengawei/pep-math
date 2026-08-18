@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - quadratic-inequality
   - quadratic-equation
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 解不等式 $2x^2 + 5x - 3 < 0$。

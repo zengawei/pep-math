@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - combination
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 从5名男生和3名女生中选3人，要求至少有1名女生，有多少种选法？

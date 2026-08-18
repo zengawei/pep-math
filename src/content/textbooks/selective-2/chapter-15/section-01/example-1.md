@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - derivative-operations
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求函数 $f(x) = x^3 - 2x + 1$ 在 $x = 1$ 处的切线方程。

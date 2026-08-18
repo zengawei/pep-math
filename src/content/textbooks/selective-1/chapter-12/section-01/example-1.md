@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - line-equation
   - line-inclination-slope
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知直线 $l$ 过点 $P(3, 2)$，且与 $x$ 轴、$y$ 轴的正半轴分别交于 $A, B$ 两点。当 $\triangle OAB$ 的面积最小时，求直线 $l$ 的方程。

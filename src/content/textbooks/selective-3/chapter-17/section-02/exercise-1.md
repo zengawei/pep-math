@@ -5,10 +5,11 @@ chapter: 17
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - discrete-random-variable
-source: "自编"
+source: "人教A版2019"
 references: "课标17.2.1"
 ---
 

@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - vector-prove-parallel-perpendicular
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 在正方体 $ABCD\text{-}A'B'C'D'$ 中，棱长为 $2$，$E$ 为 $BB'$ 的中点。求证：平面 $A'EC \perp$ 平面 $ABCD$。

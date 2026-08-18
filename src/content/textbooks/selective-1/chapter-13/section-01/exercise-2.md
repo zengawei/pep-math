@@ -5,10 +5,11 @@ chapter: 13
 section: 1
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - ellipse-definition
-source: "自编"
+source: "人教A版2019"
 references: "课标13.1.1"
 ---
 

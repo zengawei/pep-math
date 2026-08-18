@@ -5,11 +5,12 @@ chapter: 18
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - independence-test
   - contingency-table
-source: "自编"
+source: "人教A版2019"
 references: "课标18.2.1"
 ---
 

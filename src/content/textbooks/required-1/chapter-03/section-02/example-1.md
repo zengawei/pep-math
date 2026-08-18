@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - function-properties
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求函数 $f(x) = x^2 - 4x + 5$ 在区间 $[0, 3]$ 上的最大值和最小值。

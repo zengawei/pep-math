@@ -5,11 +5,12 @@ chapter: 17
 section: 3
 number: 3
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - binomial-distribution
   - hypergeometric-distribution
-source: "自编"
+source: "人教A版2019"
 references: "人教A版选择性必修第三册 17.3"
 ---
 

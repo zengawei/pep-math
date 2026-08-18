@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - exponent-logarithm
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $10^\alpha = 2$，$10^\beta = 3$，求 $10^{2\alpha - \beta}$ 的值。

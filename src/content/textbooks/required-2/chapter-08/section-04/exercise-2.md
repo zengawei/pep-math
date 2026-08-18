@@ -5,11 +5,12 @@ chapter: 8
 section: 4
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - spatial-angle
   - perpendicular-judgment
-source: "自编"
+source: "人教A版2019"
 references: "课标8.5.1"
 ---
 

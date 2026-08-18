@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - vector-addition-subtraction
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $|\vec{a}| = 3$，$|\vec{b}| = 5$，求 $|\vec{a} + \vec{b}|$ 的取值范围。

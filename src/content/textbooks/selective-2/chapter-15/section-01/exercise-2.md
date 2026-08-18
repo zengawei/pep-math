@@ -5,10 +5,11 @@ chapter: 15
 section: 1
 number: 2
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - derivative-operations
-source: "自编"
+source: "人教A版2019"
 references: "课标15.1.2"
 ---
 

@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - discrete-random-variable
   - distribution-table
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 一个袋中装有 $3$ 个红球和 $2$ 个白球，这些球除颜色外完全相同。从中不放回地逐个取球，直到取出红球为止。设 $X$ 为取球次数，求 $X$ 的分布列。

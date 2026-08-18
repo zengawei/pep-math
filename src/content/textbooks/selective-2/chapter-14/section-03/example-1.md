@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - geometric-sequence
   - geometric-sequence-sum
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知等比数列 $\{a_n\}$ 中，$a_1 + a_3 = 10$，$a_2 + a_4 = 20$，求 $S_5$。

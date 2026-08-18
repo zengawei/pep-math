@@ -5,11 +5,12 @@ chapter: 10
 section: 2
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - frequency-probability
   - random-event-probability
-source: "自编"
+source: "人教A版2019"
 references: "课标10.2.1"
 ---
 

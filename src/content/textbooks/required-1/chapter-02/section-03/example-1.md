@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - basic-inequality
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 用基本不等式证明：对任意正数 $a, b$，有 $\frac{b}{a} + \frac{a}{b} \geq 2$。

@@ -5,10 +5,11 @@ chapter: 5
 section: 2
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - trig-function
-source: "自编"
+source: "人教A版2019"
 references: "课标5.2.1"
 ---
 

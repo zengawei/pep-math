@@ -5,11 +5,12 @@ chapter: 6
 section: 3
 number: 2
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - vector-coordinate
   - vector-scalar-multiplication
-source: "自编"
+source: "人教A版2019"
 references: "课标6.3.1"
 ---
 

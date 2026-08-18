@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - circle-equation
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知圆 $C$ 的圆心在直线 $y = 2x$ 上，且经过点 $A(1, 3)$ 和 $B(-1, 1)$，求圆的方程。

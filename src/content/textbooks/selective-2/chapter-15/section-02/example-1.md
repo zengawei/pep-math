@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - derivative-monotonicity
   - derivative-extrema
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求函数 $f(x) = x^3 - 3x^2 + 1$ 的单调区间和极值。

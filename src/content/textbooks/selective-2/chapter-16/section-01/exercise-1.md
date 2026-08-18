@@ -5,11 +5,12 @@ chapter: 16
 section: 1
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - counting-principle-addition
   - counting-principle-multiplication
-source: "自编"
+source: "人教A版2019"
 references: "课标16.1.1"
 ---
 

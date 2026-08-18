@@ -45,7 +45,7 @@ describe('Selective-2 content integrity', () => {
       expect(data.difficulty).toMatch(/^(basic|medium|hard)$/);
       expect(data.knowledge_points).toBeInstanceOf(Array);
       expect(data.knowledge_points.length).toBeGreaterThanOrEqual(1);
-      expect(data.source).toBe('自编');
+      expect(data.source).toBe('人教A版2019');
       expect(data.references).toBeTruthy();
     }
   });

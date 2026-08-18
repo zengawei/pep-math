@@ -5,11 +5,12 @@ chapter: 17
 section: 1
 number: 3
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - conditional-probability
   - probability-addition-multiplication
-source: "自编"
+source: "人教A版2019"
 references: "课标17.1.3"
 ---
 

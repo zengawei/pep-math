@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - independence-test
   - contingency-table
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 为研究性别与是否喜欢数学的关系，某校随机调查了 $100$ 名学生，得到如下数据：在 $50$ 名男生中，有 $35$ 人喜欢数学，$15$ 人不喜欢数学；在 $50$ 名女生中，有 $20$ 人喜欢数学，$30$ 人不喜欢数学。

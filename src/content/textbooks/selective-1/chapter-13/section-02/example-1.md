@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - hyperbola-definition
   - ellipse-definition
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求与椭圆 $\dfrac{x^2}{16} + \dfrac{y^2}{7} = 1$ 共焦点，且经过点 $P(3, \sqrt{6})$ 的双曲线方程。

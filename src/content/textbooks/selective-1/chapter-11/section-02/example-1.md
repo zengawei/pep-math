@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - space-vector-fundamental-theorem
   - space-vector-coordinate
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $\vec{a} = (1, 1, 0)$，$\vec{b} = (0, 1, 1)$，$\vec{c} = (1, 0, 1)$，判断 $\vec{a}, \vec{b}, \vec{c}$ 能否作为空间向量的一组基底。若能，将 $\vec{d} = (2, 3, 4)$ 用 $\vec{a}, \vec{b}, \vec{c}$ 线性表示。

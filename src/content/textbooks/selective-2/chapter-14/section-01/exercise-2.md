@@ -5,10 +5,11 @@ chapter: 14
 section: 1
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - sequence-concept
-source: "自编"
+source: "人教A版2019"
 references: "课标14.1.2"
 ---
 

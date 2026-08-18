@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - conditional-probability
   - total-probability
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 一个袋中装有 $4$ 个白球和 $2$ 个红球，这些球除颜色外完全相同。第一次从袋中随机取出 $1$ 个球，取出后放回袋中，并同时向袋中加入 $1$ 个与取出球颜色不同的球，然后再从袋中随机取出 $1$ 个球。求第二次取出白球的概率。

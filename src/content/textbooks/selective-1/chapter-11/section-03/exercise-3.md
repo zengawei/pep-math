@@ -5,11 +5,12 @@ chapter: 11
 section: 3
 number: 3
 difficulty: hard
+category: practice
 is_exam_question: false
 knowledge_points:
   - vector-calculate-angle
   - vector-prove-parallel-perpendicular
-source: "自编"
+source: "人教A版2019"
 references: "课标11.3.2"
 ---
 

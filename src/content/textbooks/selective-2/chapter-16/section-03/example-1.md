@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - binomial-theorem
   - binomial-properties
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求 $\left(x + \dfrac{1}{x}\right)^{10}$ 展开式中的常数项。

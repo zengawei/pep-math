@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - parallel-judgment
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 在正方体 $ABCD-A_1B_1C_1D_1$ 中，求证：平面 $AB_1D_1 \parallel$ 平面 $BDC_1$。

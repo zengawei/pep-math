@@ -5,10 +5,11 @@ chapter: 17
 section: 4
 number: 3
 difficulty: hard
+category: practice
 is_exam_question: false
 knowledge_points:
   - expected-value-variance
-source: "自编"
+source: "人教A版2019"
 references: "课标17.4.3"
 ---
 

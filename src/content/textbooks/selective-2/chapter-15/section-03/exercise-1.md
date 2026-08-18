@@ -5,10 +5,11 @@ chapter: 15
 section: 3
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - derivative-max-min
-source: "自编"
+source: "人教A版2019"
 references: "课标15.3.1"
 ---
 

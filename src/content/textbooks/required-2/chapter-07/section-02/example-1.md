@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - complex-number-operations
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $z = 1 + i$，求 $z^2$，$z^3$，$z^4$。

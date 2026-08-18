@@ -5,10 +5,11 @@ chapter: 11
 section: 3
 number: 1
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - vector-prove-parallel-perpendicular
-source: "自编"
+source: "人教A版2019"
 references: "课标11.3.1"
 ---
 

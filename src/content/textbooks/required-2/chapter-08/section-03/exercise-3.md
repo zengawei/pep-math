@@ -5,10 +5,11 @@ chapter: 8
 section: 3
 number: 3
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - spatial-position-relation
-source: "自编"
+source: "人教A版2019"
 references: "课标8.4.1"
 ---
 

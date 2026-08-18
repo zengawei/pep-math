@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - ellipse-definition
   - ellipse-properties
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知椭圆的离心率 $e = \dfrac{\sqrt{3}}{2}$，短轴长为 $4$，求椭圆的标准方程。

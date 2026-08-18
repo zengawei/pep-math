@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - trig-function
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $\tan\alpha = 2$，求 $\frac{\sin\alpha + \cos\alpha}{\sin\alpha - \cos\alpha}$ 的值。

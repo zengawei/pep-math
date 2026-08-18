@@ -5,10 +5,11 @@ chapter: 8
 section: 1
 number: 2
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - solid-geometry-drawing
-source: "自编"
+source: "人教A版2019"
 references: "课标8.2.1"
 ---
 

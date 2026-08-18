@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - event-independence
   - random-event-probability
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某电路系统中有两个元件 $A, B$ 独立工作。$A$ 正常工作的概率为 $0.9$，$B$ 正常工作的概率为 $0.8$。求：

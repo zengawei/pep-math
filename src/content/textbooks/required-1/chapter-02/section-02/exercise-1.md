@@ -5,11 +5,12 @@ chapter: 2
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - quadratic-inequality
   - quadratic-equation
-source: "自编"
+source: "人教A版2019"
 references: "课标2.2.1"
 ---
 

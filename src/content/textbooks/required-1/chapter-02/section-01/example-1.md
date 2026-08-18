@@ -6,6 +6,8 @@ section: 1
 number: 1
 knowledge_points:
   - inequality-properties
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $a > b > 0$，$c < d < 0$，求证：$\frac{a}{d} < \frac{b}{c}$。

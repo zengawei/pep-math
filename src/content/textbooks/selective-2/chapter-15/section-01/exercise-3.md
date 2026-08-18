@@ -5,10 +5,11 @@ chapter: 15
 section: 1
 number: 3
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - derivative-concept
-source: "自编"
+source: "人教A版2019"
 references: "课标15.1.3"
 ---
 

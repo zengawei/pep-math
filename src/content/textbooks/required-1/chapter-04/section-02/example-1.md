@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - exponent-logarithm
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $\lg 2 = a$，$\lg 7 = b$，求 $\lg 28$ 和 $\lg \frac{7}{4}$。

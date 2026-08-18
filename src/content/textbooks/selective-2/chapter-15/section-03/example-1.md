@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - derivative-max-min
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求函数 $f(x) = x^3 - 3x$ 在 $[-2, 2]$ 上的最大值和最小值。

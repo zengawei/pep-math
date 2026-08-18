@@ -5,11 +5,12 @@ chapter: 18
 section: 1
 number: 3
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - regression-analysis
   - correlation-analysis
-source: "自编"
+source: "人教A版2019"
 references: "课标18.1.3"
 ---
 

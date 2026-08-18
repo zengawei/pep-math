@@ -5,10 +5,11 @@ chapter: 14
 section: 3
 number: 3
 difficulty: hard
+category: practice
 is_exam_question: false
 knowledge_points:
   - sequence-sum-methods
-source: "自编"
+source: "人教A版2019"
 references: "课标14.3.3"
 ---
 

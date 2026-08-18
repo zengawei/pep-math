@@ -6,6 +6,8 @@ section: 2
 number: 1
 knowledge_points:
   - solid-surface-area-volume
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 一个正三棱锥的底面边长为 $6$，侧面与底面所成的角为 $60°$，求其体积。

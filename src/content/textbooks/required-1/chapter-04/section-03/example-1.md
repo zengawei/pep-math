@@ -7,6 +7,8 @@ number: 1
 knowledge_points:
   - exponential-function
   - logarithmic-function
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 求函数 $f(x) = 4^x - 2^{x+1} + 3$ 在 $x \in [-1, 2]$ 上的最大值和最小值。

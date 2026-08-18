@@ -5,10 +5,11 @@ chapter: 11
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - space-vector-coordinate
-source: "自编"
+source: "人教A版2019"
 references: "课标11.2.1"
 ---
 

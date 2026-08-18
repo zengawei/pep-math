@@ -5,10 +5,11 @@ chapter: 6
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - vector-addition-subtraction
-source: "自编"
+source: "人教A版2019"
 references: "课标6.2.1"
 ---
 

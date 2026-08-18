@@ -5,10 +5,11 @@ chapter: 16
 section: 1
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - permutation
-source: "自编"
+source: "人教A版2019"
 references: "课标16.2.1"
 ---
 

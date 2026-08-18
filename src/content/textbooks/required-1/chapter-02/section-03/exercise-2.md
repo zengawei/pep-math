@@ -5,10 +5,11 @@ chapter: 2
 section: 3
 number: 2
 difficulty: medium
+category: practice
 is_exam_question: false
 knowledge_points:
   - basic-inequality
-source: "自编"
+source: "人教A版2019"
 references: "课标2.3.1"
 ---
 

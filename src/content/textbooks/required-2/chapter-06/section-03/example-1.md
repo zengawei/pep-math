@@ -6,6 +6,8 @@ section: 3
 number: 1
 knowledge_points:
   - vector-coordinate
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $\vec{a} = (2, 3)$，$\vec{b} = (4, -1)$，若 $\vec{c} = \lambda\vec{a} + \mu\vec{b}$，且 $\vec{c} = (8, 5)$，求 $\lambda, \mu$ 的值。

@@ -5,10 +5,11 @@ chapter: 8
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - solid-surface-area-volume
-source: "自编"
+source: "人教A版2019"
 references: "课标8.3.1"
 ---
 

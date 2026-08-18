@@ -6,6 +6,8 @@ section: 4
 number: 1
 knowledge_points:
   - expected-value-variance
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 某投资项目的利润 $X$（万元）的分布列为 $P(X = 2) = 0.3$，$P(X = 5) = 0.5$，$P(X = -1) = 0.2$。求 $E(X)$ 和 $D(X)$。

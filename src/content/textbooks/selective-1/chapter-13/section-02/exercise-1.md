@@ -5,11 +5,12 @@ chapter: 13
 section: 2
 number: 1
 difficulty: basic
+category: practice
 is_exam_question: false
 knowledge_points:
   - hyperbola-definition
   - hyperbola-properties
-source: "自编"
+source: "人教A版2019"
 references: "课标13.2.1"
 ---
 

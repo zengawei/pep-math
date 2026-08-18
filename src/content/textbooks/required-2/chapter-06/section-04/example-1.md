@@ -6,6 +6,8 @@ section: 4
 number: 1
 knowledge_points:
   - vector-dot-product
+source: "人教A版2019"
+references: "待补充"
 ---
 
 **例题：** 已知 $\vec{a} = (2, 1)$，$\vec{b} = (x, -2)$，若 $\vec{a} \perp \vec{b}$，求 $x$ 的值。
