@@ -14,6 +14,8 @@ follow_ups: []
 related:
   - trig-function
   - trig-identity
+  - perpendicular-judgment
+  - spatial-angle
 formulas:
   - "\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta"
   - "\\vec{a} \\cdot \\vec{b} = x_1 x_2 + y_1 y_2"

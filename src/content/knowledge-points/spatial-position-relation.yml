@@ -1,0 +1,23 @@
+id: spatial-position-relation
+name: 空间点、直线、平面之间的位置关系
+category: 立体几何
+description: |
+  平面的基本性质（公理）：
+  公理1：如果一条直线上的两点在一个平面内，那么这条直线在此平面内。
+  公理2：过不在一条直线上的三点，有且只有一个平面。
+  公理3：如果两个不重合的平面有一个公共点，那么它们有且只有一条过该点的公共直线。
+  空间两条直线的位置关系：平行、相交、异面。
+  异面直线：不同在任何一个平面内的两条直线。
+prerequisites:
+  - solid-geometry-basics
+follow_ups:
+  - parallel-judgment
+  - perpendicular-judgment
+related: []
+formulas: []
+common_mistakes:
+  - mistake: "认为不相交的两条直线一定平行"
+    correction: "空间中不相交的两条直线可能平行也可能异面"
+applied_in:
+  - textbook: required-2
+    chapters: [8]

@@ -1,0 +1,27 @@
+id: solid-surface-area-volume
+name: 简单几何体的表面积与体积
+category: 立体几何
+description: |
+  棱柱/圆柱体积：V = Sh（S 为底面积，h 为高）。
+  棱锥/圆锥体积：V = ⅓Sh。
+  棱台/圆台体积：V = ⅓(S₁ + S₂ + √(S₁S₂))h。
+  球体积：V = ⁴⁄₃πr³。球表面积：S = 4πr²。
+  侧面积：圆柱 S侧 = 2πrl，圆锥 S侧 = πrl。
+prerequisites:
+  - solid-geometry-basics
+  - solid-geometry-drawing
+follow_ups: []
+related: []
+formulas:
+  - "V_{\\text{柱}} = Sh"
+  - "V_{\\text{锥}} = \\frac{1}{3}Sh"
+  - "V_{\\text{球}} = \\frac{4}{3}\\pi r^3"
+  - "S_{\\text{球}} = 4\\pi r^2"
+  - "S_{\\text{圆柱侧}} = 2\\pi rl"
+  - "S_{\\text{圆锥侧}} = \\pi rl"
+common_mistakes:
+  - mistake: "混淆锥体体积公式，忘记乘以 1/3"
+    correction: "锥体体积 = ⅓Sh，不是 Sh。可以理解为锥体是同底同高柱体的三分之一"
+applied_in:
+  - textbook: required-2
+    chapters: [8]

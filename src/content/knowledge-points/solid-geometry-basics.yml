@@ -1,0 +1,23 @@
+id: solid-geometry-basics
+name: 基本立体图形
+category: 立体几何
+description: |
+  常见基本立体图形：
+  棱柱：两个底面平行且全等，侧面为平行四边形。
+  棱锥：一个底面，侧面为共顶点的三角形。
+  棱台：棱锥被平行于底面的平面截得。
+  圆柱、圆锥、圆台：由矩形、直角三角形、直角梯形绕直角边旋转得到。
+  球：到定点距离等于定长的点的集合。
+prerequisites: []
+follow_ups:
+  - solid-geometry-drawing
+  - solid-surface-area-volume
+  - spatial-position-relation
+related: []
+formulas: []
+common_mistakes:
+  - mistake: "混淆棱柱和棱锥的特征"
+    correction: "棱柱有两个平行全等的底面；棱锥只有一个底面，侧面三角形共顶点"
+applied_in:
+  - textbook: required-2
+    chapters: [8]

@@ -1,0 +1,23 @@
+id: solid-geometry-drawing
+name: 立体图形的直观图
+category: 立体几何
+description: |
+  三视图：正视图（从前向后看）、侧视图（从左向右看）、俯视图（从上向下看）。
+  三视图规则："长对正、高平齐、宽相等"。
+  斜二测画法：画直观图的方法。
+  x'轴与 y'轴夹角 45°（或 135°），平行于 x 轴的线段长度不变，
+  平行于 y 轴的线段长度变为原来的一半。
+prerequisites:
+  - solid-geometry-basics
+follow_ups:
+  - solid-surface-area-volume
+related: []
+formulas: []
+common_mistakes:
+  - mistake: "三视图中混淆正视图和侧视图的方向"
+    correction: "正视图从正面看，侧视图从左面看，注意观察方向"
+  - mistake: "斜二测画法中忘记 y 方向长度减半"
+    correction: "平行于 y 轴的线段在直观图中长度变为原来的一半"
+applied_in:
+  - textbook: required-2
+    chapters: [8]

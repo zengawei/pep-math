@@ -1,0 +1,23 @@
+id: parallel-judgment
+name: 平行的判定与性质
+category: 立体几何
+description: |
+  线面平行判定定理：平面外一条直线与此平面内一条直线平行，则该直线与此平面平行。
+  线面平行性质定理：一条直线与一个平面平行，经过该直线的平面与此平面的交线与该直线平行。
+  面面平行判定定理：一个平面内有两条相交直线分别与另一个平面平行，则这两个平面平行。
+  面面平行性质定理：两个平面平行，第三个平面与它们相交，则两条交线平行。
+prerequisites:
+  - spatial-position-relation
+follow_ups:
+  - perpendicular-judgment
+  - spatial-angle
+related: []
+formulas: []
+common_mistakes:
+  - mistake: "线面平行判定中忘记强调'平面外'"
+    correction: "判定定理的前提是直线在平面外，如果直线在平面内则不是平行关系"
+  - mistake: "面面平行判定中只找一条平行线"
+    correction: "需要两条'相交'直线分别平行于另一平面，缺一不可"
+applied_in:
+  - textbook: required-2
+    chapters: [8]
