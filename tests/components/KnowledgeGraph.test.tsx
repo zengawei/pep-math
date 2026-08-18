@@ -130,6 +130,29 @@ describe('KnowledgeGraph', () => {
     expect(nodeIds).toEqual(['space-vector-concept']);
   });
 
+  it('filters nodes for selective-2', async () => {
+    const cytoscapeModule = await import('cytoscape');
+    const cytoscape = vi.mocked(cytoscapeModule.default);
+
+    const quadTextbookGraph = {
+      nodes: [
+        { id: 'set-concept', name: '集合', category: '集合与逻辑', textbooks: ['required-1'], x: 0, y: 0 },
+        { id: 'sequence-concept', name: '数列概念', category: '数列', textbooks: ['selective-2'], x: 100, y: 0 },
+        { id: 'derivative-concept', name: '导数概念', category: '微积分', textbooks: ['selective-2'], x: 200, y: 0 },
+      ],
+      edges: [],
+    };
+
+    render(<KnowledgeGraph graph={quadTextbookGraph} textbookFilter="selective-2" />);
+
+    expect(cytoscape).toHaveBeenCalled();
+    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
+    const nodeIds = callArgs.elements
+      .filter((el: any) => !el.data.source)
+      .map((el: any) => el.data.id);
+    expect(nodeIds).toEqual(['sequence-concept', 'derivative-concept']);
+  });
+
   it('responds to textbook-change custom event', async () => {
     const cytoscapeModule = await import('cytoscape');
     const cytoscape = vi.mocked(cytoscapeModule.default);
