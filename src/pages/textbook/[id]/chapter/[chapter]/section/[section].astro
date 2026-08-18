@@ -147,19 +147,57 @@ const allChapters = fs.readdirSync(textbookDir)
     </div>
   </div>
 
-  <!-- KaTeX CSS + Auto-render for formula rendering -->
+  <!-- KaTeX CSS -->
   <link is:inline rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-  <script is:inline src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
-  <script define:vars={{ base: '/pep-math' }}>
+  <script type="module">
+    import katex from 'katex';
+
     function renderMathIn(el) {
-      if (window.renderMathInElement) {
-        window.renderMathInElement(el, {
-          delimiters: [
-            {left: '$$', right: '$$', display: true},
-            {left: '$', right: '$', display: false},
-          ],
-          throwOnError: false,
-        });
+      // Find all $...$ and $$...$$ in text nodes and replace with KaTeX
+      const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, null);
+      const textNodes = [];
+      while (walker.nextNode()) textNodes.push(walker.currentNode);
+
+      for (const node of textNodes) {
+        const text = node.textContent;
+        if (!text.includes('$')) continue;
+
+        const fragment = document.createDocumentFragment();
+        let lastIndex = 0;
+        // Match $$...$$ (display) or $...$ (inline)
+        const regex = /(\$\$[\s\S]+?\$\$|\$[^$\n]+?\$)/g;
+        let match;
+
+        while ((match = regex.exec(text)) !== null) {
+          // Add text before the match
+          if (match.index > lastIndex) {
+            fragment.appendChild(document.createTextNode(text.slice(lastIndex, match.index)));
+          }
+
+          const formula = match[1];
+          const isDisplay = formula.startsWith('$$');
+          const tex = isDisplay ? formula.slice(2, -2) : formula.slice(1, -1);
+
+          try {
+            const span = document.createElement('span');
+            katex.render(tex, span, {
+              displayMode: isDisplay,
+              throwOnError: false,
+            });
+            fragment.appendChild(span);
+          } catch (e) {
+            fragment.appendChild(document.createTextNode(formula));
+          }
+
+          lastIndex = regex.lastIndex;
+        }
+
+        // Add remaining text
+        if (lastIndex < text.length) {
+          fragment.appendChild(document.createTextNode(text.slice(lastIndex)));
+        }
+
+        node.parentNode.replaceChild(fragment, node);
       }
     }
 
@@ -168,6 +206,8 @@ const allChapters = fs.readdirSync(textbookDir)
       div.textContent = str;
       return div.innerHTML;
     }
+
+    const base = '/pep-math';
 
     document.querySelectorAll('[id^="exercise-"]').forEach(el => {
       el.style.cursor = 'pointer';
