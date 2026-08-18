@@ -110,10 +110,10 @@ const allChapters = fs.readdirSync(textbookDir)
       <!-- Exercises (loaded from JSON) -->
       {sectionData.exercises.length > 0 && (
         <section class="mb-6">
-          <h2 class="text-lg font-bold mb-2 border-b pb-1">📝 习题</h2>
+          <h2 class="text-lg font-bold mb-2 border-b pb-1">📝 课后练习</h2>
           <div id="exercises-container" data-section-id={`${id}-ch${chapterNum}-s${sectionNum}`}>
             {sectionData.exercises.map((ex: any) => (
-              <div id={`exercise-${ex.id}`} class="mb-2 text-sm text-gray-600">
+              <div id={`exercise-${ex.id}`} class="mb-2 text-sm text-gray-600" style="cursor:pointer">
                 第{ex.number}题 —
                 <span class={`px-1 rounded text-xs ${
                   ex.difficulty === 'basic' ? 'bg-green-100 text-green-800' :
@@ -122,11 +122,45 @@ const allChapters = fs.readdirSync(textbookDir)
                 }`}>
                   {ex.difficulty === 'basic' ? '基础' : ex.difficulty === 'medium' ? '中等' : '拔尖'}
                 </span>
+                {ex.group && (
+                  <span class="px-1 rounded text-xs bg-blue-100 text-blue-800 ml-1">
+                    {ex.group}组
+                  </span>
+                )}
               </div>
             ))}
           </div>
           <p class="text-xs text-gray-400 mt-2">
-            💡 习题详细内容通过 JSON 按需加载，点击题目可展开解答。
+            💡 点击题目可展开解答。
+          </p>
+        </section>
+      )}
+
+      <!-- Chapter Review Exercises -->
+      {sectionData.review_exercises && sectionData.review_exercises.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-2 border-b pb-1">📋 章节复习题</h2>
+          <div id="review-exercises-container">
+            {sectionData.review_exercises.map((ex: any) => (
+              <div id={`exercise-${ex.id}`} class="mb-2 text-sm text-gray-600" style="cursor:pointer">
+                复习题 {ex.number} —
+                <span class={`px-1 rounded text-xs ${
+                  ex.difficulty === 'basic' ? 'bg-green-100 text-green-800' :
+                  ex.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {ex.difficulty === 'basic' ? '基础' : ex.difficulty === 'medium' ? '中等' : '拔尖'}
+                </span>
+                {ex.group && (
+                  <span class="px-1 rounded text-xs bg-blue-100 text-blue-800 ml-1">
+                    {ex.group}组
+                  </span>
+                )}
+              </div>
+            ))}
+          </div>
+          <p class="text-xs text-gray-400 mt-2">
+            💡 点击题目可展开解答。
           </p>
         </section>
       )}
