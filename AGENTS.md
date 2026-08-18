@@ -8,7 +8,7 @@
 - Conventional Commits：feat/fix/content/test/docs/refactor/style/chore
 - 构建脚本用 TypeScript（npx tsx 运行），不用 Python
 - 内容文件在 src/content/，构建输出在 public/data/（gitignore）
-- 所有习题 source 必须为 "自编"
+- 所有习题 source 必须为 "人教A版2019"
 
 ## 常用命令
 - `npm test` — 运行测试

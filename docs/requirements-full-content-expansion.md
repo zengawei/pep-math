@@ -1,8 +1,8 @@
 # 需求文档：pep-math 全面内容扩充与重构
 
-> 版本：v1.0  
+> 版本：v2.0  
 > 日期：2026-08-18  
-> 状态：草案  
+> 状态：草案（含 TDD 执行计划）  
 
 ---
 
@@ -479,68 +479,492 @@ references: "必修第一册 P20 复习参考题 第1题"
 
 ---
 
-## 6. 执行计划
+## 6. 开发方法论：TDD 全流程
 
-### 6.1 分阶段执行策略
+### 6.1 TDD 核心原则
 
-鉴于工作量巨大（新增 ~1,300 个内容文件），建议分 5 个阶段执行，每册教材一个阶段。
-
-#### 阶段 1：基础设施升级
-- 更新 content schema（添加 `category`、`group`、`source` 字段）
-- 更新所有构建脚本以支持新字段和 `review/` 目录
-- 更新前端页面模板以支持分组显示和章复习题
-- 更新测试以适配新结构
-- 批量迁移现有文件（编号格式统一、source 字段更新）
-- **预估：1 个 Plan 周期**
-
-#### 阶段 2：必修第一册内容扩充
-- 扩充 14 节 × (习题 8-14 + 例题 4-7)
-- 新增 5 章 × 复习题 25-35
-- 预估新增：~170 道习题 + ~75 道例题 + ~150 道复习题 = ~395 个文件
-- **预估：2-3 个 Plan 周期**
-
-#### 阶段 3：必修第二册内容扩充
-- 扩充 14 节 × (习题 8-14 + 例题 4-7)
-- 新增 5 章 × 复习题 20-35
-- 预估新增：~120 道习题 + ~62 道例题 + ~130 道复习题 = ~312 个文件
-- **预估：2 个 Plan 周期**
-
-#### 阶段 4：选择性必修第一册 + 第二册
-- selective-1: 9 节扩充 + 3 章复习题
-- selective-2: 9 节扩充 + 3 章复习题
-- 预估新增：~168 道习题 + ~86 道例题 + ~175 道复习题 = ~429 个文件
-- **预估：2-3 个 Plan 周期**
-
-#### 阶段 5：选择性必修第三册 + 收尾
-- selective-3: 7 节扩充 + 2 章复习题
-- 全站集成测试
-- 性能优化
-- 预估新增：~60 道习题 + ~30 道例题 + ~60 道复习题 = ~150 个文件
-- **预估：1-2 个 Plan 周期**
-
-### 6.2 每个阶段的执行流程
+本项目严格遵循 **测试驱动开发（TDD）** 的 Red → Green → Refactor 循环。每一轮改动都必须先写测试，再写实现。
 
 ```
-1. 更新/新增知识点 YAML（如有必要）
-2. 创建内容 Markdown 文件（按节批量创建）
-3. 运行构建脚本生成 JSON
-4. 更新测试预期值
-5. 本地预览验证
-6. 提交 & 推送
+┌─────────────────────────────────────────────────┐
+│  1. RED    — 写一个失败的测试，描述期望行为       │
+│  2. GREEN  — 写最少的代码让测试通过              │
+│  3. REFACTOR — 在测试保护下重构，保持绿色         │
+└─────────────────────────────────────────────────┘
 ```
 
-### 6.3 并行化策略
+**铁律：没有失败的测试，就不写实现代码。**
 
-每个阶段内，各节的内容创建互相独立，可通过 subagent 并行处理：
-- 每个 subagent 负责 1-2 节的内容扩充
-- 每个 subagent 独立创建 Markdown 文件
-- 主线程负责 schema 更新、构建脚本、测试、集成
+### 6.2 TDD 在本项目中的具体应用
+
+本项目包含两类 TDD 循环：
+
+#### A. 代码层 TDD（构建脚本、前端组件）
+
+适用于：schema 变更、构建脚本更新、页面模板修改
+
+```
+Step 1: 写测试（tests/scripts/ 或 tests/components/）
+  → 描述新行为（如：build-section-data 应解析 review/ 目录）
+  → 运行 npm test → 测试失败（RED）
+
+Step 2: 写实现（scripts/ 或 src/）
+  → 最小改动让测试通过
+  → 运行 npm test → 测试通过（GREEN）
+
+Step 3: 重构
+  → 消除重复，优化结构
+  → 运行 npm test → 仍然通过（REFACTOR）
+
+Step 4: 提交
+  → git commit -m "test: add review directory parsing tests"
+  → git commit -m "feat: support review directory in build-section-data"
+```
+
+#### B. 内容层 TDD（习题、例题、定义 Markdown 文件）
+
+适用于：每册教材的内容扩充
+
+```
+Step 1: 写内容完整性测试（tests/content/）
+  → 断言该册应有 N 道习题、M 道例题
+  → 断言所有 source 字段为 '人教A版2019'
+  → 断言所有习题有 category 和 group 字段
+  → 运行 npm test → 测试失败（RED）
+
+Step 2: 创建内容 Markdown 文件
+  → 按节批量创建 exercise-{NN}.md、example-{NN}.md
+  → 运行 npm test → 测试通过（GREEN）
+
+Step 3: 运行验证脚本
+  → npm run validate → 内容校验通过
+  → npm run build:scripts → 构建 JSON 成功
+  → npm run build → 网站构建成功（REFACTOR/验证）
+
+Step 4: 提交
+  → git commit -m "content(required-1): 扩充 ch1-s1 习题至 10 道"
+```
+
+### 6.3 测试分层策略
+
+```
+┌─────────────────────────────────────────────┐
+│            E2E / 集成测试                    │
+│  npm run build 成功                         │
+│  npm run validate 成功                      │
+│  GitHub Pages 部署成功                       │
+├─────────────────────────────────────────────┤
+│            内容完整性测试                     │
+│  每册一个测试文件 (tests/content/*-integrity) │
+│  验证文件数量、字段完整性、KP 关联            │
+├─────────────────────────────────────────────┤
+│            构建脚本单元测试                   │
+│  每个脚本一个测试文件 (tests/scripts/*)       │
+│  验证解析逻辑、ID 生成、JSON 输出            │
+├─────────────────────────────────────────────┤
+│            Schema 测试                       │
+│  tests/content/exercise-schema.test.ts       │
+│  验证 Zod schema 校验规则                    │
+├─────────────────────────────────────────────┤
+│            组件测试                          │
+│  tests/components/*.test.tsx                 │
+│  验证 UI 渲染和交互                          │
+└─────────────────────────────────────────────┘
+```
 
 ---
 
-## 7. 风险评估与应对
+## 7. 分阶段执行计划
 
-### 7.1 技术风险
+### 7.1 总览
+
+鉴于工作量巨大（新增 ~1,300 个内容文件），分为 **8 个 Plan** 执行。每个 Plan 内部严格遵循 TDD 循环。
+
+| Plan | 阶段 | 内容 | 预估新增文件 |
+|------|------|------|-------------|
+| Plan 1 | 基础设施 | Schema + 构建脚本 + 测试 + 前端 + 现有文件迁移 | 0（重构） |
+| Plan 2 | 必修一（上） | required-1 ch1-ch3 习题/例题扩充 + 章复习题 | ~120 |
+| Plan 3 | 必修一（下） | required-1 ch4-ch5 习题/例题扩充 + 章复习题 | ~130 |
+| Plan 4 | 必修二 | required-2 全册扩充 | ~180 |
+| Plan 5 | 选必一 | selective-1 全册扩充 | ~140 |
+| Plan 6 | 选必二 | selective-2 全册扩充 | ~130 |
+| Plan 7 | 选必三 | selective-3 全册扩充 | ~100 |
+| Plan 8 | 收尾 | 集成测试 + 性能优化 + 全站验证 | 0 |
+
+### 7.2 Plan 1：基础设施升级（TDD 详解）
+
+这是最关键的基础阶段，所有后续内容扩充依赖于此。
+
+#### Step 1.1：Schema 变更
+
+**RED — 先写测试：**
+
+```typescript
+// tests/content/exercise-schema.test.ts — 新增测试用例
+describe('exercise schema v2', () => {
+  it('应接受 category 字段 (practice/review/reference)', () => { ... });
+  it('应接受 group 字段 (A/B/C, 可选)', () => { ... });
+  it('source 应为 "人教A版2019" 而非 "自编"', () => { ... });
+  it('section=0 应被接受（用于章复习题）', () => { ... });
+  it('缺少 category 字段应校验失败', () => { ... });
+});
+```
+
+→ 运行 `npm test` → 新增测试全部失败（RED）
+
+**GREEN — 修改 Schema：**
+
+```typescript
+// src/content/config.ts — 修改 exerciseSchema
+{
+  category: z.enum(['practice', 'review', 'reference']).default('practice'),
+  group: z.enum(['A', 'B', 'C']).optional(),
+  source: z.literal('人教A版2019'),  // 从 '自编' 改为 '人教A版2019'
+  // section: z.number().int().min(0),  // min 从 1 改为 0
+}
+```
+
+→ 运行 `npm test` → 测试通过（GREEN）
+
+**REFACTOR — 提交：**
+
+```bash
+git commit -m "test: add v2 schema validation tests"
+git commit -m "feat: update exercise schema with category, group, source fields"
+```
+
+#### Step 1.2：构建脚本更新（build-section-data.ts）
+
+**RED：**
+
+```typescript
+// tests/scripts/build-section-data.test.ts — 新增测试
+describe('build-section-data v2', () => {
+  it('应解析 review/ 子目录中的章复习题', () => { ... });
+  it('应在 SectionData 中输出 review_exercises 数组', () => { ... });
+  it('应为习题包含 category 和 group 字段', () => { ... });
+  it('章复习题 ID 格式应为 {textbook}-ch{N}-review-ex{M}', () => { ... });
+});
+```
+
+→ `npm test` → 失败（RED）
+
+**GREEN：** 修改 `build-section-data.ts`，添加 review 目录扫描逻辑
+
+→ `npm test` → 通过（GREEN）
+
+**REFACTOR → 提交**
+
+#### Step 1.3：构建脚本更新（其余脚本）
+
+对以下每个脚本重复同样的 RED → GREEN → REFACTOR 循环：
+
+| 脚本 | 测试文件 | 关键测试点 |
+|------|----------|-----------|
+| `build-exercise-data.ts` | `build-exercise-data.test.ts` | 解析 review/ 目录、新字段传递 |
+| `build-example-data.ts` | `build-example-data.test.ts` | source/references 字段 |
+| `build-exercise-index.ts` | `build-exercise-index.test.ts` | category/group 索引、复习题纳入 |
+| `build-related-exercises.ts` | `build-related-exercises.test.ts` | 跨 category 关联 |
+| `validate-content.ts` | 集成测试 | 验证新字段必填、source 值 |
+
+#### Step 1.4：前端页面更新
+
+**RED：**
+
+```typescript
+// tests/components/ExerciseCard.test.tsx — 新增测试
+describe('ExerciseCard v2', () => {
+  it('应显示 A/B/C 组别标签', () => { ... });
+  it('应区分 practice/review 类型的图标或颜色', () => { ... });
+});
+```
+
+→ `npm test` → 失败（RED）
+
+**GREEN：** 更新组件代码
+
+→ `npm test` → 通过（GREEN）
+
+**REFACTOR → 提交**
+
+#### Step 1.5：现有文件迁移
+
+**RED：**
+
+```typescript
+// tests/content/migration-integrity.test.ts — 新增测试
+describe('migration integrity', () => {
+  it('所有现有习题的 source 应为 "人教A版2019"', () => { ... });
+  it('所有现有习题应有 category 字段（默认 practice）', () => { ... });
+  it('所有习题编号应为两位数格式 (exercise-01.md)', () => { ... });
+});
+```
+
+→ `npm test` → 失败（RED，因为现有文件 source 是 "自编"）
+
+**GREEN：** 批量迁移脚本或手动修改所有现有文件
+
+→ `npm test` → 通过（GREEN）
+
+**REFACTOR → 提交**
+
+#### Step 1.6：AGENTS.md 更新
+
+更新项目规范以反映新标准：
+- `source` 从 `"自编"` 改为 `"人教A版2019"`
+- 新增 `category` 和 `group` 字段说明
+- 新增 `review/` 目录约定
+
+#### Plan 1 完成标准（Definition of Done）
+
+- [ ] `npm test` 全部通过（包含所有新增测试）
+- [ ] `npm run validate` 通过
+- [ ] `npm run build` 成功
+- [ ] 现有 151 道习题 + 53 道例题迁移完成
+- [ ] 本地预览：节页面正常显示，分组标签可见
+- [ ] Git 提交历史清晰，每个 RED/GREEN 步骤独立提交
+
+---
+
+### 7.3 Plan 2-7：内容扩充（TDD 详解）
+
+Plan 2-7 遵循相同的 TDD 模式，以 Plan 2（必修第一册 ch1-ch3）为例：
+
+#### Step 2.1：内容完整性测试（RED）
+
+```typescript
+// tests/content/required-1-integrity.test.ts — 新增/更新
+describe('required-1 content expansion (ch1-ch3)', () => {
+  it('ch1-s1 应有 ≥ 8 道习题', () => { ... });
+  it('ch1-s1 应有 ≥ 4 道例题', () => { ... });
+  it('ch1-s3 应有 ≥ 10 道习题（含 A/B 组）', () => { ... });
+  it('ch1 章复习题应有 ≥ 25 道题', () => { ... });
+  it('所有习题 source 为 "人教A版2019"', () => { ... });
+  it('所有习题有 category 和 group 字段', () => { ... });
+  it('所有习题的 knowledge_points 存在于知识点库中', () => { ... });
+  it('所有习题有完整的解答（至少 1 步）', () => { ... });
+});
+```
+
+→ `npm test` → 失败（RED）—— 当前 ch1-s1 只有 3 道习题、1 道例题
+
+#### Step 2.2：创建内容文件（GREEN）
+
+按节批量创建 Markdown 文件。每节的执行顺序：
+
+```
+1. 确认该节涉及的知识点（读取 knowledge-points YAML）
+2. 创建 exercise-04.md 到 exercise-{N}.md（扩充习题）
+3. 创建 example-02.md 到 example-{M}.md（扩充例题）
+4. 创建 review/ 目录及 review-exercise-01.md 到 review-exercise-{K}.md（章复习题）
+5. 运行 npm test → 通过（GREEN）
+```
+
+**每道题目必须遵循 §5.4 内容质量标准。**
+
+#### Step 2.3：构建与验证（REFACTOR）
+
+```bash
+npm run build:scripts    # 生成 JSON 数据
+npm run validate         # 内容校验
+npm run build            # 构建网站
+npm test                 # 全部测试通过
+```
+
+→ 本地预览确认页面正常显示
+
+#### Step 2.4：提交
+
+```bash
+git add src/content/textbooks/required-1/chapter-01/
+git commit -m "content(required-1): 扩充 ch1 习题至完整覆盖"
+git commit -m "content(required-1): 添加 ch1 章复习题 30 道"
+```
+
+#### 内容扩充的并行化策略
+
+每个 Plan 内，各节互相独立，可通过 subagent 并行：
+
+```
+主线程（协调者）
+├── Subagent A: ch1-s1 习题扩充 (exercise-04 ~ exercise-10)
+├── Subagent B: ch1-s1 例题扩充 (example-02 ~ example-05)
+├── Subagent C: ch1-s2 习题扩充
+├── Subagent D: ch1-s2 例题扩充
+├── ...
+└── 主线程: 章复习题 + 测试更新 + 集成验证
+```
+
+**并行规则：**
+- 每个 subagent 只操作自己负责的 Markdown 文件
+- subagent 不修改测试文件、构建脚本、Schema
+- 主线程在所有 subagent 完成后统一运行测试和构建
+
+#### Plan 2-7 各册详细任务清单
+
+**Plan 2：必修第一册 ch1-ch3（集合、不等式、函数）**
+
+| 节 | 当前习题 | 目标习题 | 当前例题 | 目标例题 | 章复习 |
+|----|----------|----------|----------|----------|--------|
+| ch1-s1 集合的概念 | 3 | 10 | 1 | 5 | — |
+| ch1-s2 集合间关系 | 3 | 8 | 1 | 4 | — |
+| ch1-s3 集合运算 | 3 | 12 | 1 | 6 | — |
+| ch1 复习题 | 0 | — | — | — | 30 |
+| ch2-s1 等式与不等式 | 3 | 10 | 1 | 5 | — |
+| ch2-s2 基本不等式 | 3 | 10 | 1 | 5 | — |
+| ch2-s3 二次函数与不等式 | 3 | 12 | 1 | 6 | — |
+| ch2 复习题 | 0 | — | — | — | 30 |
+| ch3-s1 函数概念 | 3 | 10 | 1 | 5 | — |
+| ch3-s2 函数性质 | 3 | 12 | 1 | 6 | — |
+| ch3-s3 幂函数 | 3 | 8 | 1 | 4 | — |
+| ch3-s4 函数应用 | 3 | 10 | 1 | 5 | — |
+| ch3 复习题 | 0 | — | — | — | 30 |
+| **小计** | **33** | **~122** | **11** | **~62** | **90** |
+
+**Plan 3：必修第一册 ch4-ch5（指数对数、三角函数）**
+
+| 节 | 当前 | 目标 | 例题当前 | 例题目标 | 章复习 |
+|----|------|------|----------|----------|--------|
+| ch4-s1 指数 | 3 | 10 | 1 | 5 | — |
+| ch4-s2 指数函数 | 3 | 12 | 1 | 6 | — |
+| ch4-s3 对数 | 3 | 10 | 1 | 5 | — |
+| ch4-s4 对数函数 | 3 | 12 | 1 | 6 | — |
+| ch4 复习题 | 0 | — | — | — | 30 |
+| ch5-s1 任意角和弧度制 | 3 | 10 | 1 | 5 | — |
+| ch5-s2 三角函数概念 | 3 | 10 | 1 | 5 | — |
+| ch5-s3 诱导公式 | 3 | 10 | 1 | 5 | — |
+| ch5-s4 图象与性质 | 3 | 14 | 1 | 7 | — |
+| ch5-s5 y=Asin(ωx+φ) | 3 | 12 | 1 | 6 | — |
+| ch5-s6 三角函数应用 | 3 | 10 | 1 | 5 | — |
+| ch5 复习题 | 0 | — | — | — | 35 |
+| **小计** | **30** | **~120** | **10** | **~60** | **65** |
+
+**Plan 4：必修第二册（全册）**
+
+| 章 | 节数 | 当前习题 | 目标习题 | 当前例题 | 目标例题 | 章复习 |
+|----|------|----------|----------|----------|----------|--------|
+| ch6 平面向量 | 4 | 12 | ~45 | 4 | ~20 | 30 |
+| ch7 复数 | 2 | 6 | ~20 | 2 | ~10 | 20 |
+| ch8 立体几何 | 4 | 12 | ~50 | 4 | ~24 | 35 |
+| ch9 统计 | 2 | 4 | ~25 | 2 | ~12 | 25 |
+| ch10 概率 | 2 | 4 | ~20 | 2 | ~10 | 20 |
+| **合计** | 14 | 38 | **~160** | 14 | **~76** | **130** |
+
+**Plan 5：选择性必修第一册（全册）**
+
+| 章 | 节数 | 当前习题 | 目标习题 | 当前例题 | 目标例题 | 章复习 |
+|----|------|----------|----------|----------|----------|--------|
+| ch11 空间向量 | 3 | 9 | ~36 | 3 | ~18 | 30 |
+| ch12 直线与圆 | 3 | 8 | ~36 | 3 | ~18 | 30 |
+| ch13 圆锥曲线 | 3 | 9 | ~40 | 3 | ~20 | 35 |
+| **合计** | 9 | 26 | **~112** | 9 | **~56** | **95** |
+
+**Plan 6：选择性必修第二册（全册）**
+
+| 章 | 节数 | 当前习题 | 目标习题 | 当前例题 | 目标例题 | 章复习 |
+|----|------|----------|----------|----------|----------|--------|
+| ch14 数列 | 3 | 8 | ~30 | 3 | ~15 | 30 |
+| ch15 导数 | 3 | 9 | ~36 | 3 | ~18 | 35 |
+| ch16 计数原理 | 3 | 8 | ~30 | 3 | ~15 | 25 |
+| **合计** | 9 | 25 | **~96** | 9 | **~48** | **90** |
+
+**Plan 7：选择性必修第三册（全册）**
+
+| 章 | 节数 | 当前习题 | 目标习题 | 当前例题 | 目标例题 | 章复习 |
+|----|------|----------|----------|----------|----------|--------|
+| ch17 概率 | 5 | 14 | ~55 | 5 | ~25 | 35 |
+| ch18 统计 | 2 | 6 | ~25 | 2 | ~12 | 25 |
+| **合计** | 7 | 20 | **~80** | 7 | **~37** | **60** |
+
+---
+
+### 7.4 Plan 8：收尾与全站验证
+
+#### Step 8.1：全站集成测试（RED → GREEN）
+
+```typescript
+// tests/content/full-site-integrity.test.ts — 新增
+describe('full site integrity', () => {
+  it('总习题数应 ≥ 600', () => { ... });
+  it('总例题数应 ≥ 250', () => { ... });
+  it('总复习题数应 ≥ 400', () => { ... });
+  it('每节习题数 ≥ 8', () => { ... });
+  it('每节例题数 ≥ 4', () => { ... });
+  it('每章复习题数 ≥ 20', () => { ... });
+  it('所有习题 source 为 "人教A版2019"', () => { ... });
+  it('所有知识点至少有 1 道关联习题', () => { ... });
+  it('无孤立知识点', () => { ... });
+});
+```
+
+#### Step 8.2：性能验证
+
+```bash
+# 构建时间
+time npm run build           # 目标 < 5 分钟
+
+# 数据文件检查
+du -sh public/data/          # 检查总大小
+ls public/data/exercises/ | wc -l   # 习题 JSON 数量
+ls public/data/examples/ | wc -l    # 例题 JSON 数量
+
+# Pagefind 索引
+ls -lh public/pagefind/      # 索引大小
+```
+
+#### Step 8.3：清理与优化
+
+- 删除未使用的文件（如 `src/scripts/exercise-render.ts`）
+- 更新 README.md 反映新的内容规模
+- 更新 `docs/improvement-suggestions.md` 标记已完成项
+- 生成最终质量报告 `npm run report`
+
+#### Step 8.4：最终提交与部署
+
+```bash
+npm test                     # 全部通过
+npm run validate             # 内容校验通过
+npm run build                # 构建成功
+git push                     # 推送到 GitHub
+# GitHub Actions 自动部署
+```
+
+---
+
+## 8. 每个 Plan 的 TDD 检查清单
+
+每个 Plan 执行完毕前，必须逐项确认：
+
+### 代码类检查（Plan 1 适用）
+- [ ] 新增测试覆盖所有新字段（category, group, source）
+- [ ] 构建脚本测试包含 review/ 目录场景
+- [ ] 前端组件测试覆盖分组标签显示
+- [ ] Schema 测试覆盖边界值（section=0, 空 group 等）
+- [ ] 所有测试 `npm test` 通过
+- [ ] 无 lint 错误
+
+### 内容类检查（Plan 2-7 适用）
+- [ ] 内容完整性测试已更新（预期数量匹配）
+- [ ] 所有新习题有完整 frontmatter（含 category, group, source）
+- [ ] 所有新习题有分步解答
+- [ ] 所有新习题有易错提醒和思路总结
+- [ ] 所有 knowledge_points 引用存在于知识点库
+- [ ] `npm test` 通过
+- [ ] `npm run validate` 通过
+- [ ] `npm run build` 成功
+- [ ] 本地预览正常
+
+### 通用检查（所有 Plan）
+- [ ] Git 提交信息符合 Conventional Commits
+- [ ] 每个 RED/GREEN 循环独立提交
+- [ ] 已推送到 GitHub
+- [ ] CI 构建通过（GitHub Actions）
+
+---
+
+## 9. 风险评估与应对
+
+### 9.1 技术风险
 
 | 风险 | 影响 | 应对措施 |
 |------|------|----------|
@@ -550,7 +974,7 @@ references: "必修第一册 P20 复习参考题 第1题"
 | 内存溢出 (CI) | 构建失败 | 调整 NODE_OPTIONS max-old-space-size |
 | Git 仓库体积增大 | clone/push 变慢 | 考虑 Git LFS 或定期清理 history |
 
-### 7.2 内容风险
+### 9.2 内容风险
 
 | 风险 | 影响 | 应对措施 |
 |------|------|----------|
@@ -559,7 +983,7 @@ references: "必修第一册 P20 复习参考题 第1题"
 | 难度标注不准确 | 用户体验差 | 参考教材分组（A=基础, B=综合, C=拓展） |
 | 公式格式错误 | 渲染异常 | 构建时验证 LaTeX 语法 |
 
-### 7.3 工作量风险
+### 9.3 工作量风险
 
 | 风险 | 影响 | 应对措施 |
 |------|------|----------|
@@ -569,9 +993,9 @@ references: "必修第一册 P20 复习参考题 第1题"
 
 ---
 
-## 8. 验收标准
+## 10. 验收标准
 
-### 8.1 功能验收
+### 10.1 功能验收
 - [ ] 所有 5 册教材的每节习题数量 ≥ 8 道
 - [ ] 所有 5 册教材的每节例题数量 ≥ 4 道
 - [ ] 所有 18 章均有章复习题（每章 ≥ 20 道）
@@ -581,14 +1005,14 @@ references: "必修第一册 P20 复习参考题 第1题"
 - [ ] 搜索功能覆盖所有新增内容
 - [ ] 知识点图谱正确关联所有新题目
 
-### 8.2 技术验收
+### 10.2 技术验收
 - [ ] `npm run build` 无错误
 - [ ] `npm test` 全部通过
 - [ ] 构建时间 < 5 分钟（CI 环境）
 - [ ] 页面首屏加载 < 2 秒
 - [ ] GitHub Pages 部署成功
 
-### 8.3 内容验收
+### 10.3 内容验收
 - [ ] 每道题有完整的分步解答
 - [ ] 每道题有关键点标注和易错提醒
 - [ ] `source` 字段统一为 `'人教A版2019'`
@@ -597,9 +1021,9 @@ references: "必修第一册 P20 复习参考题 第1题"
 
 ---
 
-## 9. 附录
+## 11. 附录
 
-### 9.1 现有项目文件结构
+### 11.1 现有项目文件结构
 
 ```
 pep-math/
@@ -621,7 +1045,7 @@ pep-math/
 └── docs/                       # 文档
 ```
 
-### 9.2 构建脚本清单
+### 11.2 构建脚本清单
 
 | 脚本 | 功能 | 需变更 |
 |------|------|--------|
@@ -635,7 +1059,7 @@ pep-math/
 | `validate-knowledge-graph.ts` | 图谱验证 | ⬜ 无需变更 |
 | `generate-quality-report.ts` | 质量报告 | ✅ 统计新分类 |
 
-### 9.3 术语表
+### 11.3 术语表
 
 | 术语 | 含义 |
 |------|------|
