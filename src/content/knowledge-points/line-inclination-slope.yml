@@ -1,0 +1,31 @@
+id: line-inclination-slope
+name: 直线的倾斜角与斜率
+category: 解析几何
+description: |
+  倾斜角：直线向上方向与 x 轴正方向所成的角，范围 [0°, 180°)。
+  斜率：k = tanα（α ≠ 90° 时）。当 α = 90° 时斜率不存在。
+  过两点 P₁(x₁, y₁), P₂(x₂, y₂) 的直线斜率：k = (y₂-y₁)/(x₂-x₁)（x₁ ≠ x₂）。
+  斜率与倾斜角的关系：
+  - α = 0° ⟺ k = 0
+  - 0° < α < 90° ⟺ k > 0
+  - α = 90° ⟺ k 不存在
+  - 90° < α < 180° ⟺ k < 0
+prerequisites:
+  - function-concept
+  - trig-function
+follow_ups:
+  - line-equation
+  - coordinate-method
+related:
+  - trig-function
+formulas:
+  - "k = \\tan\\alpha \\quad (\\alpha \\neq 90°)"
+  - "k = \\frac{y_2 - y_1}{x_2 - x_1} \\quad (x_1 \\neq x_2)"
+common_mistakes:
+  - mistake: "认为倾斜角可以是 180°"
+    correction: "倾斜角的范围是 [0°, 180°)，不包含 180°。180° 等价于 0°"
+  - mistake: "忽略斜率不存在的情况"
+    correction: "当直线垂直于 x 轴时（倾斜角 90°），斜率不存在。涉及斜率的问题必须单独讨论这种情况"
+applied_in:
+  - textbook: selective-1
+    chapters: [12]

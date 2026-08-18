@@ -1,0 +1,29 @@
+id: line-equation-application
+name: 直线与圆的方程应用
+category: 解析几何
+description: |
+  直线与圆的方程在实际问题中的应用：
+  1. 求最值问题：利用圆的参数方程或几何意义求距离、面积等最值。
+  2. 轨迹方程：根据几何条件建立坐标系，求动点的轨迹方程。
+  3. 对称问题：求点关于直线的对称点、直线关于直线的对称直线。
+  4. 线性规划：利用直线围成的可行域求目标函数的最值。
+
+  常用技巧：
+  - 数形结合：将代数问题转化为几何图形分析
+  - 参数法：利用圆的参数方程 x=a+r·cosθ, y=b+r·sinθ
+prerequisites:
+  - line-circle-position
+  - circle-circle-position
+follow_ups: []
+related:
+  - line-equation
+  - circle-equation
+  - basic-inequality
+formulas:
+  - "x = a + r\\cos\\theta, \\quad y = b + r\\sin\\theta"
+common_mistakes:
+  - mistake: "求对称点时公式记错"
+    correction: "点 (a, b) 关于直线 y = x 的对称点为 (b, a)；关于 y = -x 的对称点为 (-b, -a)。一般直线的对称点需列方程组求解"
+applied_in:
+  - textbook: selective-1
+    chapters: [12]

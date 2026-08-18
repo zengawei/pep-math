@@ -1,0 +1,37 @@
+id: line-circle-position
+name: 直线与圆的位置关系
+category: 解析几何
+description: |
+  设圆心到直线的距离为 d，圆的半径为 r：
+  d > r ⟺ 直线与圆相离（无交点）
+  d = r ⟺ 直线与圆相切（一个交点）
+  d < r ⟺ 直线与圆相交（两个交点）
+
+  圆心 (a, b) 到直线 Ax + By + C = 0 的距离：
+  d = |Aa + Bb + C| / √(A² + B²)
+
+  弦长公式：|AB| = 2√(r² - d²)
+
+  切线方程：过圆 (x-a)²+(y-b)²=r² 上一点 (x₀, y₀) 的切线：
+  (x₀-a)(x-a) + (y₀-b)(y-b) = r²
+prerequisites:
+  - line-equation
+  - circle-equation
+follow_ups:
+  - circle-circle-position
+  - line-equation-application
+related:
+  - line-equation
+  - circle-equation
+formulas:
+  - "d = \\frac{|Aa + Bb + C|}{\\sqrt{A^2 + B^2}}"
+  - "|AB| = 2\\sqrt{r^2 - d^2}"
+  - "(x_0 - a)(x - a) + (y_0 - b)(y - b) = r^2"
+common_mistakes:
+  - mistake: "点到直线距离公式中忘记取绝对值"
+    correction: "d = |Aa+Bb+C|/√(A²+B²)，分子必须取绝对值，距离非负"
+  - mistake: "求过圆外一点的切线时漏解"
+    correction: "过圆外一点有两条切线。设切线斜率 k 后，用 d = r 列方程，注意讨论斜率不存在的情况"
+applied_in:
+  - textbook: selective-1
+    chapters: [12]

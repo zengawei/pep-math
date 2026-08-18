@@ -1,0 +1,32 @@
+id: circle-circle-position
+name: 圆与圆的位置关系
+category: 解析几何
+description: |
+  设两圆圆心距为 d，半径分别为 r₁, r₂（r₁ ≥ r₂）：
+  d > r₁ + r₂ ⟺ 两圆外离
+  d = r₁ + r₂ ⟺ 两圆外切
+  |r₁ - r₂| < d < r₁ + r₂ ⟺ 两圆相交
+  d = |r₁ - r₂| ⟺ 两圆内切
+  d < |r₁ - r₂| ⟺ 两圆内含
+
+  两圆相交时，公共弦所在直线方程：
+  将两圆方程相减即得公共弦所在直线方程。
+prerequisites:
+  - circle-equation
+  - line-circle-position
+follow_ups:
+  - line-equation-application
+related:
+  - circle-equation
+formulas:
+  - "d > r_1 + r_2: \\text{外离}"
+  - "d = r_1 + r_2: \\text{外切}"
+  - "|r_1 - r_2| < d < r_1 + r_2: \\text{相交}"
+  - "d = |r_1 - r_2|: \\text{内切}"
+  - "d < |r_1 - r_2|: \\text{内含}"
+common_mistakes:
+  - mistake: "判断圆与圆位置关系时只比较半径不比较圆心距"
+    correction: "必须同时考虑圆心距 d 和两半径之和/差的关系。五种位置关系由 d 与 r₁+r₂、|r₁-r₂| 的大小决定"
+applied_in:
+  - textbook: selective-1
+    chapters: [12]

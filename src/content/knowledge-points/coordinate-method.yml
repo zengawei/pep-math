@@ -1,0 +1,28 @@
+id: coordinate-method
+name: 坐标法
+category: 解析几何
+description: |
+  坐标法（解析法）是解析几何的基本思想方法：
+  1. 建立适当的坐标系
+  2. 用坐标表示几何元素（点、线、面）
+  3. 将几何问题转化为代数问题
+  4. 通过代数运算解决问题
+  5. 将代数结果翻译回几何结论
+
+  坐标法的核心是"数形结合"——用代数方法研究几何问题。
+  这是整个解析几何章节的方法论基础。
+prerequisites:
+  - line-inclination-slope
+follow_ups:
+  - ellipse-definition
+  - hyperbola-definition
+  - parabola-definition
+related:
+  - function-concept
+formulas: []
+common_mistakes:
+  - mistake: "坐标系建立不当导致计算复杂"
+    correction: "选择坐标系时应尽量利用对称性，使关键点在坐标轴上或原点，简化计算"
+applied_in:
+  - textbook: selective-1
+    chapters: [12, 13]

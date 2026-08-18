@@ -15,6 +15,7 @@ follow_ups:
   - vector-dot-product
   - spatial-angle
   - vector-calculate-angle
+  - line-inclination-slope
 related:
   - function-properties
   - trig-identity

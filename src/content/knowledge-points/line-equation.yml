@@ -1,0 +1,38 @@
+id: line-equation
+name: 直线的方程
+category: 解析几何
+description: |
+  直线方程的五种形式：
+  1. 点斜式：y - y₀ = k(x - x₀)，已知斜率 k 和一点 (x₀, y₀)。
+  2. 斜截式：y = kx + b，已知斜率 k 和 y 轴截距 b。
+  3. 两点式：(y-y₁)/(y₂-y₁) = (x-x₁)/(x₂-x₁)，已知两点。
+  4. 截距式：x/a + y/b = 1，已知 x 截距 a 和 y 截距 b（a, b ≠ 0）。
+  5. 一般式：Ax + By + C = 0（A, B 不同时为零）。
+
+  两直线的位置关系：
+  l₁: y = k₁x + b₁, l₂: y = k₂x + b₂
+  平行：k₁ = k₂ 且 b₁ ≠ b₂
+  垂直：k₁ · k₂ = -1
+  相交：k₁ ≠ k₂
+prerequisites:
+  - line-inclination-slope
+follow_ups:
+  - line-circle-position
+  - line-equation-application
+  - circle-equation
+related:
+  - basic-inequality
+formulas:
+  - "y - y_0 = k(x - x_0)"
+  - "y = kx + b"
+  - "\\frac{x}{a} + \\frac{y}{b} = 1"
+  - "Ax + By + C = 0"
+  - "l_1 \\perp l_2 \\Leftrightarrow k_1 k_2 = -1"
+common_mistakes:
+  - mistake: "使用点斜式时忽略斜率不存在的情况"
+    correction: "斜率不存在时直线方程为 x = x₀，不能写成点斜式。解题时需先讨论斜率是否存在"
+  - mistake: "使用截距式时忽略截距为零的情况"
+    correction: "截距式要求 a ≠ 0 且 b ≠ 0。过原点的直线不能用截距式"
+applied_in:
+  - textbook: selective-1
+    chapters: [12]

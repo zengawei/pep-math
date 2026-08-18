@@ -1,0 +1,29 @@
+id: circle-equation
+name: 圆的方程
+category: 解析几何
+description: |
+  圆的标准方程：(x-a)² + (y-b)² = r²，圆心 (a, b)，半径 r。
+  圆的一般方程：x² + y² + Dx + Ey + F = 0（D²+E²-4F > 0）。
+  圆心 (-D/2, -E/2)，半径 r = √(D²+E²-4F)/2。
+
+  求圆的方程的方法：
+  1. 待定系数法：根据已知条件列方程组求解 a, b, r 或 D, E, F。
+  2. 几何法：利用圆的几何性质（如圆心在某直线上、弦的中垂线过圆心等）。
+prerequisites:
+  - line-equation
+  - quadratic-equation
+follow_ups:
+  - line-circle-position
+  - circle-circle-position
+related:
+  - quadratic-equation
+formulas:
+  - "(x-a)^2 + (y-b)^2 = r^2"
+  - "x^2 + y^2 + Dx + Ey + F = 0 \\quad (D^2+E^2-4F > 0)"
+  - "r = \\frac{\\sqrt{D^2+E^2-4F}}{2}"
+common_mistakes:
+  - mistake: "一般方程中忽略 D²+E²-4F > 0 的条件"
+    correction: "D²+E²-4F > 0 是方程表示圆的充要条件。等于 0 表示一个点，小于 0 不表示任何图形"
+applied_in:
+  - textbook: selective-1
+    chapters: [12]
