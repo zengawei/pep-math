@@ -10,15 +10,11 @@ import SearchBox from '../components/SearchBox';
     <SearchBox client:load />
   </div>
 
-  <script is:inline>
-    // Load pagefind at runtime (not bundled by Vite)
-    (function() {
-      var s = document.createElement('script');
-      s.src = '/pep-math/pagefind/pagefind.js';
-      s.onload = function() {
-        window.dispatchEvent(new Event('pagefind-loaded'));
-      };
-      document.head.appendChild(s);
-    })();
+  <script is:inline type="module">
+    // Load pagefind as ES module at runtime
+    const pf = await import('/pep-math/pagefind/pagefind.js');
+    await pf.init();
+    window.pagefind = pf;
+    window.dispatchEvent(new Event('pagefind-loaded'));
   </script>
 </BaseLayout>
