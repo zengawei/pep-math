@@ -10,7 +10,7 @@ knowledge_points:
   - arithmetic-sequence
   - arithmetic-sequence-sum
 source: "自编"
-references: ""
+references: "课标14.2.2"
 ---
 
 **题目：** 在等差数列 $\{a_n\}$ 中，已知 $a_3 = 7$，$a_7 = 19$。

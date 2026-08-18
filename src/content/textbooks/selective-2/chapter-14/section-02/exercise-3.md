@@ -9,7 +9,7 @@ is_exam_question: false
 knowledge_points:
   - arithmetic-sequence-sum
 source: "自编"
-references: ""
+references: "课标14.2.3"
 ---
 
 **题目：** 已知数列 $\{a_n\}$ 的前 $n$ 项和 $S_n = 3n^2 - 2n$，求通项公式 $a_n$。

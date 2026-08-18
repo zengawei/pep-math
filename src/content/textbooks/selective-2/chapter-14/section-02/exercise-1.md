@@ -9,7 +9,7 @@ is_exam_question: false
 knowledge_points:
   - arithmetic-sequence
 source: "自编"
-references: ""
+references: "课标14.2.1"
 ---
 
 **题目：** 已知等差数列 $\{a_n\}$ 的首项 $a_1 = 3$，公差 $d = 2$。
