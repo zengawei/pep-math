@@ -1,0 +1,35 @@
+id: derivative-applications
+name: 导数的综合应用
+category: 微积分
+description: |
+  导数的综合应用主要包括以下几类问题：
+  1. 证明不等式：构造辅助函数 F(x) = f(x) - g(x)，利用导数研究 F(x) 的单调性或最值，
+     由 F(x) ≥ 0（或 F(x) ≤ 0）证得不等式。
+  2. 零点问题：利用导数分析函数的单调性和极值，结合零点存在性定理（介值定理）
+     判断零点的个数和位置。
+  3. 恒成立问题：将参数与变量分离，转化为求函数的最值问题。
+     如 f(x) ≥ a 恒成立 ⟺ a ≤ f(x)min；f(x) ≤ a 恒成立 ⟺ a ≥ f(x)max。
+  4. 实际问题：将实际问题中的量表示为函数，利用导数求最值，如面积最大、用料最省等。
+  5. 切线问题：综合考查切线方程的求解，包括"在某点处"与"过某点"的区分。
+prerequisites:
+  - derivative-max-min
+  - basic-inequality
+follow_ups: []
+related:
+  - derivative-max-min
+  - derivative-extrema
+  - basic-inequality
+  - quadratic-inequality
+formulas:
+  - "f(x) \\geq a \\text{ 恒成立} \\iff a \\leq f(x)_{\\min}"
+  - "f(x) \\leq a \\text{ 恒成立} \\iff a \\geq f(x)_{\\max}"
+common_mistakes:
+  - mistake: "证明不等式时不构造辅助函数，直接对原函数求导"
+    correction: "应构造辅助函数 F(x) = f(x) - g(x)，转化为研究 F(x) 的最值或单调性"
+  - mistake: "恒成立问题中不分离参数，直接讨论"
+    correction: "应将参数分离到不等式一侧，转化为求函数最值问题，简化讨论"
+  - mistake: "零点问题中忽略定义域限制或端点值"
+    correction: "分析零点时需先确定定义域，结合单调性和端点处的函数值符号变化综合判断"
+applied_in:
+  - textbook: selective-2
+    chapters: [15]

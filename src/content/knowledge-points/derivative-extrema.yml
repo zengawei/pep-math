@@ -1,0 +1,34 @@
+id: derivative-extrema
+name: 导数与函数的极值
+category: 微积分
+description: |
+  极大值：若 f(x) 在 x₀ 附近的函数值都不超过 f(x₀)，即存在 δ>0 使得
+  对 (x₀-δ, x₀+δ) 内所有 x≠x₀ 都有 f(x) < f(x₀)，则 f(x₀) 为极大值。
+  极小值：类似地，若 f(x) 在 x₀ 附近的函数值都不小于 f(x₀)，则 f(x₀) 为极小值。
+  一阶导数判别法：
+  若 f'(x) 在 x₀ 左侧为正、右侧为负，则 x₀ 是极大值点；
+  若 f'(x) 在 x₀ 左侧为负、右侧为正，则 x₀ 是极小值点。
+  求极值的步骤：
+  ① 求 f'(x)，令 f'(x) = 0，解出所有驻点；
+  ② 检查 f'(x) 在每个驻点两侧的符号变化；
+  ③ 根据符号变化判断极大值或极小值。
+  注意：极值是局部性质，极大值不一定大于极小值。
+prerequisites:
+  - derivative-monotonicity
+follow_ups:
+  - derivative-max-min
+related:
+  - function-properties
+  - derivative-monotonicity
+formulas:
+  - "f'(x_0) = 0 \\text{ 且 } f'(x) \\text{ 在 } x_0 \\text{ 两侧变号} \\Rightarrow x_0 \\text{ 是极值点}"
+common_mistakes:
+  - mistake: "认为 f'(x₀)=0 则 x₀ 一定是极值点"
+    correction: "f'(x₀)=0 只是必要条件，还需 f'(x) 在 x₀ 两侧变号；如 f(x)=x³ 在 x=0 处 f'(0)=0 但不是极值点"
+  - mistake: "认为极大值一定大于极小值"
+    correction: "极值是局部性质，某极大值可能小于另一极小值"
+  - mistake: "忽略定义域端点处不可导的情况"
+    correction: "极值点必须在定义域内部取得，端点不是极值点"
+applied_in:
+  - textbook: selective-2
+    chapters: [15]

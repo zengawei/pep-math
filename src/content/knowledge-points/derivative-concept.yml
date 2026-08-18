@@ -1,0 +1,32 @@
+id: derivative-concept
+name: 导数的概念
+category: 微积分
+description: |
+  平均变化率：函数 f(x) 从 x₀ 到 x₀+Δx 的平均变化率为
+  Δy/Δx = [f(x₀+Δx) - f(x₀)] / Δx。
+  瞬时变化率（导数）：当 Δx→0 时，平均变化率的极限即为导数，
+  f'(x₀) = lim(Δx→0) [f(x₀+Δx) - f(x₀)] / Δx。
+  几何意义：f'(x₀) 是曲线 y=f(x) 在点 (x₀, f(x₀)) 处切线的斜率，
+  切线方程为 y - f(x₀) = f'(x₀)(x - x₀)。
+  导函数：将 x₀ 替换为 x，得到导函数 f'(x)，表示 f(x) 在每一点的瞬时变化率。
+  重要区分："在某点处的切线"指以该点为切点的切线（唯一），
+  "过某点的切线"指经过该点的所有切线（可能有多条，该点不一定是切点）。
+prerequisites:
+  - function-concept
+  - function-properties
+follow_ups:
+  - derivative-operations
+related:
+  - line-inclination-slope
+  - function-properties
+formulas:
+  - "f'(x_0) = \\lim_{\\Delta x \\to 0} \\frac{f(x_0 + \\Delta x) - f(x_0)}{\\Delta x}"
+  - "y - f(x_0) = f'(x_0)(x - x_0)"
+common_mistakes:
+  - mistake: "混淆'在某点处的切线'与'过某点的切线'"
+    correction: "'在某点处'以该点为切点，切线唯一；'过某点'该点未必是切点，需设切点后列方程求解，可能有多条切线"
+  - mistake: "认为 f'(x₀)=0 就意味着 x₀ 是极值点"
+    correction: "f'(x₀)=0 只是极值的必要条件，还需检验 f'(x) 在 x₀ 两侧是否变号，如 f(x)=x³ 在 x=0 处 f'(0)=0 但不是极值点"
+applied_in:
+  - textbook: selective-2
+    chapters: [15]

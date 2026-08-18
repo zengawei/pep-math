@@ -1,0 +1,31 @@
+id: derivative-max-min
+name: 导数与函数的最值
+category: 微积分
+description: |
+  最值定理：闭区间 [a,b] 上的连续函数必有最大值和最小值。
+  利用导数求闭区间 [a,b] 上 f(x) 最值的步骤：
+  ① 求 f'(x)，找出 (a,b) 内所有使 f'(x)=0 的点（驻点）及不可导点；
+  ② 计算 f(x) 在各驻点、不可导点以及端点 a, b 处的函数值；
+  ③ 比较上述函数值，最大的为最大值，最小的为最小值。
+  注意：最值是全局性质，需要在所有候选点中比较；
+  开区间上的函数不一定有最值，需结合极限行为判断。
+prerequisites:
+  - derivative-extrema
+follow_ups:
+  - derivative-applications
+related:
+  - derivative-extrema
+  - function-properties
+  - basic-inequality
+formulas:
+  - "\\text{闭区间 } [a,b] \\text{ 上连续函数必有最大值和最小值}"
+common_mistakes:
+  - mistake: "忘记计算端点处的函数值"
+    correction: "最值可能在端点取得，必须将 f(a) 和 f(b) 纳入比较"
+  - mistake: "认为驻点一定是最值点"
+    correction: "驻点只是候选点之一，需与端点值一起比较后才能确定最值"
+  - mistake: "在开区间上直接断言最值存在"
+    correction: "开区间上的函数不一定有最值，需检验函数在区间端点附近的极限行为"
+applied_in:
+  - textbook: selective-2
+    chapters: [15]

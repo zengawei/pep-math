@@ -1,0 +1,49 @@
+id: derivative-operations
+name: 导数的运算
+category: 微积分
+description: |
+  基本导数公式：
+  (c)' = 0（c 为常数）；
+  (xⁿ)' = nxⁿ⁻¹；
+  (sinx)' = cosx；
+  (cosx)' = -sinx；
+  (eˣ)' = eˣ；
+  (aˣ)' = aˣlna（a>0, a≠1）；
+  (lnx)' = 1/x；
+  (logₐx)' = 1/(xlna)。
+  运算法则：
+  和差法则：[f(x)±g(x)]' = f'(x)±g'(x)；
+  积法则：[f(x)·g(x)]' = f'(x)g(x) + f(x)g'(x)；
+  商法则：[f(x)/g(x)]' = [f'(x)g(x) - f(x)g'(x)] / [g(x)]²；
+  链式法则（复合函数求导）：[f(g(x))]' = f'(g(x))·g'(x)。
+prerequisites:
+  - derivative-concept
+  - trig-function
+  - exponent-logarithm
+follow_ups:
+  - derivative-monotonicity
+related:
+  - trig-function
+  - exponent-logarithm
+  - power-function
+formulas:
+  - "(x^n)' = nx^{n-1}"
+  - "(\\sin x)' = \\cos x"
+  - "(\\cos x)' = -\\sin x"
+  - "(e^x)' = e^x"
+  - "(a^x)' = a^x \\ln a"
+  - "(\\ln x)' = \\frac{1}{x}"
+  - "(\\log_a x)' = \\frac{1}{x \\ln a}"
+  - "[f(x) \\cdot g(x)]' = f'(x)g(x) + f(x)g'(x)"
+  - "\\left[\\frac{f(x)}{g(x)}\\right]' = \\frac{f'(x)g(x) - f(x)g'(x)}{[g(x)]^2}"
+  - "[f(g(x))]' = f'(g(x)) \\cdot g'(x)"
+common_mistakes:
+  - mistake: "(cosx)' 漏掉负号，写成 sinx"
+    correction: "(cosx)' = -sinx，负号不可遗漏"
+  - mistake: "复合函数求导时忘记对内层函数求导"
+    correction: "链式法则 [f(g(x))]' = f'(g(x))·g'(x)，必须乘以内层函数的导数 g'(x)"
+  - mistake: "混淆 (eˣ)' = eˣ 与 (aˣ)' = aˣlna"
+    correction: "只有底数为 e 时导数等于自身；底数为 a 时需乘以 lna"
+applied_in:
+  - textbook: selective-2
+    chapters: [15]

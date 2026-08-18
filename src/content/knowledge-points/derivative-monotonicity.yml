@@ -1,0 +1,35 @@
+id: derivative-monotonicity
+name: 导数与函数的单调性
+category: 微积分
+description: |
+  设函数 f(x) 在区间 (a,b) 上可导：
+  若在 (a,b) 上 f'(x) > 0，则 f(x) 在 (a,b) 上单调递增；
+  若在 (a,b) 上 f'(x) < 0，则 f(x) 在 (a,b) 上单调递减；
+  若在 (a,b) 上 f'(x) = 0 恒成立，则 f(x) 在 (a,b) 上为常数函数。
+  利用导数判断单调性的步骤：
+  ① 确定函数 f(x) 的定义域；
+  ② 求导数 f'(x)；
+  ③ 解不等式 f'(x) > 0（或 f'(x) < 0）；
+  ④ 根据解集写出单调递增（或递减）区间。
+  注意：单调区间必须是定义域的子集，且不能用并集连接不相邻的区间。
+prerequisites:
+  - derivative-operations
+  - function-properties
+follow_ups:
+  - derivative-extrema
+related:
+  - function-properties
+  - quadratic-inequality
+formulas:
+  - "f'(x) > 0 \\Rightarrow f(x) \\text{ 单调递增}"
+  - "f'(x) < 0 \\Rightarrow f(x) \\text{ 单调递减}"
+common_mistakes:
+  - mistake: "不求定义域就直接对 f'(x) 解不等式"
+    correction: "必须先确定 f(x) 的定义域，单调区间是定义域的子区间"
+  - mistake: "对不相邻的单调区间用并集符号 ∪ 连接"
+    correction: "不相邻的单调区间应分别列出，用'和'或逗号分隔，不能用 ∪ 连接"
+  - mistake: "将 f'(x) ≥ 0 等同于单调递增"
+    correction: "严格单调递增要求 f'(x) > 0（f'(x)=0 只在孤立点成立不影响单调性）；f'(x) ≥ 0 只能说明非严格单调不减"
+applied_in:
+  - textbook: selective-2
+    chapters: [15]
