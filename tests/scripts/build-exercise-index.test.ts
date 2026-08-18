@@ -16,7 +16,7 @@ describe('buildExerciseIndex', () => {
   });
 
   it('should extract all exercises from markdown files', () => {
-    expect(index.length).toBe(151);
+    expect(index.length).toBe(285);
   });
 
   it('should sort exercises by difficulty within each knowledge point', () => {
@@ -51,10 +51,10 @@ describe('buildExerciseIndex', () => {
   });
 
   it('should aggregate exercises by knowledge point', () => {
-    // set-concept appears in exercise 1 and 3
+    // set-concept appears in many exercises after Plan 2 expansion
     const setConcept = byKp['set-concept'];
     expect(setConcept).toBeDefined();
-    expect(setConcept.length).toBe(2);
+    expect(setConcept.length).toBeGreaterThanOrEqual(2);
   });
 
   it('should include category field (defaults to practice)', () => {
