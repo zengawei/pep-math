@@ -18,6 +18,7 @@ follow_ups:
   - coordinate-method
 related:
   - trig-function
+  - derivative-concept
 formulas:
   - "k = \\tan\\alpha \\quad (\\alpha \\neq 90°)"
   - "k = \\frac{y_2 - y_1}{x_2 - x_1} \\quad (x_1 \\neq x_2)"
