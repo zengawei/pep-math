@@ -1,0 +1,31 @@
+id: probability-addition-multiplication
+name: 概率的加法与乘法公式
+category: 概率
+description: |
+  概率的加法公式（容斥原理）：对任意两个事件 A、B，
+  P(A∪B) = P(A) + P(B) - P(AB)。
+  特别地，当 A、B 互斥时 P(AB) = 0，则 P(A∪B) = P(A) + P(B)。
+  对三个事件：P(A∪B∪C) = P(A) + P(B) + P(C) - P(AB) - P(AC) - P(BC) + P(ABC)。
+  概率的乘法公式：由条件概率定义可得 P(AB) = P(A) · P(B|A) = P(B) · P(A|B)。
+  若事件 A、B 相互独立，则 P(AB) = P(A) · P(B)。
+  事件 A、B 独立的等价条件：P(B|A) = P(B)（即 A 的发生不影响 B 的概率）。
+  互斥与独立的区别：互斥指 A、B 不能同时发生（P(AB)=0），独立指 A 的发生不影响 B 的概率。
+  两个概率都大于 0 的互斥事件一定不独立。
+prerequisites:
+  - conditional-probability
+  - random-event-probability
+follow_ups:
+  - bernoulli-trials
+  - binomial-distribution
+related:
+  - conditional-probability
+formulas:
+  - "P(A \\cup B) = P(A) + P(B) - P(AB)"
+  - "P(AB) = P(A) \\cdot P(B|A) = P(B) \\cdot P(A|B)"
+  - "A, B \\text{ 独立} \\Rightarrow P(AB) = P(A) \\cdot P(B)"
+common_mistakes:
+  - mistake: "混淆独立事件与互斥事件"
+    correction: "互斥是 P(AB) = 0（不能同时发生）；独立是 P(AB) = P(A)P(B)（互不影响）。两者概念完全不同，P(A)>0 且 P(B)>0 的互斥事件一定不独立"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]

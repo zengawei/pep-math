@@ -1,0 +1,33 @@
+id: expected-value-variance
+name: 离散型随机变量的均值与方差
+category: 概率
+description: |
+  设离散型随机变量 X 的分布列为 P(X = xᵢ) = pᵢ，
+  则 X 的数学期望（均值）定义为 E(X) = Σ xᵢ pᵢ，
+  反映了随机变量取值的平均水平。
+  X 的方差定义为 D(X) = Σ (xᵢ - E(X))² pᵢ，
+  反映了随机变量取值相对于均值的离散程度（波动大小）。
+  方差的算术平方根 √D(X) 称为标准差。
+  期望的线性性质：E(aX + b) = aE(X) + b。
+  方差的性质：D(aX + b) = a²D(X)。
+  方差的快捷计算公式：D(X) = E(X²) - [E(X)]²。
+prerequisites:
+  - distribution-table
+follow_ups:
+  - binomial-distribution
+  - normal-distribution
+related:
+  - distribution-table
+formulas:
+  - "E(X) = \\sum_{i} x_i p_i"
+  - "D(X) = \\sum_{i} (x_i - E(X))^2 p_i"
+  - "E(aX + b) = aE(X) + b"
+  - "D(aX + b) = a^2 D(X)"
+common_mistakes:
+  - mistake: "不使用快捷公式 D(X) = E(X²) - [E(X)]²，直接展开计算"
+    correction: "当分布列较复杂时，先求 E(X) 和 E(X²)，再用 D(X) = E(X²) - [E(X)]² 更简便，可减少计算量"
+  - mistake: "认为 D(aX + b) = a²D(X) + b²"
+    correction: "方差衡量的是离散程度，常数 b 不影响离散程度，因此 D(aX + b) = a²D(X)，不含 b²"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]

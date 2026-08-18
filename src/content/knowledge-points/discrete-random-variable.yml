@@ -1,0 +1,34 @@
+id: discrete-random-variable
+name: 离散型随机变量及其分布列
+category: 概率
+description: |
+  随着试验结果不同而取不同值的变量称为随机变量。如果随机变量的所有可能取值可以一一列举出来，
+  则称该随机变量为离散型随机变量。
+  设离散型随机变量 X 的所有可能取值为 x₁, x₂, …, xₙ, …，
+  X 取每个值的概率为 P(X = xᵢ) = pᵢ（i = 1, 2, …），
+  称为 X 的概率分布列（简称分布列）。
+  分布列通常用表格形式表示，也可用等式 P(X = xᵢ) = pᵢ 表示。
+  分布列的两个基本性质：(1) pᵢ ≥ 0（非负性）；(2) Σ pᵢ = 1（归一性）。
+  利用这两个性质可以求分布列中的未知参数。
+prerequisites:
+  - total-probability
+  - random-event-probability
+follow_ups:
+  - distribution-table
+  - expected-value-variance
+  - binomial-distribution
+  - hypergeometric-distribution
+related:
+  - random-event-probability
+formulas:
+  - "P(X = x_i) = p_i, \\quad i = 1, 2, \\ldots"
+  - "\\sum_{i} p_i = 1"
+  - "p_i \\geq 0"
+common_mistakes:
+  - mistake: "分布列中各概率之和不等于 1"
+    correction: "分布列必须满足归一性 Σpᵢ = 1，这是检验分布列正确性的必要条件，也可用于求未知参数"
+  - mistake: "遗漏随机变量的某些可能取值"
+    correction: "求分布列时要系统、完整地列出 X 的所有可能取值，不重不漏，可借助列举法或分类讨论"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]

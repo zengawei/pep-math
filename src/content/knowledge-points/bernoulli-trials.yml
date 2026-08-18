@@ -1,0 +1,30 @@
+id: bernoulli-trials
+name: n次独立重复试验
+category: 概率
+description: |
+  在相同条件下重复进行 n 次试验，每次试验只有两个结果（成功与失败），
+  且各次试验相互独立，每次成功的概率均为 p（0 < p < 1），
+  这样的试验称为 n 次独立重复试验（又称 n 次伯努利试验）。
+  在 n 次独立重复试验中，设 X 为成功的次数，则 X 服从二项分布 B(n, p)，
+  P(X = k) = C(n, k) pᵏ (1-p)ⁿ⁻ᵏ，k = 0, 1, 2, …, n。
+  "至少 k 次成功"的概率通常用对立事件计算：
+  P(X ≥ k) = 1 - P(X < k) = 1 - Σᵢ₌₀ᵏ⁻¹ C(n, i) pⁱ (1-p)ⁿ⁻ⁱ。
+  判断是否为独立重复试验的关键：各次试验是否独立、每次成功概率是否相同。
+prerequisites:
+  - probability-addition-multiplication
+  - combination
+follow_ups:
+  - binomial-distribution
+related:
+  - probability-addition-multiplication
+  - binomial-distribution
+formulas:
+  - "P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}, \\quad k = 0, 1, \\ldots, n"
+common_mistakes:
+  - mistake: "对非独立试验使用独立重复试验公式"
+    correction: "必须确认各次试验相互独立且每次成功概率相同；不放回抽样一般不满足独立性，需用超几何分布"
+  - mistake: "求'至少 k 次'时直接逐项相加"
+    correction: "'至少 k 次'应利用对立事件 P(X ≥ k) = 1 - P(X ≤ k-1)，可大幅减少计算量"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]

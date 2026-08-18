@@ -1,0 +1,30 @@
+id: distribution-table
+name: 分布列的性质与应用
+category: 概率
+description: |
+  离散型随机变量 X 的分布列用表格形式列出 X 的所有可能取值 x₁, x₂, …, xₙ
+  及对应的概率 p₁, p₂, …, pₙ。
+  分布列的两个基本性质：
+  (1) 非负性：每个概率 pᵢ ≥ 0；
+  (2) 归一性：所有概率之和 Σpᵢ = 1。
+  利用归一性可以求分布列中的未知参数（设方程 Σpᵢ = 1 求解）。
+  利用分布列求区间概率：P(a ≤ X ≤ b) = Σ_{xᵢ ∈ [a,b]} pᵢ。
+  注意区分严格不等号与非严格不等号：P(a < X < b) 不包含端点值，P(a ≤ X ≤ b) 包含端点值。
+  分布列是求期望、方差的基础，也是高考概率大题的核心工具。
+prerequisites:
+  - discrete-random-variable
+follow_ups:
+  - expected-value-variance
+related:
+  - discrete-random-variable
+formulas:
+  - "\\sum_{i=1}^{n} p_i = 1"
+  - "P(a \\leq X \\leq b) = \\sum_{x_i \\in [a,b]} p_i"
+common_mistakes:
+  - mistake: "混淆严格不等号与非严格不等号对应的概率"
+    correction: "P(a < X < b) 不包含 a、b 两端的值；P(a ≤ X ≤ b) 包含端点值。求概率时要根据题意仔细判断"
+  - mistake: "利用归一性求参数时遗漏某些取值"
+    correction: "使用 Σpᵢ = 1 求未知参数时，必须确保分布列中已列出 X 的所有可能取值，否则方程不正确"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]

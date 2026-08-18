@@ -1,0 +1,35 @@
+id: binomial-distribution
+name: 二项分布
+category: 概率
+description: |
+  在 n 次独立重复试验中，每次试验只有两个结果（成功与失败），
+  成功的概率为 p（0 < p < 1），失败的概率为 1 - p。
+  设 X 表示 n 次试验中成功的次数，则 X 服从二项分布，记作 X ~ B(n, p)。
+  其概率分布为 P(X = k) = C(n, k) pᵏ (1-p)ⁿ⁻ᵏ，k = 0, 1, 2, …, n。
+  二项分布的期望 E(X) = np，方差 D(X) = np(1-p)。
+  二项分布是离散型随机变量中最重要的分布之一，
+  当 n = 1 时退化为两点分布（0-1 分布）。
+prerequisites:
+  - bernoulli-trials
+  - combination
+  - discrete-random-variable
+follow_ups:
+  - normal-distribution
+related:
+  - bernoulli-trials
+  - combination
+formulas:
+  - "P(X = k) = \\binom{n}{k} p^k (1-p)^{n-k}, \\quad k = 0, 1, \\ldots, n"
+  - "X \\sim B(n, p)"
+  - "E(X) = np"
+  - "D(X) = np(1-p)"
+common_mistakes:
+  - mistake: "在不满足独立条件时使用二项分布"
+    correction: "二项分布要求各次试验相互独立且每次成功概率相同；若不独立（如不放回抽样），应考虑超几何分布等"
+  - mistake: "pᵏ 与 (1-p)ⁿ⁻ᵏ 的指数写反"
+    correction: "p 是成功概率，k 是成功次数，因此 p 的指数为 k；(1-p) 是失败概率，指数为 n-k"
+  - mistake: "忘记乘以组合数 C(n, k)"
+    correction: "C(n, k) 表示从 n 次中选 k 次成功的方式数，不可省略，否则只是单次特定顺序的概率"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]

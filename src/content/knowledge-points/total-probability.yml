@@ -1,0 +1,28 @@
+id: total-probability
+name: 全概率公式
+category: 概率
+description: |
+  设样本空间 Ω 的一个划分（完备事件组）为 B₁, B₂, …, Bₙ，即 Bᵢ 两两互斥且 B₁∪B₂∪…∪Bₙ = Ω，
+  且 P(Bᵢ) > 0（i = 1, 2, …, n），则对任意事件 A，有全概率公式：
+  P(A) = Σᵢ P(Bᵢ) · P(A|Bᵢ)。
+  全概率公式的思想是将复杂事件的概率分解为若干互斥情形下条件概率的加权和。
+  贝叶斯公式（逆概率公式）：P(Bⱼ|A) = P(Bⱼ) · P(A|Bⱼ) / Σᵢ P(Bᵢ) · P(A|Bᵢ)，
+  用于在已知结果 A 发生的条件下，推断是由哪个原因 Bⱼ 引起的。
+  全概率公式是"由因推果"，贝叶斯公式是"由果推因"。
+prerequisites:
+  - conditional-probability
+follow_ups:
+  - discrete-random-variable
+related:
+  - conditional-probability
+formulas:
+  - "P(A) = \\sum_{i=1}^{n} P(B_i) \\cdot P(A|B_i)"
+  - "P(B_j|A) = \\frac{P(B_j) \\cdot P(A|B_j)}{\\sum_{i=1}^{n} P(B_i) \\cdot P(A|B_i)}"
+common_mistakes:
+  - mistake: "Bᵢ 未构成样本空间的划分"
+    correction: "使用全概率公式前必须验证 Bᵢ 两两互斥且之并为 Ω（或至少包含 A），否则公式不成立"
+  - mistake: "混淆全概率公式与贝叶斯公式的使用场景"
+    correction: "全概率公式用于已知各原因的概率求结果的概率（由因推果）；贝叶斯公式用于已知结果反推原因的概率（由果推因）"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]

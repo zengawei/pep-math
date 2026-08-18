@@ -1,0 +1,37 @@
+id: normal-distribution
+name: 正态分布
+category: 概率
+description: |
+  若连续型随机变量 X 的概率密度函数为
+  f(x) = (1/(σ√(2π))) · e^(-(x-μ)²/(2σ²))，x ∈ ℝ，
+  则称 X 服从正态分布，记作 X ~ N(μ, σ²)，
+  其中 μ 为均值（决定密度曲线的对称轴位置），σ² 为方差（决定曲线的宽窄）。
+  正态密度曲线关于 x = μ 对称，在 x = μ 处取最大值 1/(σ√(2π))，
+  曲线始终位于 x 轴上方且与 x 轴不相交（以 x 轴为渐近线）。
+  3σ 原则（经验法则）：
+  P(μ - σ < X ≤ μ + σ) ≈ 0.6827，
+  P(μ - 2σ < X ≤ μ + 2σ) ≈ 0.9545，
+  P(μ - 3σ < X ≤ μ + 3σ) ≈ 0.9973。
+  标准正态分布：μ = 0, σ = 1 时的正态分布，记作 N(0, 1)。
+prerequisites:
+  - expected-value-variance
+  - discrete-random-variable
+follow_ups: []
+related:
+  - expected-value-variance
+formulas:
+  - "f(x) = \\frac{1}{\\sigma\\sqrt{2\\pi}} e^{-\\frac{(x-\\mu)^2}{2\\sigma^2}}"
+  - "X \\sim N(\\mu, \\sigma^2)"
+  - "P(\\mu - \\sigma < X \\leq \\mu + \\sigma) \\approx 0.6827"
+  - "P(\\mu - 2\\sigma < X \\leq \\mu + 2\\sigma) \\approx 0.9545"
+  - "P(\\mu - 3\\sigma < X \\leq \\mu + 3\\sigma) \\approx 0.9973"
+common_mistakes:
+  - mistake: "混淆 N(μ, σ²) 中的 σ 与 σ²"
+    correction: "正态分布记号 N(μ, σ²) 中第二个参数是方差 σ² 而非标准差 σ，读题时要注意区分"
+  - mistake: "认为正态密度曲线与 x 轴有交点"
+    correction: "正态密度曲线始终在 x 轴上方，以 x 轴为水平渐近线，永远不会与 x 轴相交"
+  - mistake: "混淆 3σ 原则中各概率值"
+    correction: "1σ 对应约 68.27%，2σ 对应约 95.45%，3σ 对应约 99.73%，可通过记忆 68-95-99.7 口诀辅助"
+applied_in:
+  - textbook: selective-3
+    chapters: [17]
