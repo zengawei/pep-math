@@ -1,0 +1,24 @@
+id: vector-scalar-multiplication
+name: 向量的数乘运算
+category: 向量
+description: |
+  实数 λ 与向量 a 的积是一个向量，记作 λa。
+  |λa| = |λ| · |a|。
+  当 λ > 0 时，λa 与 a 同向；当 λ < 0 时，λa 与 a 反向；当 λ = 0 时，λa = 0。
+  数乘运算满足：λ(μa) = (λμ)a，(λ+μ)a = λa + μa，λ(a+b) = λa + λb。
+prerequisites:
+  - vector-concept
+  - vector-addition-subtraction
+follow_ups:
+  - vector-coordinate
+related: []
+formulas:
+  - "|\\lambda \\vec{a}| = |\\lambda| \\cdot |\\vec{a}|"
+  - "\\lambda(\\mu \\vec{a}) = (\\lambda\\mu)\\vec{a}"
+  - "\\lambda(\\vec{a} + \\vec{b}) = \\lambda\\vec{a} + \\lambda\\vec{b}"
+common_mistakes:
+  - mistake: "认为 |λa| = λ|a|"
+    correction: "|λa| = |λ|·|a|，λ 为负数时需取绝对值"
+applied_in:
+  - textbook: required-2
+    chapters: [6]

@@ -1,0 +1,25 @@
+id: vector-addition-subtraction
+name: 向量的加法与减法
+category: 向量
+description: |
+  向量加法遵循三角形法则和平行四边形法则。
+  三角形法则：将第二个向量的起点移到第一个向量的终点，和向量从第一个向量的起点指向第二个向量的终点。
+  平行四边形法则：以两个向量为邻边作平行四边形，对角线即为和向量。
+  向量减法：a - b = a + (-b)，即加上 b 的相反向量。
+  向量加法满足交换律和结合律。
+prerequisites:
+  - vector-concept
+follow_ups:
+  - vector-scalar-multiplication
+  - vector-coordinate
+related: []
+formulas:
+  - "\\vec{a} + \\vec{b} = \\vec{b} + \\vec{a}"
+  - "(\\vec{a} + \\vec{b}) + \\vec{c} = \\vec{a} + (\\vec{b} + \\vec{c})"
+  - "\\vec{a} - \\vec{b} = \\vec{a} + (-\\vec{b})"
+common_mistakes:
+  - mistake: "向量减法时方向搞错"
+    correction: "a - b = a + (-b)，先画出 -b（与 b 方向相反），再用三角形法则"
+applied_in:
+  - textbook: required-2
+    chapters: [6]

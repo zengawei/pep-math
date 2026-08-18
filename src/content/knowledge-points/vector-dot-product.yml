@@ -1,0 +1,29 @@
+id: vector-dot-product
+name: 向量的数量积
+category: 向量
+description: |
+  两个向量 a 与 b 的数量积（内积、点积）：
+  a·b = |a||b|cosθ，其中 θ 为 a 与 b 的夹角（0° ≤ θ ≤ 180°）。
+  坐标形式：若 a = (x₁, y₁)，b = (x₂, y₂)，则 a·b = x₁x₂ + y₁y₂。
+  性质：a·a = |a|²；a⊥b ⟺ a·b = 0（a, b 非零）。
+  应用：求夹角、判断垂直、求投影。
+prerequisites:
+  - vector-coordinate
+  - trig-function
+follow_ups: []
+related:
+  - trig-function
+  - trig-identity
+formulas:
+  - "\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta"
+  - "\\vec{a} \\cdot \\vec{b} = x_1 x_2 + y_1 y_2"
+  - "\\vec{a} \\perp \\vec{b} \\Leftrightarrow \\vec{a} \\cdot \\vec{b} = 0"
+  - "\\cos\\theta = \\frac{\\vec{a} \\cdot \\vec{b}}{|\\vec{a}||\\vec{b}|}"
+common_mistakes:
+  - mistake: "混淆数量积与向量运算，认为 a·b 的结果是向量"
+    correction: "数量积 a·b 的结果是标量（实数），不是向量"
+  - mistake: "认为 a·b = 0 则 a = 0 或 b = 0"
+    correction: "a·b = 0 也可能是 a⊥b（垂直），不一定有零向量"
+applied_in:
+  - textbook: required-2
+    chapters: [6]

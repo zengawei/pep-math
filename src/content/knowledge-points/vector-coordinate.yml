@@ -1,0 +1,26 @@
+id: vector-coordinate
+name: 平面向量的基本定理及坐标表示
+category: 向量
+description: |
+  平面向量基本定理：如果 e₁, e₂ 是同一平面内的两个不共线向量，
+  那么对该平面内的任一向量 a，存在唯一实数对 (λ₁, λ₂)，使 a = λ₁e₁ + λ₂e₂。
+  基底：不共线的向量 e₁, e₂ 叫做表示这一平面内所有向量的一组基底。
+  坐标表示：取与 x 轴、y 轴方向相同的单位向量 i, j 为基底，
+  则 a = xi + yj，记作 a = (x, y)。
+prerequisites:
+  - vector-scalar-multiplication
+  - vector-addition-subtraction
+follow_ups:
+  - vector-dot-product
+related:
+  - function-concept
+formulas:
+  - "\\vec{a} = \\lambda_1 \\vec{e_1} + \\lambda_2 \\vec{e_2}"
+  - "\\vec{a} = (x, y)"
+  - "|\\vec{a}| = \\sqrt{x^2 + y^2}"
+common_mistakes:
+  - mistake: "混淆向量的坐标与点的坐标"
+    correction: "向量坐标表示方向和大小，点坐标表示位置；起点不在原点时，向量坐标 = 终点坐标 - 起点坐标"
+applied_in:
+  - textbook: required-2
+    chapters: [6]

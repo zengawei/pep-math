@@ -12,10 +12,12 @@ prerequisites:
 follow_ups:
   - trig-identity
   - trig-graph
+  - vector-dot-product
 related:
   - function-properties
   - trig-identity
   - trig-graph
+  - vector-dot-product
 formulas:
   - "\\sin \\alpha = y, \\quad \\cos \\alpha = x, \\quad \\tan \\alpha = \\frac{y}{x}"
   - "\\sin^2 \\alpha + \\cos^2 \\alpha = 1"

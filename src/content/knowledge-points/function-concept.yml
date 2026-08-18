@@ -18,6 +18,8 @@ follow_ups:
 related:
   - quadratic-function
   - function-properties
+  - vector-concept
+  - vector-coordinate
 formulas:
   - "y = f(x), \\quad x \\in A"
 common_mistakes:
