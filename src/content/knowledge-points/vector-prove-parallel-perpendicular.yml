@@ -1,0 +1,40 @@
+id: vector-prove-parallel-perpendicular
+name: 用向量证明平行与垂直
+category: 空间向量
+description: |
+  利用空间向量的坐标运算可以证明立体几何中的平行和垂直关系。
+
+  线线平行：两直线的方向向量平行（成比例）。
+  线面平行：直线的方向向量与平面的法向量垂直。
+  面面平行：两平面的法向量平行（成比例）。
+
+  线线垂直：两直线的方向向量的数量积为零。
+  线面垂直：直线的方向向量与平面的法向量平行（成比例）。
+  面面垂直：两平面的法向量的数量积为零。
+
+  法向量求法：设平面法向量 n=(x,y,z)，利用平面内两个不共线向量 a, b，
+  由 n·a=0 和 n·b=0 列方程组求解。
+prerequisites:
+  - space-vector-coordinate
+  - parallel-judgment
+  - perpendicular-judgment
+follow_ups:
+  - vector-calculate-angle
+related:
+  - parallel-judgment
+  - perpendicular-judgment
+formulas:
+  - "\\text{线线平行}: \\vec{a} \\parallel \\vec{b} \\Leftrightarrow \\vec{a} = \\lambda \\vec{b}"
+  - "\\text{线面平行}: \\vec{l} \\cdot \\vec{n} = 0"
+  - "\\text{面面平行}: \\vec{n_1} \\parallel \\vec{n_2}"
+  - "\\text{线线垂直}: \\vec{a} \\cdot \\vec{b} = 0"
+  - "\\text{线面垂直}: \\vec{l} \\parallel \\vec{n}"
+  - "\\text{面面垂直}: \\vec{n_1} \\cdot \\vec{n_2} = 0"
+common_mistakes:
+  - mistake: "求法向量时只列一个方程"
+    correction: "法向量需满足与平面内两个不共线向量都垂直，需要列两个方程 n·a=0, n·b=0，再令一个分量为特定值求解"
+  - mistake: "混淆线面平行和线在面内"
+    correction: "线面平行要求直线的方向向量与法向量垂直，且直线不在平面内。需要额外验证直线上的点不在平面上"
+applied_in:
+  - textbook: selective-1
+    chapters: [11]

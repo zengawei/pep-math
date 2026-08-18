@@ -1,0 +1,38 @@
+id: vector-calculate-angle
+name: 用向量求空间角
+category: 空间向量
+description: |
+  利用空间向量的坐标运算可以求解各类空间角。
+
+  异面直线所成的角：设两直线方向向量为 a, b，
+  cosθ = |a·b|/(|a||b|)，θ ∈ (0°, 90°]（取绝对值保证锐角或直角）。
+
+  直线与平面所成的角：设直线方向向量为 a，平面法向量为 n，
+  sinθ = |a·n|/(|a||n|)，θ ∈ [0°, 90°]。
+  注意：这里求的是 sin 而非 cos。
+
+  二面角：设两个半平面的法向量为 n₁, n₂，
+  cosθ = ±(n₁·n₂)/(|n₁||n₂|)。
+  正负号取决于二面角是锐角还是钝角，需结合几何意义判断。
+prerequisites:
+  - space-vector-coordinate
+  - vector-prove-parallel-perpendicular
+  - spatial-angle
+  - trig-function
+follow_ups: []
+related:
+  - spatial-angle
+  - trig-function
+  - vector-dot-product
+formulas:
+  - "\\text{异面直线}: \\cos\\theta = \\frac{|\\vec{a} \\cdot \\vec{b}|}{|\\vec{a}||\\vec{b}|}"
+  - "\\text{线面角}: \\sin\\theta = \\frac{|\\vec{a} \\cdot \\vec{n}|}{|\\vec{a}||\\vec{n}|}"
+  - "\\text{二面角}: \\cos\\theta = \\pm\\frac{\\vec{n_1} \\cdot \\vec{n_2}}{|\\vec{n_1}||\\vec{n_2}|}"
+common_mistakes:
+  - mistake: "求线面角时用 cos 而不是 sin"
+    correction: "线面角 θ 与方向向量和法向量夹角 α 互余（θ + α = 90°），所以 sinθ = |cosα| = |a·n|/(|a||n|)"
+  - mistake: "二面角中不判断正负号"
+    correction: "两个法向量的夹角可能等于二面角或其补角。需要观察法向量的方向（指向二面角内部还是外部）来确定正负"
+applied_in:
+  - textbook: selective-1
+    chapters: [11]

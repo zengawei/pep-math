@@ -12,6 +12,7 @@ prerequisites:
   - vector-addition-subtraction
 follow_ups:
   - vector-dot-product
+  - space-vector-fundamental-theorem
 related:
   - function-concept
 formulas:

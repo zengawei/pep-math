@@ -1,0 +1,26 @@
+id: space-vector-fundamental-theorem
+name: 空间向量基本定理
+category: 空间向量
+description: |
+  空间向量基本定理：如果三个向量 a, b, c 不共面，那么对空间任一向量 p，
+  存在唯一的有序实数组 (x, y, z)，使得 p = xa + yb + zc。
+  基底：不共面的三个向量 a, b, c 叫做空间向量的一组基底。
+  空间直角坐标系中，基底为单位正交基底 {i, j, k}。
+  与平面向量基本定理的区别：平面需要 2 个不共线向量作基底，空间需要 3 个不共面向量作基底。
+prerequisites:
+  - space-vector-operations
+  - vector-coordinate
+follow_ups:
+  - space-vector-coordinate
+related:
+  - vector-coordinate
+formulas:
+  - "\\vec{p} = x\\vec{a} + y\\vec{b} + z\\vec{c}"
+common_mistakes:
+  - mistake: "用共面的三个向量作基底"
+    correction: "基底要求三个向量不共面。如果三个向量共面，则无法表示空间中所有向量"
+  - mistake: "认为空间中任意三个向量都可以作基底"
+    correction: "三个向量必须不共面才能作基底。例如 (1,0,0), (2,0,0), (0,1,0) 共面（前两个共线），不能作基底"
+applied_in:
+  - textbook: selective-1
+    chapters: [11]

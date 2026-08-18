@@ -10,7 +10,8 @@ description: |
 prerequisites:
   - vector-coordinate
   - trig-function
-follow_ups: []
+follow_ups:
+  - space-vector-operations
 related:
   - trig-function
   - trig-identity

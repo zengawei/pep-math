@@ -1,0 +1,32 @@
+id: space-vector-concept
+name: 空间向量的概念
+category: 空间向量
+description: |
+  空间中既有大小又有方向的量叫做空间向量。
+  空间向量是平面向量向三维空间的推广。
+  空间向量的大小叫做向量的模，记作 |a| 或 |AB→|。
+  零向量：模为 0 的向量。
+  单位向量：模为 1 的向量。
+  相等向量：模相等且方向相同的向量。
+  相反向量：模相等但方向相反的向量。
+  共线向量（平行向量）：方向相同或相反的向量，记作 a∥b。
+  共面向量：能平移到同一平面内的向量。空间中任意两个向量共面。
+prerequisites:
+  - vector-concept
+follow_ups:
+  - space-vector-operations
+  - space-vector-coordinate
+related:
+  - vector-concept
+  - solid-geometry-basics
+formulas:
+  - "|\\vec{a}| \\geq 0"
+  - "\\vec{a} \\parallel \\vec{b} \\Leftrightarrow \\exists \\lambda, \\vec{a} = \\lambda \\vec{b}"
+common_mistakes:
+  - mistake: "认为空间中任意三个向量一定共面"
+    correction: "空间中任意两个向量一定共面，但三个向量不一定共面。三个向量共面当且仅当其中一个可以用另外两个线性表示"
+  - mistake: "混淆空间向量与平面向量的概念范围"
+    correction: "平面向量是空间向量的特殊情况（z 分量为 0），空间向量是平面向量向三维的推广"
+applied_in:
+  - textbook: selective-1
+    chapters: [11]

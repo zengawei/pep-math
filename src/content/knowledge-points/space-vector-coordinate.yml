@@ -1,0 +1,35 @@
+id: space-vector-coordinate
+name: 空间向量的坐标运算
+category: 空间向量
+description: |
+  建立空间直角坐标系 Oxyz，取与三条坐标轴方向相同的单位向量 i, j, k 为基底。
+  任意向量 a 可表示为 a = xi + yj + zk = (x, y, z)。
+  坐标运算：
+  a ± b = (x₁±x₂, y₁±y₂, z₁±z₂)
+  λa = (λx, λy, λz)
+  a·b = x₁x₂ + y₁y₂ + z₁z₂
+  |a| = √(x² + y² + z²)
+  cosθ = (a·b)/(|a||b|) = (x₁x₂+y₁y₂+z₁z₂)/(√(x₁²+y₁²+z₁²)·√(x₂²+y₂²+z₂²))
+  a⊥b ⟺ x₁x₂ + y₁y₂ + z₁z₂ = 0
+  a∥b ⟺ x₁/x₂ = y₁/y₂ = z₁/z₂（分母非零时）
+prerequisites:
+  - space-vector-operations
+  - space-vector-fundamental-theorem
+follow_ups:
+  - vector-prove-parallel-perpendicular
+  - vector-calculate-angle
+related:
+  - vector-coordinate
+formulas:
+  - "\\vec{a} = (x, y, z)"
+  - "\\vec{a} \\cdot \\vec{b} = x_1 x_2 + y_1 y_2 + z_1 z_2"
+  - "|\\vec{a}| = \\sqrt{x^2 + y^2 + z^2}"
+  - "\\cos\\theta = \\frac{x_1 x_2 + y_1 y_2 + z_1 z_2}{|\\vec{a}||\\vec{b}|}"
+common_mistakes:
+  - mistake: "空间向量坐标运算中遗漏 z 分量"
+    correction: "空间向量有三个分量 (x, y, z)，不要遗漏 z 方向的运算"
+  - mistake: "判断平行时用 x₁/x₂ = y₁/y₂ = z₁/z₂ 但忽略分母为零的情况"
+    correction: "应使用交叉相乘形式 x₁y₂ = x₂y₁ 等，或分别讨论分母为零的情况"
+applied_in:
+  - textbook: selective-1
+    chapters: [11]

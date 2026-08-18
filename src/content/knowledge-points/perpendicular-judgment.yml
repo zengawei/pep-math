@@ -11,6 +11,7 @@ prerequisites:
   - parallel-judgment
 follow_ups:
   - spatial-angle
+  - vector-prove-parallel-perpendicular
 related:
   - vector-dot-product
 formulas: []

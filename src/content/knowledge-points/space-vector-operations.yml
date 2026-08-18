@@ -1,0 +1,29 @@
+id: space-vector-operations
+name: 空间向量的运算
+category: 空间向量
+description: |
+  空间向量的加法、减法和数乘运算与平面向量完全类似，满足交换律和结合律。
+  空间向量的数量积：a·b = |a||b|cosθ，其中 θ 为两向量的夹角（0° ≤ θ ≤ 180°）。
+  数量积的性质：a·a = |a|²；a⊥b ⟺ a·b = 0（a, b 非零）。
+  数量积满足交换律：a·b = b·a，但不满足结合律。
+  向量投影：向量 a 在向量 b 方向上的投影为 |a|cosθ = (a·b)/|b|。
+prerequisites:
+  - space-vector-concept
+  - vector-dot-product
+follow_ups:
+  - space-vector-coordinate
+  - space-vector-fundamental-theorem
+related:
+  - vector-dot-product
+  - vector-addition-subtraction
+  - vector-scalar-multiplication
+formulas:
+  - "\\vec{a} \\cdot \\vec{b} = |\\vec{a}||\\vec{b}|\\cos\\theta"
+  - "\\vec{a} \\cdot \\vec{a} = |\\vec{a}|^2"
+  - "\\vec{a} \\perp \\vec{b} \\Leftrightarrow \\vec{a} \\cdot \\vec{b} = 0"
+common_mistakes:
+  - mistake: "认为数量积满足结合律 (a·b)·c = a·(b·c)"
+    correction: "数量积不满足结合律。a·b 是标量，(a·b)·c 是标量乘向量；而 b·c 也是标量，a·(b·c) 意义不同"
+applied_in:
+  - textbook: selective-1
+    chapters: [11]

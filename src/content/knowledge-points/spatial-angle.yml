@@ -11,7 +11,8 @@ prerequisites:
   - parallel-judgment
   - perpendicular-judgment
   - trig-function
-follow_ups: []
+follow_ups:
+  - vector-calculate-angle
 related:
   - vector-dot-product
   - trig-function

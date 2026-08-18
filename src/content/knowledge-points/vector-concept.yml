@@ -13,6 +13,7 @@ prerequisites: []
 follow_ups:
   - vector-addition-subtraction
   - vector-scalar-multiplication
+  - space-vector-concept
 related:
   - function-concept
 formulas:
