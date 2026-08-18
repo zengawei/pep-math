@@ -15,7 +15,7 @@
     "test:watch": "vitest",
     "prebuild": "npm run build:scripts",
     "build:section-data": "npx tsx scripts/build-section-data.ts",
-    "build:scripts": "npx tsx scripts/build-knowledge-graph.ts && npx tsx scripts/build-exercise-index.ts && npx tsx scripts/build-exercise-data.ts && npx tsx scripts/build-related-exercises.ts && npx tsx scripts/build-section-data.ts",
+    "build:scripts": "npx tsx scripts/build-knowledge-graph.ts && npx tsx scripts/build-exercise-index.ts && npx tsx scripts/build-exercise-data.ts && npx tsx scripts/build-example-data.ts && npx tsx scripts/build-related-exercises.ts && npx tsx scripts/build-section-data.ts",
     "validate": "npx tsx scripts/validate-content.ts && npx tsx scripts/validate-knowledge-graph.ts",
     "report": "npx tsx scripts/generate-quality-report.ts",
     "postbuild": "npx pagefind --site dist --output-subdir pagefind"

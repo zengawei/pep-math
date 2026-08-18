@@ -79,7 +79,7 @@ export function buildSectionData(textbooksDir: string): Record<string, SectionDa
             });
           } else if (data.type === 'example') {
             sectionData.examples.push({
-              id: `${textbook}-ch${chapterNum}-s${sectionNum}-ex${data.number}`,
+              id: `${textbook}-ch${chapterNum}-s${sectionNum}-eg${data.number}`,
               number: data.number,
               knowledge_points: data.knowledge_points,
             });

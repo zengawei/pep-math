@@ -135,13 +135,16 @@ const allChapters = fs.readdirSync(textbookDir)
       {sectionData.examples.length > 0 && (
         <section class="mb-6">
           <h2 class="text-lg font-bold mb-2 border-b pb-1">📚 例题</h2>
-          <ul class="space-y-2">
+          <div id="examples-container">
             {sectionData.examples.map((ex: any) => (
-              <li class="text-sm text-gray-600">
+              <div id={`example-${ex.id}`} class="mb-2 text-sm text-gray-600" style="cursor:pointer">
                 例题 {ex.number}
-              </li>
+              </div>
             ))}
-          </ul>
+          </div>
+          <p class="text-xs text-gray-400 mt-2">
+            💡 点击例题可展开查看详细解答。
+          </p>
         </section>
       )}
     </div>
@@ -252,6 +255,56 @@ const allChapters = fs.readdirSync(textbookDir)
             renderMathIn(detail);
           } catch (e) {
             console.error('Failed to load exercise:', e);
+          }
+        });
+      });
+
+      // Example click-to-expand
+      document.querySelectorAll('[id^="example-"]').forEach((el) => {
+        el.addEventListener('click', async () => {
+          const egId = el.id.replace('example-', '');
+          const existing = el.querySelector('.example-detail');
+          if (existing) {
+            existing.remove();
+            return;
+          }
+          try {
+            const resp = await fetch(`${base}/data/examples/${egId}.json`);
+            const data = await resp.json();
+
+            let html = '';
+            html += `<div class="font-medium mb-3">${escapeHtml(data.question)}</div>`;
+
+            if (data.steps && data.steps.length > 0) {
+              html += '<div class="space-y-3 mb-3">';
+              data.steps.forEach((step, i) => {
+                html += `<div class="border-l-2 border-purple-300 pl-3">`;
+                html += `<div class="font-medium text-purple-700">第${i + 1}步：${escapeHtml(step.title)}</div>`;
+                if (step.knowledge_point) {
+                  html += `<div class="text-xs text-purple-500 mb-1">📌 运用知识点：${escapeHtml(step.knowledge_point)}</div>`;
+                }
+                html += `<div class="text-gray-700">${escapeHtml(step.content)}</div>`;
+                html += `</div>`;
+              });
+              html += '</div>';
+            }
+
+            if (data.warning) {
+              html += `<div class="mt-2 p-2 bg-yellow-50 border border-yellow-200 rounded text-yellow-800">⚠️ 注意：${escapeHtml(data.warning)}</div>`;
+            }
+
+            if (data.summary) {
+              html += `<div class="mt-2 p-2 bg-green-50 border border-green-200 rounded text-green-800">💡 解题思路总结：${escapeHtml(data.summary)}</div>`;
+            }
+
+            const detail = document.createElement('div');
+            detail.className = 'example-detail mt-2 p-3 bg-gray-50 rounded text-sm';
+            detail.innerHTML = html;
+            el.appendChild(detail);
+
+            renderMathIn(detail);
+          } catch (e) {
+            console.error('Failed to load example:', e);
           }
         });
       });
