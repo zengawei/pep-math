@@ -15,6 +15,8 @@ follow_ups:
   - space-vector-fundamental-theorem
 related:
   - function-concept
+  - space-vector-coordinate
+  - space-vector-fundamental-theorem
 formulas:
   - "\\vec{a} = \\lambda_1 \\vec{e_1} + \\lambda_2 \\vec{e_2}"
   - "\\vec{a} = (x, y)"

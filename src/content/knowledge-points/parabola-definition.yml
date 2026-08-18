@@ -20,6 +20,7 @@ follow_ups:
   - parabola-properties
 related:
   - quadratic-function
+  - conic-section-summary
 formulas:
   - "y^2 = 2px \\quad (p > 0)"
   - "\\text{焦点}: \\left(\\frac{p}{2}, 0\\right), \\quad \\text{准线}: x = -\\frac{p}{2}"

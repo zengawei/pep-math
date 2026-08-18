@@ -12,7 +12,8 @@ prerequisites:
 follow_ups:
   - vector-scalar-multiplication
   - vector-coordinate
-related: []
+related:
+  - space-vector-operations
 formulas:
   - "\\vec{a} + \\vec{b} = \\vec{b} + \\vec{a}"
   - "(\\vec{a} + \\vec{b}) + \\vec{c} = \\vec{a} + (\\vec{b} + \\vec{c})"

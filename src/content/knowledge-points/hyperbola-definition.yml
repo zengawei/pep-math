@@ -19,6 +19,7 @@ follow_ups:
   - hyperbola-properties
 related:
   - ellipse-definition
+  - conic-section-summary
 formulas:
   - "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1"
   - "c^2 = a^2 + b^2"

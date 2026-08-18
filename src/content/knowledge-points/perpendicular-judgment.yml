@@ -14,6 +14,7 @@ follow_ups:
   - vector-prove-parallel-perpendicular
 related:
   - vector-dot-product
+  - vector-prove-parallel-perpendicular
 formulas: []
 common_mistakes:
   - mistake: "线面垂直判定中两条直线不要求'相交'"

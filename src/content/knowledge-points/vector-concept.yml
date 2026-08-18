@@ -16,6 +16,7 @@ follow_ups:
   - space-vector-concept
 related:
   - function-concept
+  - space-vector-concept
 formulas:
   - "|\\vec{a}| \\geq 0"
   - "\\vec{0}: |\\vec{0}| = 0"

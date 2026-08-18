@@ -20,6 +20,8 @@ follow_ups:
   - curve-equation-method
 related:
   - quadratic-equation
+  - conic-section-summary
+  - hyperbola-definition
 formulas:
   - "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1 \\quad (a > b > 0)"
   - "c^2 = a^2 - b^2"

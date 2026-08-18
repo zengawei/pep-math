@@ -16,6 +16,7 @@ follow_ups:
 related:
   - vector-dot-product
   - trig-function
+  - vector-calculate-angle
 formulas: []
 common_mistakes:
   - mistake: "异面直线所成角取钝角"

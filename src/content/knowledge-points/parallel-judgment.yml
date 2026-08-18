@@ -12,7 +12,8 @@ follow_ups:
   - perpendicular-judgment
   - spatial-angle
   - vector-prove-parallel-perpendicular
-related: []
+related:
+  - vector-prove-parallel-perpendicular
 formulas: []
 common_mistakes:
   - mistake: "线面平行判定中忘记强调'平面外'"

@@ -21,6 +21,8 @@ related:
   - function-properties
   - vector-concept
   - vector-coordinate
+  - coordinate-method
+  - curve-equation-method
 formulas:
   - "y = f(x), \\quad x \\in A"
 common_mistakes:

@@ -12,6 +12,7 @@ follow_ups:
   - quadratic-inequality
   - complex-number-concept
   - circle-equation
+  - conic-section-line
 related:
   - quadratic-function
   - inequality-properties
@@ -19,6 +20,9 @@ related:
   - exponent-logarithm
   - complex-number-concept
   - complex-number-operations
+  - ellipse-definition
+  - conic-section-line
+  - circle-equation
 formulas:
   - "x = \\frac{-b \\pm \\sqrt{b^2 - 4ac}}{2a}"
   - "\\Delta = b^2 - 4ac"

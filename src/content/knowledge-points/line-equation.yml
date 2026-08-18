@@ -23,6 +23,8 @@ follow_ups:
   - conic-section-line
 related:
   - basic-inequality
+  - line-circle-position
+  - line-equation-application
 formulas:
   - "y - y_0 = k(x - x_0)"
   - "y = kx + b"

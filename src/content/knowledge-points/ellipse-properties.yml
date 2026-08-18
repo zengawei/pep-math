@@ -18,6 +18,8 @@ follow_ups:
   - conic-section-line
 related:
   - trig-identity
+  - parabola-properties
+  - hyperbola-properties
 formulas:
   - "\\text{长轴} = 2a, \\quad \\text{短轴} = 2b"
   - "e = \\frac{c}{a}, \\quad c^2 = a^2 - b^2"

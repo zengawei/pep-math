@@ -13,7 +13,9 @@ follow_ups:
   - solid-geometry-drawing
   - solid-surface-area-volume
   - spatial-position-relation
-related: []
+  - space-vector-concept
+related:
+  - space-vector-concept
 formulas: []
 common_mistakes:
   - mistake: "混淆棱柱和棱锥的特征"

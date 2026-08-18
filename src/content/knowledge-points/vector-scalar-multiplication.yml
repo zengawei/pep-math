@@ -11,7 +11,8 @@ prerequisites:
   - vector-addition-subtraction
 follow_ups:
   - vector-coordinate
-related: []
+related:
+  - space-vector-operations
 formulas:
   - "|\\lambda \\vec{a}| = |\\lambda| \\cdot |\\vec{a}|"
   - "\\lambda(\\mu \\vec{a}) = (\\lambda\\mu)\\vec{a}"

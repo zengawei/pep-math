@@ -17,6 +17,7 @@ related:
   - trig-function
   - trig-graph
   - vector-dot-product
+  - ellipse-properties
 formulas:
   - "\\sin(\\alpha \\pm \\beta) = \\sin\\alpha\\cos\\beta \\pm \\cos\\alpha\\sin\\beta"
   - "\\cos(\\alpha \\pm \\beta) = \\cos\\alpha\\cos\\beta \\mp \\sin\\alpha\\sin\\beta"

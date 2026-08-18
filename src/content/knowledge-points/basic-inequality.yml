@@ -14,6 +14,9 @@ related:
   - quadratic-inequality
   - quadratic-function
   - function-application
+  - line-equation-application
+  - line-equation
+  - conic-section-optimization
 formulas:
   - "a + b \\geq 2\\sqrt{ab} \\quad (a > 0, b > 0)"
   - "\\frac{a+b}{2} \\geq \\sqrt{ab}"

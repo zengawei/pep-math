@@ -9,11 +9,15 @@ prerequisites: []
 follow_ups:
   - quadratic-inequality
   - quadratic-equation
+  - ellipse-definition
 related:
   - function-concept
   - quadratic-inequality
   - basic-inequality
   - quadratic-equation
+  - parabola-definition
+  - parabola-properties
+  - conic-section-optimization
 formulas:
   - "y = ax^2 + bx + c \\quad (a \\neq 0)"
   - "x_{\\text{顶点}} = -\\frac{b}{2a}"

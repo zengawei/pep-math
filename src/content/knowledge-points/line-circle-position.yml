@@ -23,6 +23,7 @@ follow_ups:
 related:
   - line-equation
   - circle-equation
+  - conic-section-line
 formulas:
   - "d = \\frac{|Aa + Bb + C|}{\\sqrt{A^2 + B^2}}"
   - "|AB| = 2\\sqrt{r^2 - d^2}"

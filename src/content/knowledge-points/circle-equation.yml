@@ -17,6 +17,9 @@ follow_ups:
   - circle-circle-position
 related:
   - quadratic-equation
+  - circle-circle-position
+  - line-circle-position
+  - line-equation-application
 formulas:
   - "(x-a)^2 + (y-b)^2 = r^2"
   - "x^2 + y^2 + Dx + Ey + F = 0 \\quad (D^2+E^2-4F > 0)"

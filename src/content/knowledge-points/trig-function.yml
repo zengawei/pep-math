@@ -22,6 +22,8 @@ related:
   - trig-graph
   - vector-dot-product
   - spatial-angle
+  - line-inclination-slope
+  - vector-calculate-angle
 formulas:
   - "\\sin \\alpha = y, \\quad \\cos \\alpha = x, \\quad \\tan \\alpha = \\frac{y}{x}"
   - "\\sin^2 \\alpha + \\cos^2 \\alpha = 1"
