@@ -9,7 +9,10 @@ description: |
   频率是概率的近似值，试验次数越多，频率越接近概率。
 prerequisites:
   - random-event-probability
-follow_ups: []
+follow_ups:
+  - conditional-probability
+  - contingency-table
+  - independence-test
 related:
   - sample-estimate-population
   - random-event-probability

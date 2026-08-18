@@ -18,6 +18,7 @@ follow_ups:
   - expected-value-variance
   - binomial-distribution
   - hypergeometric-distribution
+  - normal-distribution
 related:
   - random-event-probability
 formulas:

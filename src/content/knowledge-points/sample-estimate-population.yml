@@ -12,7 +12,10 @@ description: |
   标准差 s = √(s²)
 prerequisites:
   - random-sampling
-follow_ups: []
+follow_ups:
+  - regression-analysis
+  - contingency-table
+  - correlation-analysis
 related:
   - frequency-probability
 formulas:

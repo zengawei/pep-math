@@ -19,6 +19,9 @@ prerequisites:
   - permutation
 follow_ups:
   - binomial-theorem
+  - binomial-distribution
+  - hypergeometric-distribution
+  - bernoulli-trials
 related:
   - permutation
   - counting-principle-multiplication

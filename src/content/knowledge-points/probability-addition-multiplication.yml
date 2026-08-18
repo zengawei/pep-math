@@ -19,6 +19,7 @@ follow_ups:
   - binomial-distribution
 related:
   - conditional-probability
+  - event-independence
 formulas:
   - "P(A \\cup B) = P(A) + P(B) - P(AB)"
   - "P(AB) = P(A) \\cdot P(B|A) = P(B) \\cdot P(A|B)"

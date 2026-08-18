@@ -12,6 +12,7 @@ follow_ups: []
 related:
   - random-event-probability
   - frequency-probability
+  - probability-addition-multiplication
 formulas:
   - "P(AB) = P(A) \\cdot P(B) \\quad (\\text{A, B 独立})"
 common_mistakes:

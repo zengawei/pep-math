@@ -13,6 +13,9 @@ prerequisites: []
 follow_ups:
   - event-independence
   - frequency-probability
+  - conditional-probability
+  - discrete-random-variable
+  - probability-addition-multiplication
 related:
   - event-independence
   - frequency-probability
