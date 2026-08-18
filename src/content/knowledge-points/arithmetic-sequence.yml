@@ -1,0 +1,29 @@
+id: arithmetic-sequence
+name: 等差数列
+category: 数列
+description: |
+  如果一个数列从第二项起，每一项与它的前一项的差等于同一个常数，
+  则称该数列为等差数列，这个常数称为等差数列的公差，通常用 d 表示。
+  即 a_{n+1} - a_n = d（n ∈ N*）。
+  通项公式：a_n = a_1 + (n-1)d，其中 a_1 为首项，d 为公差。
+  等差中项：若 a, A, b 成等差数列，则 A 称为 a 与 b 的等差中项，A = (a+b)/2。
+  重要性质：若 m + n = p + q（m, n, p, q ∈ N*），则 a_m + a_n = a_p + a_q。
+  特别地，a_1 + a_n = a_2 + a_{n-1} = …。
+prerequisites:
+  - sequence-concept
+follow_ups:
+  - arithmetic-sequence-sum
+related:
+  - sequence-concept
+formulas:
+  - "a_n = a_1 + (n-1)d"
+  - "A = \\frac{a+b}{2}（\\text{等差中项}）"
+  - "a_m + a_n = a_p + a_q \\quad (m+n=p+q)"
+common_mistakes:
+  - mistake: "通项公式写成 a_1 + nd"
+    correction: "正确公式为 a_n = a_1 + (n-1)d，注意是 (n-1) 倍的公差"
+  - mistake: "使用性质 a_m + a_n = a_p + a_q 时不验证 m+n = p+q"
+    correction: "该性质成立的前提条件是 m + n = p + q，必须先验证下标之和相等"
+applied_in:
+  - textbook: selective-2
+    chapters: [14]

@@ -1,0 +1,30 @@
+id: sequence-concept
+name: 数列的概念与表示
+category: 数列
+description: |
+  按照一定顺序排列着的一列数称为数列，数列中的每一个数称为数列的项。
+  数列可以看作定义域为正整数集 N*（或它的有限子集 {1,2,…,n}）的函数，
+  当自变量从小到大依次取值时，对应的一列函数值。
+  数列的第 n 项 a_n 称为数列的通项（一般项），
+  如果能用一个关于 n 的公式 a_n = f(n) 来表示，则称该公式为数列的通项公式。
+  数列的表示方法：通项公式法、列表法、图示法、递推公式法。
+  递推公式：如果已知数列的第一项（或前几项），且从第二项（或某一项）起，
+  它的任一项 a_n 与它的前一项 a_{n-1}（或前几项）间的关系可以用一个公式来表示，
+  则这个公式称为该数列的递推公式。
+prerequisites:
+  - function-concept
+follow_ups:
+  - arithmetic-sequence
+  - geometric-sequence
+related:
+  - function-properties
+formulas:
+  - "a_n = f(n), \\quad n \\in \\mathbb{N}^*"
+common_mistakes:
+  - mistake: "将数列与集合混淆"
+    correction: "数列中的数是有顺序的，且可以重复；集合中的元素无序且互异"
+  - mistake: "混淆通项公式与递推公式"
+    correction: "通项公式直接给出 a_n 与 n 的关系；递推公式给出 a_n 与前一项（或前几项）的关系"
+applied_in:
+  - textbook: selective-2
+    chapters: [14]

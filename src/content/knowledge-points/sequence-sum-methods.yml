@@ -1,0 +1,30 @@
+id: sequence-sum-methods
+name: 数列求和方法
+category: 数列
+description: |
+  数列求和是数列部分的核心技能，常用方法包括：
+  1. 公式法：直接利用等差数列或等比数列的求和公式。
+  2. 分组求和法：将通项拆分为若干部分，每部分分别求和（如等差部分 + 等比部分）。
+  3. 裂项相消法：将通项拆成两项之差，求和时中间项依次消去。
+     常见裂项：1/(n(n+1)) = 1/n - 1/(n+1)；1/((2n-1)(2n+1)) = (1/2)(1/(2n-1) - 1/(2n+1))。
+  4. 错位相减法：适用于通项为"等差 × 等比"形式的数列，
+     用 S_n 乘以公比 q 后与原式相减，化简求和。
+  5. 倒序相加法：将 S_n 正写与倒写相加（等差数列求和公式的推导方法）。
+prerequisites:
+  - arithmetic-sequence-sum
+  - geometric-sequence-sum
+follow_ups: []
+related:
+  - arithmetic-sequence-sum
+  - geometric-sequence-sum
+formulas:
+  - "\\frac{1}{n(n+1)} = \\frac{1}{n} - \\frac{1}{n+1} \\quad (\\text{裂项})"
+  - "S_n = \\sum_{k=1}^{n} a_k \\cdot q^k \\quad (\\text{错位相减适用形式})"
+common_mistakes:
+  - mistake: "裂项相消后忘记检查首尾剩余项"
+    correction: "裂项后并非所有项都消去，要仔细检查首尾各剩几项，不要遗漏"
+  - mistake: "错位相减法中 q 的幂次计算错误"
+    correction: "写出 S_n 和 qS_n 时逐项对齐，仔细标注每一项的 q 的幂次，避免错位"
+applied_in:
+  - textbook: selective-2
+    chapters: [14]

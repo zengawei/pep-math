@@ -1,0 +1,31 @@
+id: geometric-sequence
+name: 等比数列
+category: 数列
+description: |
+  如果一个数列从第二项起，每一项与它的前一项的比等于同一个常数（不为零），
+  则称该数列为等比数列，这个常数称为等比数列的公比，通常用 q 表示（q ≠ 0）。
+  即 a_{n+1} / a_n = q（n ∈ N*，q ≠ 0），且数列的每一项均不为零。
+  通项公式：a_n = a_1 · q^(n-1)，其中 a_1 为首项，q 为公比。
+  等比中项：若 a, G, b 成等比数列，则 G 称为 a 与 b 的等比中项，G² = ab。
+  注意 G 可取正值或负值（G = ±√(ab)）。
+  重要性质：若 m + n = p + q（m, n, p, q ∈ N*），则 a_m · a_n = a_p · a_q。
+prerequisites:
+  - sequence-concept
+  - exponent-logarithm
+follow_ups:
+  - geometric-sequence-sum
+related:
+  - sequence-concept
+  - exponent-logarithm
+formulas:
+  - "a_n = a_1 \\cdot q^{n-1}"
+  - "G^2 = ab \\quad (\\text{等比中项})"
+  - "a_m \\cdot a_n = a_p \\cdot a_q \\quad (m+n=p+q)"
+common_mistakes:
+  - mistake: "忽略等比数列各项不为零的条件"
+    correction: "等比数列要求每一项 a_n ≠ 0，公比 q ≠ 0，解题时必须注意这个隐含条件"
+  - mistake: "求等比中项时只取正值"
+    correction: "等比中项 G = ±√(ab)，不要遗漏负值"
+applied_in:
+  - textbook: selective-2
+    chapters: [14]

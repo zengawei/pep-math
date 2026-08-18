@@ -1,0 +1,27 @@
+id: geometric-sequence-sum
+name: 等比数列的前n项和
+category: 数列
+description: |
+  等比数列 {a_n} 的前 n 项和 S_n = a_1 + a_2 + … + a_n。
+  求和公式（错位相减法推导）：
+  当 q = 1 时，S_n = na_1；
+  当 q ≠ 1 时，S_n = a_1(1 - q^n) / (1 - q)，也可写成 S_n = a_1(q^n - 1) / (q - 1)。
+  使用公式时，必须首先判断公比 q 是否为 1，分类讨论。
+  若题目未直接给出 q 的值，需对 q = 1 和 q ≠ 1 分别讨论。
+prerequisites:
+  - geometric-sequence
+follow_ups:
+  - sequence-sum-methods
+related:
+  - geometric-sequence
+formulas:
+  - "S_n = \\frac{a_1(1-q^n)}{1-q} \\quad (q \\neq 1)"
+  - "S_n = na_1 \\quad (q = 1)"
+common_mistakes:
+  - mistake: "使用求和公式时忘记讨论 q = 1 的情况"
+    correction: "必须分 q = 1 和 q ≠ 1 两种情况讨论，q = 1 时 S_n = na_1"
+  - mistake: "错位相减法运算出错"
+    correction: "错位相减时注意对齐项数，仔细计算公比的幂次，最后合并同类项要仔细"
+applied_in:
+  - textbook: selective-2
+    chapters: [14]

@@ -1,0 +1,30 @@
+id: arithmetic-sequence-sum
+name: 等差数列的前n项和
+category: 数列
+description: |
+  等差数列 {a_n} 的前 n 项和 S_n = a_1 + a_2 + … + a_n。
+  求和公式（倒序相加法推导）：
+  S_n = n(a_1 + a_n) / 2，
+  或 S_n = na_1 + n(n-1)d / 2。
+  S_n 可以写成关于 n 的二次函数形式：S_n = (d/2)n² + (a_1 - d/2)n。
+  当 d ≠ 0 时，S_n 是关于 n 的常数项为零的二次函数。
+  由 S_n 求 a_n 的关系：a_1 = S_1；当 n ≥ 2 时，a_n = S_n - S_{n-1}。
+  注意必须验证 n = 1 时公式是否一致。
+prerequisites:
+  - arithmetic-sequence
+follow_ups:
+  - sequence-sum-methods
+related:
+  - arithmetic-sequence
+formulas:
+  - "S_n = \\frac{n(a_1 + a_n)}{2}"
+  - "S_n = na_1 + \\frac{n(n-1)}{2}d"
+  - "a_n = S_n - S_{n-1} \\quad (n \\geq 2)"
+common_mistakes:
+  - mistake: "由 S_n 求 a_n 时忘记讨论 n = 1 的情况"
+    correction: "必须分 n = 1 和 n ≥ 2 两种情况，并验证 n = 1 时 a_1 = S_1 是否与通项公式一致"
+  - mistake: "认为 S_n = An² + Bn + C（C ≠ 0）也是等差数列的前 n 项和"
+    correction: "等差数列的前 n 项和一定是常数项为零的二次函数（或一次函数），即 C 必须为 0"
+applied_in:
+  - textbook: selective-2
+    chapters: [14]
