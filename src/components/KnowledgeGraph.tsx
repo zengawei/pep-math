@@ -32,6 +32,13 @@ const categoryColors: Record<string, string> = {
   '不等式': '#F59E0B',
   '方程': '#8B5CF6',
   '三角函数': '#EF4444',
+  '向量': '#06B6D4',
+  '空间向量': '#0EA5E9',
+  '立体几何': '#6366F1',
+  '解析几何': '#EC4899',
+  '数与代数': '#14B8A6',
+  '概率与统计': '#F97316',
+  '复数': '#A855F7',
 };
 
 export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraphProps) {

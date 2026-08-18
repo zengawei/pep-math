@@ -107,6 +107,29 @@ describe('KnowledgeGraph', () => {
     expect(nodeIds).toHaveLength(mockGraph.nodes.length);
   });
 
+  it('filters nodes for selective-1', async () => {
+    const cytoscapeModule = await import('cytoscape');
+    const cytoscape = vi.mocked(cytoscapeModule.default);
+
+    const triTextbookGraph = {
+      nodes: [
+        { id: 'set-concept', name: '集合', category: '集合与逻辑', textbooks: ['required-1'], x: 0, y: 0 },
+        { id: 'vector-concept', name: '向量', category: '向量', textbooks: ['required-2'], x: 100, y: 0 },
+        { id: 'space-vector-concept', name: '空间向量', category: '空间向量', textbooks: ['selective-1'], x: 200, y: 0 },
+      ],
+      edges: [],
+    };
+
+    render(<KnowledgeGraph graph={triTextbookGraph} textbookFilter="selective-1" />);
+
+    expect(cytoscape).toHaveBeenCalled();
+    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
+    const nodeIds = callArgs.elements
+      .filter((el: any) => !el.data.source)
+      .map((el: any) => el.data.id);
+    expect(nodeIds).toEqual(['space-vector-concept']);
+  });
+
   it('responds to textbook-change custom event', async () => {
     const cytoscapeModule = await import('cytoscape');
     const cytoscape = vi.mocked(cytoscapeModule.default);
