@@ -16,6 +16,7 @@ follow_ups:
   - spatial-angle
   - vector-calculate-angle
   - line-inclination-slope
+  - derivative-operations
 related:
   - function-properties
   - trig-identity
