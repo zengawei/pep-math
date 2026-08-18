@@ -1,0 +1,28 @@
+id: counting-principle-addition
+name: 分类加法计数原理
+category: 计数原理
+description: |
+  完成一件事有两类方案，在第 1 类方案中有 m₁ 种不同的方法，
+  在第 2 类方案中有 m₂ 种不同的方法，……，在第 k 类方案中有 mₖ 种不同的方法，
+  那么完成这件事共有 N = m₁ + m₂ + … + mₖ 种不同的方法。
+
+  核心特征：分类——每一类中的任何一种方法都能独立完成这件事。
+  分类必须满足"不重不漏"：各类方法彼此互不重叠，且合在一起覆盖全部可能。
+prerequisites:
+  - set-concept
+follow_ups:
+  - counting-principle-multiplication
+  - permutation
+related:
+  - set-concept
+  - set-operations
+formulas:
+  - "N = m_1 + m_2 + \\cdots + m_k"
+common_mistakes:
+  - mistake: "分类不 exhaustive（遗漏）或各类之间有重叠"
+    correction: "分类必须不重不漏：每一类互不相交，且所有类合起来恰好覆盖全部方法"
+  - mistake: "该用乘法原理时误用了加法原理"
+    correction: "判断标准：单独拿出某一类的一种方法，能否独立完成整件事？能→加法；不能→需要分步，用乘法"
+applied_in:
+  - textbook: selective-2
+    chapters: [16]

@@ -1,0 +1,31 @@
+id: permutation
+name: 排列与排列数
+category: 计数原理
+description: |
+  从 n 个不同元素中取出 m（m ≤ n）个元素，按照一定的顺序排成一列，
+  叫做从 n 个不同元素中取出 m 个元素的一个排列。
+
+  排列数公式：A(n, m) = n(n-1)(n-2)···(n-m+1) = n! / (n-m)!
+  其中 n! = n(n-1)···2·1，规定 0! = 1。
+
+  全排列：当 m = n 时，A(n, n) = n!，称为 n 个元素的全排列。
+
+  关键词：有序——取出元素的排列顺序不同视为不同方案。
+prerequisites:
+  - counting-principle-multiplication
+follow_ups:
+  - combination
+related:
+  - counting-principle-multiplication
+  - combination
+formulas:
+  - "A(n, m) = \\frac{n!}{(n-m)!}"
+  - "A(n, n) = n!, \\quad 0! = 1"
+common_mistakes:
+  - mistake: "排列与组合混淆，该用组合时用了排列"
+    correction: "判断依据：取出的元素是否与顺序有关？有关→排列；无关→组合"
+  - mistake: "公式中连乘因子个数算错"
+    correction: "A(n,m) 从 n 开始连乘 m 个递减因子：n(n-1)···(n-m+1)，共 m 个因子"
+applied_in:
+  - textbook: selective-2
+    chapters: [16]

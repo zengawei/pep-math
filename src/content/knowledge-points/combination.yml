@@ -1,0 +1,37 @@
+id: combination
+name: 组合与组合数
+category: 计数原理
+description: |
+  从 n 个不同元素中取出 m（m ≤ n）个元素组成一组，
+  叫做从 n 个不同元素中取出 m 个元素的一个组合。
+
+  组合数公式：C(n, m) = n! / [m!(n-m)!] = A(n, m) / m!
+
+  性质：
+  - 对称性：C(n, m) = C(n, n-m)
+  - 帕斯卡恒等式（递推公式）：C(n, m) + C(n, m-1) = C(n+1, m)
+
+  排列与组合的关系：A(n, m) = C(n, m) × m!
+  即先选后排 = 先组合再全排列。
+
+  关键词：无序——取出元素组成一组，与顺序无关。
+prerequisites:
+  - permutation
+follow_ups:
+  - binomial-theorem
+related:
+  - permutation
+  - counting-principle-multiplication
+formulas:
+  - "C(n, m) = \\frac{n!}{m!(n-m)!}"
+  - "C(n, m) = C(n, n-m)"
+  - "C(n, m) + C(n, m-1) = C(n+1, m)"
+  - "A(n, m) = C(n, m) \\times m!"
+common_mistakes:
+  - mistake: "阶乘除法计算错误"
+    correction: "C(n,m) = n!/[m!(n-m)!]，注意分子分母不要算错；可先约分化简再乘除"
+  - mistake: "含约束条件（'至少''至多'）的问题不分类直接算"
+    correction: "遇到'至少''至多'等限制，必须分类讨论或用间接法（总数 − 不符合数），不可一步直接组合"
+applied_in:
+  - textbook: selective-2
+    chapters: [16]

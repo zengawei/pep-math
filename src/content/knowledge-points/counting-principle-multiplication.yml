@@ -1,0 +1,27 @@
+id: counting-principle-multiplication
+name: 分步乘法计数原理
+category: 计数原理
+description: |
+  完成一件事需要 k 个步骤，做第 1 步有 m₁ 种不同的方法，
+  做第 2 步有 m₂ 种不同的方法，……，做第 k 步有 mₖ 种不同的方法，
+  那么完成这件事共有 N = m₁ × m₂ × … × mₖ 种不同的方法。
+
+  核心特征：分步——每一步单独拿出来都不能独立完成整件事，必须依次完成所有步骤才行。
+  各步之间相互独立，每步方法数互不影响。
+prerequisites:
+  - counting-principle-addition
+follow_ups:
+  - permutation
+  - combination
+related:
+  - counting-principle-addition
+formulas:
+  - "N = m_1 \\times m_2 \\times \\cdots \\times m_k"
+common_mistakes:
+  - mistake: "该用加法原理时误用了乘法原理"
+    correction: "判断标准：单独拿出某一步的一种方法，能否独立完成整件事？能→分类用加法；不能→分步用乘法"
+  - mistake: "各步不独立，后一步的方法数依赖前一步的选择"
+    correction: "若后一步方法数因前一步不同选择而不同，需对前一步分类讨论，每类内再用乘法"
+applied_in:
+  - textbook: selective-2
+    chapters: [16]

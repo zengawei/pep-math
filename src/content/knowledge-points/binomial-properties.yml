@@ -1,0 +1,38 @@
+id: binomial-properties
+name: 二项式系数的性质
+category: 计数原理
+description: |
+  二项式 (a+b)ⁿ 展开式中，各项的二项式系数 C(n,0), C(n,1), …, C(n,n) 具有以下性质：
+
+  1. 对称性：C(n, k) = C(n, n-k)，即与首末两端"等距离"的两项二项式系数相等。
+
+  2. 最大值：
+     - n 为偶数时，中间一项 C(n, n/2) 最大；
+     - n 为奇数时，中间两项 C(n, (n-1)/2) 和 C(n, (n+1)/2) 相等且同时最大。
+
+  3. 系数和：
+     - 所有二项式系数之和 = C(n,0) + C(n,1) + … + C(n,n) = 2ⁿ
+     - 奇数项系数和 = 偶数项系数和 = 2ⁿ⁻¹
+
+  4. 杨辉三角：每行两端为 1，其余各数等于它肩上两数之和（帕斯卡恒等式）。
+
+  重要区分：
+  - "二项式系数"专指 C(n, k)，只与 n, k 有关；
+  - "项的系数"指展开后某一项化简后字母前的数值，需把 a, b 的幂次系数一并乘入。
+prerequisites:
+  - binomial-theorem
+follow_ups: []
+related:
+  - binomial-theorem
+  - combination
+formulas:
+  - "\\sum_{k=0}^{n} C(n,k) = 2^n"
+  - "C(n,0) + C(n,2) + \\cdots = C(n,1) + C(n,3) + \\cdots = 2^{n-1}"
+common_mistakes:
+  - mistake: "把'二项式系数'与'项的系数'混为一谈"
+    correction: "二项式系数就是 C(n,k)，不含 a, b 的幂次系数；项的系数需要把 a, b 幂次对应的数值乘进去"
+  - mistake: "求项的系数时忘记乘 a, b 的幂次系数"
+    correction: "例如 (1+2x)ⁿ 中 T(r+1) = C(n,r)·(2x)ʳ = C(n,r)·2ʳ·xʳ，项的系数是 C(n,r)·2ʳ，不能只写 C(n,r)"
+applied_in:
+  - textbook: selective-2
+    chapters: [16]

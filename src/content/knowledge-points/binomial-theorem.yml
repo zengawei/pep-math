@@ -1,0 +1,34 @@
+id: binomial-theorem
+name: 二项式定理
+category: 计数原理
+description: |
+  (a + b)ⁿ = C(n,0)aⁿ + C(n,1)aⁿ⁻¹b¹ + C(n,2)aⁿ⁻²b² + … + C(n,r)aⁿ⁻ʳbʳ + … + C(n,n)bⁿ
+
+  通项公式（第 r+1 项）：T(r+1) = C(n, r) · aⁿ⁻ʳ · bʳ  （r = 0, 1, 2, …, n）
+
+  要点：
+  - 展开式共 n+1 项
+  - a 的幂次从 n 递减到 0，b 的幂次从 0 递增到 n，每一项 a、b 的指数之和 = n
+  - C(n, r) 称为二项式系数
+
+  特殊值：
+  - 令 a = 1, b = x：(1+x)ⁿ = Σ C(n,k)xᵏ
+  - 再令 x = 1：各项系数之和 = 2ⁿ
+  - 令 x = -1：奇数项系数和 − 偶数项系数和 = 0，即两者相等 = 2ⁿ⁻¹
+prerequisites:
+  - combination
+follow_ups:
+  - binomial-properties
+related:
+  - combination
+formulas:
+  - "(a+b)^n = \\sum_{k=0}^{n} C(n,k) \\, a^{n-k} b^k"
+  - "T_{r+1} = C(n,r) \\, a^{n-r} b^r"
+common_mistakes:
+  - mistake: "通项中 r+1 与 r 混淆"
+    correction: "T(r+1) 是第 r+1 项，r 从 0 开始；第 1 项对应 r=0，第 n+1 项对应 r=n"
+  - mistake: "a 和 b 的幂次写反"
+    correction: "通项 T(r+1) = C(n,r)·aⁿ⁻ʳ·bʳ：a 的指数 = n-r（递减），b 的指数 = r（递增）"
+applied_in:
+  - textbook: selective-2
+    chapters: [16]
