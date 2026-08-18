@@ -16,7 +16,7 @@ describe('buildExerciseIndex', () => {
   });
 
   it('should extract all exercises from markdown files', () => {
-    expect(index.length).toBe(63);
+    expect(index.length).toBe(66);
   });
 
   it('should sort exercises by difficulty within each knowledge point', () => {
