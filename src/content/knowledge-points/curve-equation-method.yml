@@ -1,0 +1,31 @@
+id: curve-equation-method
+name: 求曲线方程的一般方法
+category: 解析几何
+description: |
+  求曲线方程的一般步骤（建系、设点、列式、化简、验证）：
+  1. 建系：建立适当的坐标系（利用对称性简化）。
+  2. 设点：设动点 P(x, y)。
+  3. 列式：根据几何条件列出等式。
+  4. 化简：用坐标表示等式，化简为最简方程。
+  5. 验证：检验方程是否满足条件（去除不合题意的点）。
+
+  常用方法：
+  - 直接法：直接将几何条件翻译为代数方程
+  - 代入法（相关点法）：动点随另一已知曲线上的点运动
+  - 参数法：引入参数表示动点坐标，再消去参数
+prerequisites:
+  - coordinate-method
+  - ellipse-definition
+follow_ups:
+  - conic-section-summary
+related:
+  - function-concept
+formulas: []
+common_mistakes:
+  - mistake: "建系不当导致方程过于复杂"
+    correction: "建立坐标系时应充分利用对称性，将关键点放在坐标轴上或原点"
+  - mistake: "化简后忘记验证，引入增解或漏解"
+    correction: "化简过程中两边平方可能引入增解，需要代回原条件验证"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

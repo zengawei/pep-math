@@ -1,0 +1,35 @@
+id: parabola-definition
+name: 抛物线的定义与标准方程
+category: 解析几何
+description: |
+  抛物线的定义：平面上到一定点 F（焦点）和一定直线 l（准线）距离相等的点的轨迹。
+  注意：焦点不在准线上。
+
+  四种标准方程（设焦准距为 p > 0）：
+  1. y² = 2px：焦点 (p/2, 0)，准线 x = -p/2，开口向右
+  2. y² = -2px：焦点 (-p/2, 0)，准线 x = p/2，开口向左
+  3. x² = 2py：焦点 (0, p/2)，准线 y = -p/2，开口向上
+  4. x² = -2py：焦点 (0, -p/2)，准线 y = p/2，开口向下
+
+  焦点弦（通径）：过焦点垂直于对称轴的弦长 = 2p。
+  焦半径：|PF| = x₀ + p/2（y² = 2px 的情形）。
+prerequisites:
+  - ellipse-definition
+  - coordinate-method
+follow_ups:
+  - parabola-properties
+related:
+  - quadratic-function
+formulas:
+  - "y^2 = 2px \\quad (p > 0)"
+  - "\\text{焦点}: \\left(\\frac{p}{2}, 0\\right), \\quad \\text{准线}: x = -\\frac{p}{2}"
+  - "|PF| = x_0 + \\frac{p}{2}"
+  - "\\text{通径} = 2p"
+common_mistakes:
+  - mistake: "混淆 y² = 2px 中 p 的含义"
+    correction: "p 是焦准距（焦点到准线的距离），不是焦点到原点的距离。焦点到原点的距离是 p/2"
+  - mistake: "四种标准方程中搞混开口方向"
+    correction: "y² = 2px 开口向右（一次项系数为正），y² = -2px 开口向左。x² = 2py 开口向上，x² = -2py 开口向下"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

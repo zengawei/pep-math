@@ -1,0 +1,37 @@
+id: parabola-properties
+name: 抛物线的几何性质
+category: 解析几何
+description: |
+  抛物线 y² = 2px（p > 0）的几何性质：
+  范围：x ≥ 0
+  对称性：关于 x 轴对称
+  顶点：原点 (0, 0)
+  离心率：e = 1
+  焦点弦性质：
+  - 过焦点的弦 AB，设 A(x₁, y₁), B(x₂, y₂)
+  - |AF| = x₁ + p/2, |BF| = x₂ + p/2
+  - |AB| = x₁ + x₂ + p
+  - y₁y₂ = -p², x₁x₂ = p²/4
+  - 1/|AF| + 1/|BF| = 2/p（定值）
+
+  抛物线的切线：过抛物线上一点 (x₀, y₀) 的切线方程为 yy₀ = p(x + x₀)。
+prerequisites:
+  - parabola-definition
+follow_ups:
+  - conic-section-summary
+  - conic-section-line
+related:
+  - quadratic-function
+  - ellipse-properties
+  - hyperbola-properties
+formulas:
+  - "e = 1"
+  - "|AB| = x_1 + x_2 + p"
+  - "y_1 y_2 = -p^2"
+  - "\\frac{1}{|AF|} + \\frac{1}{|BF|} = \\frac{2}{p}"
+common_mistakes:
+  - mistake: "焦半径公式中搞混 p 和 p/2"
+    correction: "对于 y² = 2px，焦半径 |PF| = x₀ + p/2（不是 x₀ + p）。p/2 是焦点到顶点的距离"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

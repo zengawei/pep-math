@@ -1,0 +1,34 @@
+id: hyperbola-properties
+name: 双曲线的几何性质
+category: 解析几何
+description: |
+  双曲线 x²/a² - y²/b² = 1 的几何性质：
+  范围：|x| ≥ a（y 取任意实数）
+  对称性：关于 x 轴、y 轴、原点对称
+  顶点：(±a, 0)
+  实轴长：2a，虚轴长：2b
+  焦距：2c，c² = a² + b²
+  离心率：e = c/a > 1。e 越大，双曲线开口越宽。
+  渐近线：y = ±(b/a)x
+  等轴双曲线：a = b 时，方程为 x² - y² = a²，渐近线为 y = ±x，e = √2。
+
+  渐近线的应用：判断双曲线与直线的位置关系。
+  与渐近线平行的直线与双曲线只有一个交点（但不是切线）。
+prerequisites:
+  - hyperbola-definition
+follow_ups:
+  - conic-section-summary
+  - conic-section-line
+related:
+  - ellipse-properties
+formulas:
+  - "\\text{实轴} = 2a, \\quad \\text{虚轴} = 2b"
+  - "e = \\frac{c}{a} > 1, \\quad c^2 = a^2 + b^2"
+  - "\\text{渐近线}: y = \\pm\\frac{b}{a}x"
+  - "\\text{等轴双曲线}: e = \\sqrt{2}"
+common_mistakes:
+  - mistake: "认为与渐近线平行的直线和双曲线相切"
+    correction: "与渐近线平行的直线与双曲线只有一个交点，但不是切线——它是穿过双曲线的。真正的切线需要用导数或判别式 Δ=0 来求"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

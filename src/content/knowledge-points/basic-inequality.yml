@@ -8,7 +8,8 @@ description: |
 prerequisites:
   - inequality-properties
   - quadratic-inequality
-follow_ups: []
+follow_ups:
+  - conic-section-optimization
 related:
   - quadratic-inequality
   - quadratic-function

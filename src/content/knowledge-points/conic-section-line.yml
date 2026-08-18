@@ -1,0 +1,39 @@
+id: conic-section-line
+name: 圆锥曲线与直线的位置关系
+category: 解析几何
+description: |
+  直线与圆锥曲线的位置关系：
+  将直线方程代入曲线方程，消元得一元方程，用判别式 Δ 判断：
+  Δ > 0：两个交点（相交）
+  Δ = 0：一个交点（相切）
+  Δ < 0：无交点（相离）
+
+  韦达定理的应用：
+  设交点为 (x₁, y₁), (x₂, y₂)，则：
+  x₁ + x₂ = -b/a, x₁x₂ = c/a
+
+  弦长公式：
+  |AB| = √(1+k²) · |x₁-x₂| = √(1+k²) · √((x₁+x₂)²-4x₁x₂)
+
+  注意：对于双曲线和抛物线，直线与曲线只有一个交点不一定是相切
+  （可能与渐近线/对称轴平行）。
+prerequisites:
+  - conic-section-summary
+  - line-equation
+follow_ups:
+  - conic-section-optimization
+related:
+  - line-circle-position
+  - quadratic-equation
+formulas:
+  - "\\Delta > 0: \\text{相交}; \\quad \\Delta = 0: \\text{相切}; \\quad \\Delta < 0: \\text{相离}"
+  - "x_1 + x_2 = -\\frac{b}{a}, \\quad x_1 x_2 = \\frac{c}{a}"
+  - "|AB| = \\sqrt{1+k^2} \\cdot \\sqrt{(x_1+x_2)^2 - 4x_1 x_2}"
+common_mistakes:
+  - mistake: "对双曲线/抛物线，Δ=0 就认为是相切"
+    correction: "对双曲线，与渐近线平行的直线也只有一个交点但 Δ 可能不为 0；对抛物线，与对称轴平行的直线也只有一个交点。需要结合具体情况判断"
+  - mistake: "韦达定理使用中没有验证 Δ > 0"
+    correction: "使用韦达定理前必须确保方程有两个实根，即 Δ > 0"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

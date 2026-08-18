@@ -1,0 +1,35 @@
+id: ellipse-definition
+name: 椭圆的定义与标准方程
+category: 解析几何
+description: |
+  椭圆的第一定义：平面上到两个定点 F₁, F₂ 的距离之和等于常数 2a（2a > |F₁F₂|）的点的轨迹。
+  若 2a = |F₁F₂|，轨迹为线段 F₁F₂；若 2a < |F₁F₂|，轨迹不存在。
+
+  标准方程：
+  焦点在 x 轴：x²/a² + y²/b² = 1（a > b > 0），焦点 (±c, 0)，c² = a² - b²。
+  焦点在 y 轴：y²/a² + x²/b² = 1（a > b > 0），焦点 (0, ±c)，c² = a² - b²。
+
+  关键关系：a² = b² + c²（勾股关系）
+  离心率：e = c/a ∈ (0, 1)
+prerequisites:
+  - coordinate-method
+follow_ups:
+  - ellipse-properties
+  - hyperbola-definition
+  - parabola-definition
+  - curve-equation-method
+related:
+  - quadratic-equation
+formulas:
+  - "\\frac{x^2}{a^2} + \\frac{y^2}{b^2} = 1 \\quad (a > b > 0)"
+  - "c^2 = a^2 - b^2"
+  - "e = \\frac{c}{a} \\in (0, 1)"
+  - "|PF_1| + |PF_2| = 2a"
+common_mistakes:
+  - mistake: "混淆 a² = b² + c² 与 c² = a² + b²"
+    correction: "椭圆中 a 最大，关系为 a² = b² + c²。双曲线中 c 最大，关系为 c² = a² + b²"
+  - mistake: "忽略 2a > |F₁F₂| 的条件"
+    correction: "椭圆定义要求 2a > 2c（即 a > c）。若 2a = 2c 轨迹为线段，2a < 2c 无轨迹"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

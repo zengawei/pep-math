@@ -1,0 +1,30 @@
+id: ellipse-properties
+name: 椭圆的几何性质
+category: 解析几何
+description: |
+  椭圆 x²/a² + y²/b² = 1（a > b > 0）的几何性质：
+  范围：-a ≤ x ≤ a，-b ≤ y ≤ b
+  对称性：关于 x 轴、y 轴、原点对称
+  顶点：(±a, 0), (0, ±b)
+  长轴长：2a，短轴长：2b
+  焦距：2c，c² = a² - b²
+  离心率：e = c/a ∈ (0, 1)。e 越接近 1，椭圆越扁；e 越接近 0，椭圆越接近圆。
+  焦点三角形：△PF₁F₂ 中，|PF₁| + |PF₂| = 2a，可用余弦定理求角。
+  通径（半正交弦）：过焦点垂直于长轴的弦长 = 2b²/a。
+prerequisites:
+  - ellipse-definition
+follow_ups:
+  - conic-section-summary
+  - conic-section-line
+related:
+  - trig-identity
+formulas:
+  - "\\text{长轴} = 2a, \\quad \\text{短轴} = 2b"
+  - "e = \\frac{c}{a}, \\quad c^2 = a^2 - b^2"
+  - "\\text{通径} = \\frac{2b^2}{a}"
+common_mistakes:
+  - mistake: "认为离心率 e 可以等于 1"
+    correction: "椭圆离心率 e ∈ (0, 1)，开区间。e = 0 时为圆，e = 1 时为抛物线（退化情况）"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

@@ -1,0 +1,35 @@
+id: hyperbola-definition
+name: 双曲线的定义与标准方程
+category: 解析几何
+description: |
+  双曲线的第一定义：平面上到两个定点 F₁, F₂ 的距离之差的绝对值等于常数 2a（0 < 2a < |F₁F₂|）的点的轨迹。
+  注意是"差的绝对值"——如果只取差（不加绝对值），则只得到双曲线的一支。
+
+  标准方程：
+  焦点在 x 轴：x²/a² - y²/b² = 1，焦点 (±c, 0)，c² = a² + b²。
+  焦点在 y 轴：y²/a² - x²/b² = 1，焦点 (0, ±c)，c² = a² + b²。
+
+  关键关系：c² = a² + b²（与椭圆不同！）
+  离心率：e = c/a > 1
+  渐近线：y = ±(b/a)x（焦点在 x 轴时）
+prerequisites:
+  - ellipse-definition
+  - coordinate-method
+follow_ups:
+  - hyperbola-properties
+related:
+  - ellipse-definition
+formulas:
+  - "\\frac{x^2}{a^2} - \\frac{y^2}{b^2} = 1"
+  - "c^2 = a^2 + b^2"
+  - "e = \\frac{c}{a} > 1"
+  - "||PF_1| - |PF_2|| = 2a"
+  - "y = \\pm\\frac{b}{a}x \\quad (\\text{渐近线})"
+common_mistakes:
+  - mistake: "双曲线定义中忘记取绝对值"
+    correction: "定义是 ||PF₁| - |PF₂|| = 2a（绝对值），不是 |PF₁| - |PF₂| = 2a。后者只是双曲线的一支"
+  - mistake: "混淆椭圆和双曲线中 a, b, c 的关系"
+    correction: "椭圆：a² = b² + c²（a 最大）；双曲线：c² = a² + b²（c 最大）"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

@@ -1,0 +1,32 @@
+id: conic-section-optimization
+name: 圆锥曲线中的最值与范围问题
+category: 解析几何
+description: |
+  圆锥曲线中常见的最值与范围问题：
+  1. 距离最值：利用焦半径公式或几何意义（如点到直线距离）。
+  2. 面积最值：利用弦长和距离公式建立目标函数。
+  3. 斜率范围：利用 Δ > 0 和其他约束条件列不等式。
+  4. 中点轨迹：利用韦达定理求中点坐标的参数方程。
+
+  常用方法：
+  - 函数法：将目标表示为某个变量的函数，求最值
+  - 不等式法：利用基本不等式、判别式等建立不等关系
+  - 几何法：利用圆锥曲线的几何性质直接得出最值
+  - 参数法：利用参数方程将问题转化为一元函数
+prerequisites:
+  - conic-section-line
+  - basic-inequality
+follow_ups: []
+related:
+  - basic-inequality
+  - quadratic-function
+  - quadratic-inequality
+formulas: []
+common_mistakes:
+  - mistake: "求范围时忘记考虑变量的隐含约束"
+    correction: "圆锥曲线上的点有范围限制（如椭圆上 -a≤x≤a），求最值时必须考虑这些隐含条件"
+  - mistake: "使用基本不等式时不验证等号成立条件"
+    correction: "使用均值不等式求最值后，必须验证等号能取到（即对应的点在曲线上存在）"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]

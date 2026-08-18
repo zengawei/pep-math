@@ -1,0 +1,32 @@
+id: conic-section-summary
+name: 圆锥曲线的综合应用
+category: 解析几何
+description: |
+  圆锥曲线的综合问题通常涉及多种曲线性质的综合运用：
+  1. 求轨迹方程：根据几何条件建立方程，判断曲线类型。
+  2. 焦点弦问题：利用焦半径公式和焦点弦性质。
+  3. 中点弦问题：利用"点差法"——将弦两端点代入曲线方程相减。
+  4. 对称性问题：利用曲线的对称性简化计算。
+  5. 存在性问题：假设存在满足条件的元素，推导是否矛盾。
+
+  圆锥曲线的统一定义：到定点（焦点）距离与到定直线（准线）距离之比为常数 e 的点的轨迹。
+  e < 1：椭圆；e = 1：抛物线；e > 1：双曲线。
+prerequisites:
+  - ellipse-properties
+  - hyperbola-properties
+  - parabola-properties
+follow_ups:
+  - conic-section-line
+  - conic-section-optimization
+related:
+  - ellipse-definition
+  - hyperbola-definition
+  - parabola-definition
+formulas:
+  - "e < 1: \\text{椭圆}; \\quad e = 1: \\text{抛物线}; \\quad e > 1: \\text{双曲线}"
+common_mistakes:
+  - mistake: "点差法中忘记验证判别式 Δ > 0"
+    correction: "点差法求出中点弦斜率后，必须验证该直线确实与曲线有两个交点（Δ > 0），否则中点弦不存在"
+applied_in:
+  - textbook: selective-1
+    chapters: [13]
