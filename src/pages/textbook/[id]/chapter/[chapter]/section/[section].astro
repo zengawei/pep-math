@@ -148,8 +148,8 @@ const allChapters = fs.readdirSync(textbookDir)
   </div>
 
   <!-- KaTeX CSS + Auto-render for formula rendering -->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
+  <link is:inline rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/katex.min.css">
+  <script is:inline src="https://cdn.jsdelivr.net/npm/katex@0.16.22/dist/contrib/auto-render.min.js"></script>
   <script define:vars={{ base: '/pep-math' }}>
     function renderMathIn(el) {
       if (window.renderMathInElement) {
