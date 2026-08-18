@@ -4,12 +4,14 @@ const exerciseSchema = z.object({
   type: z.literal('exercise'),
   textbook: z.enum(['required-1', 'required-2', 'selective-1', 'selective-2', 'selective-3']),
   chapter: z.number().int().min(1),
-  section: z.number().int().min(1),
+  section: z.number().int().min(0),
   number: z.number().int().min(1),
   difficulty: z.enum(['basic', 'medium', 'hard']),
+  category: z.enum(['practice', 'review', 'reference']).default('practice'),
+  group: z.enum(['A', 'B', 'C']).optional(),
   is_exam_question: z.boolean().default(false),
   knowledge_points: z.array(z.string()).min(1),
-  source: z.literal('自编'),
+  source: z.literal('人教A版2019'),
   references: z.string().min(1),
 });
 
@@ -20,6 +22,8 @@ const exampleSchema = z.object({
   section: z.number().int().min(1),
   number: z.number().int().min(1),
   knowledge_points: z.array(z.string()).min(1),
+  source: z.string().optional(),
+  references: z.string().optional(),
 });
 
 const definitionSchema = z.object({
