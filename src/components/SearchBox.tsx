@@ -11,20 +11,17 @@ export default function SearchBox() {
   const [results, setResults] = useState<SearchResult[]>([]);
   const [loading, setLoading] = useState(false);
   const [searched, setSearched] = useState(false);
-  const [pagefindModule, setPagefindModule] = useState<any>(null);
+  const [pagefindReady, setPagefindReady] = useState(false);
 
-  // Load pagefind module once
+  // Wait for pagefind to load
   useEffect(() => {
-    async function loadPagefind() {
-      try {
-        const pf = await import(/* @vite-ignore */ '/pep-math/pagefind/pagefind.js');
-        if (pf.init) await pf.init();
-        setPagefindModule(pf);
-      } catch (e) {
-        console.error('Failed to load pagefind:', e);
-      }
+    if ((window as any).pagefind) {
+      setPagefindReady(true);
+      return;
     }
-    loadPagefind();
+    const handler = () => setPagefindReady(true);
+    window.addEventListener('pagefind-loaded', handler);
+    return () => window.removeEventListener('pagefind-loaded', handler);
   }, []);
 
   const performSearch = useCallback(async (searchQuery: string) => {
@@ -34,7 +31,8 @@ export default function SearchBox() {
       return;
     }
 
-    if (!pagefindModule) {
+    const pf = (window as any).pagefind;
+    if (!pf) {
       setResults([]);
       setSearched(true);
       return;
@@ -44,7 +42,7 @@ export default function SearchBox() {
     setSearched(true);
 
     try {
-      const searchResults = await pagefindModule.search(searchQuery);
+      const searchResults = await pf.search(searchQuery);
 
       const data = await Promise.all(
         searchResults.slice(0, 20).map(async (r: any) => {
@@ -64,7 +62,7 @@ export default function SearchBox() {
     } finally {
       setLoading(false);
     }
-  }, [pagefindModule]);
+  }, []);
 
   // Debounce search
   useEffect(() => {
@@ -99,9 +97,9 @@ export default function SearchBox() {
 
       {loading && <p className="text-gray-500 mt-4 text-sm">搜索中...</p>}
 
-      {!pagefindModule && <p className="text-gray-400 mt-4 text-sm">搜索引擎加载中...</p>}
+      {!pagefindReady && <p className="text-gray-400 mt-4 text-sm">搜索引擎加载中...</p>}
 
-      {searched && !loading && pagefindModule && results.length === 0 && (
+      {searched && !loading && pagefindReady && results.length === 0 && (
         <p className="text-gray-500 mt-4 text-sm">没有找到相关结果</p>
       )}
 
