@@ -1,20 +1,21 @@
 ---
 // src/pages/search.astro
 import BaseLayout from '../layouts/BaseLayout.astro';
-import SearchBox from '../components/SearchBox';
 ---
 <BaseLayout title="搜索">
   <h1 class="text-2xl font-bold mb-4">搜索</h1>
 
-  <div class="mb-6">
-    <SearchBox client:load />
-  </div>
+  <link is:inline href="/pep-math/pagefind/pagefind-ui.css" rel="stylesheet" />
+  <script is:inline type="module" src="/pep-math/pagefind/pagefind-ui.js"></script>
+
+  <div id="search"></div>
 
   <script is:inline type="module">
-    // Load pagefind as ES module at runtime
-    const pf = await import('/pep-math/pagefind/pagefind.js');
-    await pf.init();
-    window.pagefind = pf;
-    window.dispatchEvent(new Event('pagefind-loaded'));
+    import { PagefindUI } from '/pep-math/pagefind/pagefind-ui.js';
+    new PagefindUI({
+      element: "#search",
+      basePath: "/pep-math/pagefind/",
+      showSubResults: true,
+    });
   </script>
 </BaseLayout>
