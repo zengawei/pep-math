@@ -1,0 +1,20 @@
+id: random-sampling
+name: 随机抽样
+category: 概率与统计
+description: |
+  简单随机抽样：从总体中逐个不放回地抽取，每个个体被抽到的概率相等。
+  方法：抽签法、随机数法。
+  系统抽样（等距抽样）：将总体均分成若干部分，按一定规则从每部分抽取。
+  分层抽样：按总体中各类别所占比例，从各类别中分别抽取。
+  适用场景：总体差异明显时用分层抽样。
+prerequisites: []
+follow_ups:
+  - sample-estimate-population
+related: []
+formulas: []
+common_mistakes:
+  - mistake: "混淆系统抽样和分层抽样的适用场景"
+    correction: "总体差异不大用系统抽样；总体由差异明显的几部分组成用分层抽样"
+applied_in:
+  - textbook: required-2
+    chapters: [9]

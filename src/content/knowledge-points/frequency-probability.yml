@@ -1,0 +1,25 @@
+id: frequency-probability
+name: 频率与概率
+category: 概率与统计
+description: |
+  频率：在 n 次重复试验中，事件 A 发生的次数 m 与总次数 n 的比值 m/n。
+  概率的统计定义：当试验次数 n 很大时，频率 m/n 稳定在某个常数附近，
+  这个常数就是事件 A 的概率，记为 P(A)。
+  频率是随机的，每次试验可能不同；概率是确定的常数。
+  频率是概率的近似值，试验次数越多，频率越接近概率。
+prerequisites:
+  - random-event-probability
+follow_ups: []
+related:
+  - sample-estimate-population
+  - random-event-probability
+  - event-independence
+formulas:
+  - "f_n(A) = \\frac{m}{n}"
+  - "\\lim_{n \\to \\infty} f_n(A) = P(A)"
+common_mistakes:
+  - mistake: "把频率等同于概率"
+    correction: "频率是随机的、变化的；概率是固定的。频率只是概率的估计值"
+applied_in:
+  - textbook: required-2
+    chapters: [10]

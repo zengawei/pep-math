@@ -1,0 +1,27 @@
+id: sample-estimate-population
+name: 用样本估计总体
+category: 概率与统计
+description: |
+  用样本的频率分布估计总体的分布：频率分布表、频率分布直方图、茎叶图。
+  频率分布直方图：纵轴为频率/组距，各小矩形面积之和为 1。
+  样本的数字特征：
+  平均数 x̄ = (x₁+x₂+...+xₙ)/n
+  中位数：将数据从小到大排列后位于中间位置的值。
+  众数：出现次数最多的值。
+  方差 s² = [(x₁-x̄)²+(x₂-x̄)²+...+(xₙ-x̄)²]/n
+  标准差 s = √(s²)
+prerequisites:
+  - random-sampling
+follow_ups: []
+related:
+  - frequency-probability
+formulas:
+  - "\\bar{x} = \\frac{1}{n}\\sum_{i=1}^{n} x_i"
+  - "s^2 = \\frac{1}{n}\\sum_{i=1}^{n}(x_i - \\bar{x})^2"
+  - "s = \\sqrt{s^2}"
+common_mistakes:
+  - mistake: "频率分布直方图中把纵轴当成频率"
+    correction: "纵轴是频率/组距，每个小矩形的面积（而非高度）才是频率"
+applied_in:
+  - textbook: required-2
+    chapters: [9]

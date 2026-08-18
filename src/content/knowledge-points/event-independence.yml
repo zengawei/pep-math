@@ -1,0 +1,22 @@
+id: event-independence
+name: 事件的相互独立性
+category: 概率与统计
+description: |
+  如果事件 A 的发生不影响事件 B 发生的概率，则称 A, B 相互独立。
+  数学定义：P(AB) = P(A)·P(B)。
+  独立事件的性质：若 A, B 独立，则 A, B̄ 也独立；Ā, B 也独立；Ā, B̄ 也独立。
+  独立与互斥的区别：独立是指一个事件的发生不影响另一个，互斥是指两个事件不能同时发生。
+prerequisites:
+  - random-event-probability
+follow_ups: []
+related:
+  - random-event-probability
+  - frequency-probability
+formulas:
+  - "P(AB) = P(A) \\cdot P(B) \\quad (\\text{A, B 独立})"
+common_mistakes:
+  - mistake: "混淆独立事件和互斥事件"
+    correction: "独立：P(AB)=P(A)P(B)；互斥：P(AB)=0。两者完全不同"
+applied_in:
+  - textbook: required-2
+    chapters: [10]

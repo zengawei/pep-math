@@ -1,0 +1,28 @@
+id: random-event-probability
+name: 随机事件与概率
+category: 概率与统计
+description: |
+  随机事件：在一定条件下可能发生也可能不发生的事件。
+  必然事件：一定发生的事件，P = 1。
+  不可能事件：一定不发生的事件，P = 0。
+  概率的基本性质：0 ≤ P(A) ≤ 1。
+  互斥事件：不可能同时发生的两个事件。
+  对立事件：互斥事件中必有一个发生的两个事件。P(A) + P(Ā) = 1。
+  概率加法公式：互斥事件 A, B：P(A∪B) = P(A) + P(B)。
+prerequisites: []
+follow_ups:
+  - event-independence
+  - frequency-probability
+related:
+  - event-independence
+  - frequency-probability
+formulas:
+  - "0 \\leq P(A) \\leq 1"
+  - "P(A \\cup B) = P(A) + P(B) \\quad (\\text{A, B 互斥})"
+  - "P(A) + P(\\bar{A}) = 1"
+common_mistakes:
+  - mistake: "混淆互斥事件和对立事件"
+    correction: "对立事件一定是互斥事件，但互斥事件不一定对立。对立要求 A∪B 为必然事件"
+applied_in:
+  - textbook: required-2
+    chapters: [10]
