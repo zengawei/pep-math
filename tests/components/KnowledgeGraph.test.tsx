@@ -1,5 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { render } from '@testing-library/react';
+import { render, act } from '@testing-library/react';
 
 // Mock cytoscape before importing the component
 const mockCyInstance = {
@@ -68,5 +68,68 @@ describe('KnowledgeGraph', () => {
     );
     unmount();
     expect(mockCyInstance.destroy).toHaveBeenCalled();
+  });
+
+  it('filters nodes by textbook', async () => {
+    const cytoscapeModule = await import('cytoscape');
+    const cytoscape = vi.mocked(cytoscapeModule.default);
+
+    const multiTextbookGraph = {
+      nodes: [
+        { id: 'set-concept', name: '集合的概念', category: '集合与逻辑', textbooks: ['required-1'], x: 50, y: 50 },
+        { id: 'vector-concept', name: '向量的概念', category: '向量', textbooks: ['required-2'], x: 150, y: 50 },
+        { id: 'complex-num', name: '复数', category: '复数', textbooks: ['required-2'], x: 250, y: 50 },
+      ],
+      edges: [],
+    };
+
+    render(<KnowledgeGraph graph={multiTextbookGraph} textbookFilter="required-1" />);
+
+    expect(cytoscape).toHaveBeenCalled();
+    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
+    const nodeIds = callArgs.elements
+      .filter((el: any) => !el.data.source) // nodes only (no edges)
+      .map((el: any) => el.data.id);
+    expect(nodeIds).toEqual(['set-concept']);
+  });
+
+  it('shows all nodes when no textbookFilter is set', async () => {
+    const cytoscapeModule = await import('cytoscape');
+    const cytoscape = vi.mocked(cytoscapeModule.default);
+
+    render(<KnowledgeGraph graph={mockGraph} />);
+
+    expect(cytoscape).toHaveBeenCalled();
+    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
+    const nodeIds = callArgs.elements
+      .filter((el: any) => !el.data.source)
+      .map((el: any) => el.data.id);
+    expect(nodeIds).toHaveLength(mockGraph.nodes.length);
+  });
+
+  it('responds to textbook-change custom event', async () => {
+    const cytoscapeModule = await import('cytoscape');
+    const cytoscape = vi.mocked(cytoscapeModule.default);
+
+    const multiTextbookGraph = {
+      nodes: [
+        { id: 'set-concept', name: '集合的概念', category: '集合与逻辑', textbooks: ['required-1'], x: 50, y: 50 },
+        { id: 'vector-concept', name: '向量的概念', category: '向量', textbooks: ['required-2'], x: 150, y: 50 },
+      ],
+      edges: [],
+    };
+
+    render(<KnowledgeGraph graph={multiTextbookGraph} textbookFilter="required-1" />);
+
+    // Dispatch textbook-change event to switch to required-2
+    act(() => {
+      window.dispatchEvent(new CustomEvent('textbook-change', { detail: 'required-2' }));
+    });
+
+    const lastCallArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
+    const nodeIds = lastCallArgs.elements
+      .filter((el: any) => !el.data.source)
+      .map((el: any) => el.data.id);
+    expect(nodeIds).toEqual(['vector-concept']);
   });
 });

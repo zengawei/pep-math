@@ -37,15 +37,37 @@ const categoryColors: Record<string, string> = {
 export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraphProps) {
   const cyRef = useRef<HTMLDivElement>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
+  const [activeTextbook, setActiveTextbook] = useState<string | undefined>(textbookFilter);
 
   const categories = [...new Set(graph.nodes.map(n => n.category))];
+
+  // Listen for textbook-change events from the page's select dropdown
+  useEffect(() => {
+    const handler = (e: Event) => {
+      const textbookId = (e as CustomEvent).detail as string;
+      setActiveTextbook(textbookId);
+    };
+    window.addEventListener('textbook-change', handler);
+    return () => window.removeEventListener('textbook-change', handler);
+  }, []);
+
+  // Sync prop changes
+  useEffect(() => {
+    setActiveTextbook(textbookFilter);
+  }, [textbookFilter]);
 
   useEffect(() => {
     if (!cyRef.current) return;
 
-    const filteredNodes = selectedCategory === 'all'
-      ? graph.nodes
-      : graph.nodes.filter(n => n.category === selectedCategory);
+    const filteredNodes = graph.nodes.filter(n => {
+      const matchesTextbook = activeTextbook
+        ? n.textbooks.includes(activeTextbook)
+        : true;
+      const matchesCategory = selectedCategory === 'all'
+        ? true
+        : n.category === selectedCategory;
+      return matchesTextbook && matchesCategory;
+    });
 
     const filteredNodeIds = new Set(filteredNodes.map(n => n.id));
     const filteredEdges = graph.edges.filter(
@@ -99,7 +121,7 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
     });
 
     return () => { cy.destroy(); };
-  }, [graph, selectedCategory]);
+  }, [graph, selectedCategory, activeTextbook]);
 
   return (
     <div>
