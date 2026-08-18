@@ -22,7 +22,7 @@ export function getStaticPaths() {
       const chapterPath = path.join(textbookDir, chapterDir);
       const chapterNum = parseInt(chapterDir.replace('chapter-', ''), 10);
       const sections = fs.readdirSync(chapterPath).filter(f =>
-        fs.statSync(path.join(chapterPath, f)).isDirectory()
+        fs.statSync(path.join(chapterPath, f)).isDirectory() && f.startsWith('section-')
       );
       for (const sectionDir of sections) {
         const sectionNum = parseInt(sectionDir.replace('section-', ''), 10);
@@ -59,7 +59,7 @@ const allChapters = fs.readdirSync(textbookDir)
     const chNum = parseInt(chDir.replace('chapter-', ''), 10);
     const chPath = path.join(textbookDir, chDir);
     const sects = fs.readdirSync(chPath)
-      .filter(f => fs.statSync(path.join(chPath, f)).isDirectory())
+      .filter(f => fs.statSync(path.join(chPath, f)).isDirectory() && f.startsWith('section-'))
       .sort()
       .map(sDir => ({
         number: parseInt(sDir.replace('section-', ''), 10),

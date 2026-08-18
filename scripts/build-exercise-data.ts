@@ -58,8 +58,14 @@ export function parseExerciseMarkdown(raw: string, filePath?: string): ExerciseD
     const parts = rel.split(path.sep);
     const textbook = parts[0];
     const chapter = parseInt(parts[1].replace('chapter-', ''), 10);
-    const section = parseInt(parts[2].replace('section-', ''), 10);
-    id = `${textbook}-ch${chapter}-s${section}-ex${data.number}`;
+    if (parts[2] === 'review') {
+      id = `${textbook}-ch${chapter}-review-ex${data.number}`;
+    } else {
+      const section = parseInt(parts[2].replace('section-', ''), 10);
+      id = `${textbook}-ch${chapter}-s${section}-ex${data.number}`;
+    }
+  } else if (data.section === 0) {
+    id = `${data.textbook}-ch${data.chapter}-review-ex${data.number}`;
   } else {
     id = `${data.textbook}-ch${data.chapter}-s${data.section}-ex${data.number}`;
   }

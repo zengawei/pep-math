@@ -37,7 +37,7 @@ const chapters = fs.readdirSync(textbookDir)
     const chapterNum = parseInt(chapterDir.replace('chapter-', ''), 10);
     const chapterPath = path.join(textbookDir, chapterDir);
     const sections = fs.readdirSync(chapterPath)
-      .filter(f => fs.statSync(path.join(chapterPath, f)).isDirectory())
+      .filter(f => fs.statSync(path.join(chapterPath, f)).isDirectory() && f.startsWith('section-'))
       .sort()
       .map(sectionDir => {
         const sectionNum = parseInt(sectionDir.replace('section-', ''), 10);
