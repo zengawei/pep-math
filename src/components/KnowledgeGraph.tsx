@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, useMemo } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import cytoscape from 'cytoscape';
 
 interface GraphNode {
@@ -39,15 +39,38 @@ const categoryColors: Record<string, string> = {
   '数与代数': '#14B8A6',
   '概率与统计': '#F97316',
   '复数': '#A855F7',
+  '数列': '#8B5CF6',
+  '导数': '#EC4899',
+  '计数原理': '#F97316',
 };
+
+function scalePositions(nodes: GraphNode[], width: number, height: number) {
+  if (nodes.length === 0) return nodes;
+  const xs = nodes.map(n => n.x || 0);
+  const ys = nodes.map(n => n.y || 0);
+  const minX = Math.min(...xs), maxX = Math.max(...xs);
+  const minY = Math.min(...ys), maxY = Math.max(...ys);
+  const dataW = maxX - minX || 1;
+  const dataH = maxY - minY || 1;
+  const pad = 60;
+  const scaleX = (width - pad * 2) / dataW;
+  const scaleY = (height - pad * 2) / dataH;
+  const scale = Math.min(scaleX, scaleY);
+  const offsetX = pad + ((width - pad * 2) - dataW * scale) / 2;
+  const offsetY = pad + ((height - pad * 2) - dataH * scale) / 2;
+  return nodes.map(n => ({
+    ...n,
+    x: (n.x || 0) * scale + offsetX - minX * scale,
+    y: (n.y || 0) * scale + offsetY - minY * scale,
+  }));
+}
 
 export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraphProps) {
   const cyRef = useRef<HTMLDivElement>(null);
-  const cyInstance = useRef<cytoscape.Core | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeTextbook, setActiveTextbook] = useState<string | undefined>(textbookFilter);
 
-  const categories = useMemo(() => [...new Set(graph.nodes.map(n => n.category))], [graph]);
+  const categories = [...new Set(graph.nodes.map(n => n.category))];
 
   // Listen for textbook-change events from the page's select dropdown
   useEffect(() => {
@@ -64,67 +87,8 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
     setActiveTextbook(textbookFilter);
   }, [textbookFilter]);
 
-  // Initialize Cytoscape ONCE on mount
   useEffect(() => {
-    if (!cyRef.current || cyInstance.current) return;
-
-    const cy = cytoscape({
-      container: cyRef.current,
-      elements: [],
-      style: [
-        {
-          selector: 'node',
-          style: {
-            'label': 'data(label)',
-            'background-color': (ele: any) => categoryColors[ele.data('category')] || '#6B7280',
-            'width': 50,
-            'height': 50,
-            'text-valign': 'bottom',
-            'text-margin-y': 8,
-            'font-size': '11px',
-            'cursor': 'pointer',
-          } as any,
-        },
-        {
-          selector: 'node:hover',
-          style: {
-            'overlay-opacity': 0.15,
-            'overlay-color': '#000',
-          } as any,
-        },
-        {
-          selector: 'edge',
-          style: {
-            'width': 2,
-            'line-color': '#CBD5E1',
-            'target-arrow-color': '#CBD5E1',
-            'target-arrow-shape': 'triangle',
-            'curve-style': 'bezier',
-          } as any,
-        },
-      ],
-      layout: { name: 'grid' },
-      userZoomingEnabled: true,
-      userPanningEnabled: true,
-    });
-
-    // Click handler: navigate to knowledge point page
-    cy.on('tap', 'node', (evt: any) => {
-      const nodeId = evt.target.id();
-      window.location.href = `/pep-math/knowledge/${nodeId}`;
-    });
-
-    cyInstance.current = cy;
-    return () => {
-      cy.destroy();
-      cyInstance.current = null;
-    };
-  }, []);
-
-  // Update graph elements when filters change
-  useEffect(() => {
-    const cy = cyInstance.current;
-    if (!cy) return;
+    if (!cyRef.current) return;
 
     const filteredNodes = graph.nodes.filter(n => {
       const matchesTextbook = activeTextbook
@@ -141,16 +105,59 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
       e => filteredNodeIds.has(e.source) && filteredNodeIds.has(e.target)
     );
 
-    cy.elements().remove();
-    cy.add([
-      ...filteredNodes.map(n => ({
-        data: { id: n.id, label: n.name, category: n.category },
-      })),
-      ...filteredEdges.map(e => ({
-        data: { source: e.source, target: e.target, type: e.type },
-      })),
-    ]);
-    cy.layout({ name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 100, animate: false }).run();
+    // Scale positions to fit container
+    const containerWidth = cyRef.current.clientWidth || 800;
+    const containerHeight = cyRef.current.clientHeight || 500;
+    const scaledNodes = scalePositions(filteredNodes, containerWidth, containerHeight);
+
+    const cy = cytoscape({
+      container: cyRef.current,
+      elements: [
+        ...scaledNodes.map(n => ({
+          data: { id: n.id, label: n.name, category: n.category },
+          position: { x: n.x || 0, y: n.y || 0 },
+        })),
+        ...filteredEdges.map(e => ({
+          data: { source: e.source, target: e.target, type: e.type },
+        })),
+      ],
+      style: [
+        {
+          selector: 'node',
+          style: {
+            'label': 'data(label)',
+            'background-color': (ele: any) => categoryColors[ele.data('category')] || '#6B7280',
+            'width': 40,
+            'height': 40,
+            'text-valign': 'bottom',
+            'text-margin-y': 5,
+            'font-size': '10px',
+            'cursor': 'pointer',
+          } as any,
+        },
+        {
+          selector: 'edge',
+          style: {
+            'width': 2,
+            'line-color': '#CBD5E1',
+            'target-arrow-color': '#CBD5E1',
+            'target-arrow-shape': 'triangle',
+            'curve-style': 'bezier',
+          } as any,
+        },
+      ],
+      layout: { name: 'preset' },
+      userZoomingEnabled: true,
+      userPanningEnabled: true,
+    });
+
+    // Click handler: navigate to knowledge point page
+    cy.on('tap', 'node', (evt: any) => {
+      const nodeId = evt.target.id();
+      window.location.href = `/pep-math/knowledge/${nodeId}`;
+    });
+
+    return () => { cy.destroy(); };
   }, [graph, selectedCategory, activeTextbook]);
 
   return (
