@@ -47,9 +47,7 @@ const categories = [...new Set(graph.nodes.map(function(n) { return n.category; 
     <p class="mt-1">💡 提示：可按知识类别和教材筛选，点击节点查看详情，滚轮缩放，拖拽平移</p>
   </div>
 
-  <script type="application/json" id="graph-data">
-    {JSON.stringify(graph)}
-  </script>
+  <div id="graph-data" style="display:none" set:html={JSON.stringify(graph)}></div>
   <script is:inline src="/pep-math/cytoscape.min.js"></script>
   <script is:inline>
     (function() {
