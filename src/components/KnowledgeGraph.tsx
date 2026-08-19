@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState, useMemo } from 'react';
 import cytoscape from 'cytoscape';
 
 interface GraphNode {
@@ -43,10 +43,11 @@ const categoryColors: Record<string, string> = {
 
 export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraphProps) {
   const cyRef = useRef<HTMLDivElement>(null);
+  const cyInstance = useRef<cytoscape.Core | null>(null);
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [activeTextbook, setActiveTextbook] = useState<string | undefined>(textbookFilter);
 
-  const categories = [...new Set(graph.nodes.map(n => n.category))];
+  const categories = useMemo(() => [...new Set(graph.nodes.map(n => n.category))], [graph]);
 
   // Listen for textbook-change events from the page's select dropdown
   useEffect(() => {
@@ -63,35 +64,13 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
     setActiveTextbook(textbookFilter);
   }, [textbookFilter]);
 
+  // Initialize Cytoscape ONCE on mount
   useEffect(() => {
-    if (!cyRef.current) return;
-
-    const filteredNodes = graph.nodes.filter(n => {
-      const matchesTextbook = activeTextbook
-        ? n.textbooks.includes(activeTextbook)
-        : true;
-      const matchesCategory = selectedCategory === 'all'
-        ? true
-        : n.category === selectedCategory;
-      return matchesTextbook && matchesCategory;
-    });
-
-    const filteredNodeIds = new Set(filteredNodes.map(n => n.id));
-    const filteredEdges = graph.edges.filter(
-      e => filteredNodeIds.has(e.source) && filteredNodeIds.has(e.target)
-    );
+    if (!cyRef.current || cyInstance.current) return;
 
     const cy = cytoscape({
       container: cyRef.current,
-      elements: [
-        ...filteredNodes.map(n => ({
-          data: { id: n.id, label: n.name, category: n.category },
-          position: { x: n.x || 0, y: n.y || 0 },
-        })),
-        ...filteredEdges.map(e => ({
-          data: { source: e.source, target: e.target, type: e.type },
-        })),
-      ],
+      elements: [],
       style: [
         {
           selector: 'node',
@@ -124,7 +103,7 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
           } as any,
         },
       ],
-      layout: { name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 100 },
+      layout: { name: 'grid' },
       userZoomingEnabled: true,
       userPanningEnabled: true,
     });
@@ -135,7 +114,43 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
       window.location.href = `/pep-math/knowledge/${nodeId}`;
     });
 
-    return () => { cy.destroy(); };
+    cyInstance.current = cy;
+    return () => {
+      cy.destroy();
+      cyInstance.current = null;
+    };
+  }, []);
+
+  // Update graph elements when filters change
+  useEffect(() => {
+    const cy = cyInstance.current;
+    if (!cy) return;
+
+    const filteredNodes = graph.nodes.filter(n => {
+      const matchesTextbook = activeTextbook
+        ? n.textbooks.includes(activeTextbook)
+        : true;
+      const matchesCategory = selectedCategory === 'all'
+        ? true
+        : n.category === selectedCategory;
+      return matchesTextbook && matchesCategory;
+    });
+
+    const filteredNodeIds = new Set(filteredNodes.map(n => n.id));
+    const filteredEdges = graph.edges.filter(
+      e => filteredNodeIds.has(e.source) && filteredNodeIds.has(e.target)
+    );
+
+    cy.elements().remove();
+    cy.add([
+      ...filteredNodes.map(n => ({
+        data: { id: n.id, label: n.name, category: n.category },
+      })),
+      ...filteredEdges.map(e => ({
+        data: { source: e.source, target: e.target, type: e.type },
+      })),
+    ]);
+    cy.layout({ name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 100, animate: false }).run();
   }, [graph, selectedCategory, activeTextbook]);
 
   return (

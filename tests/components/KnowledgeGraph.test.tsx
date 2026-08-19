@@ -5,6 +5,9 @@ import { render, act } from '@testing-library/react';
 const mockCyInstance = {
   on: vi.fn(),
   destroy: vi.fn(),
+  elements: vi.fn(() => ({ remove: vi.fn() })),
+  add: vi.fn(),
+  layout: vi.fn(() => ({ run: vi.fn() })),
 };
 
 vi.mock('cytoscape', () => ({
@@ -48,13 +51,11 @@ describe('KnowledgeGraph', () => {
     expect(buttons.length).toBeGreaterThanOrEqual(3); // 全部 + 集合与逻辑 + 函数
   });
 
-  it('initializes cytoscape with cose layout', async () => {
+  it('initializes cytoscape on mount', async () => {
     const cytoscapeModule = await import('cytoscape');
     const cytoscape = vi.mocked(cytoscapeModule.default);
     render(<KnowledgeGraph graph={mockGraph} textbookFilter="required-1" />);
     expect(cytoscape).toHaveBeenCalled();
-    const callArgs = cytoscape.mock.calls[0][0] as any;
-    expect(callArgs.layout.name).toBe('cose');
   });
 
   it('registers tap handler on nodes', () => {
@@ -70,10 +71,17 @@ describe('KnowledgeGraph', () => {
     expect(mockCyInstance.destroy).toHaveBeenCalled();
   });
 
-  it('filters nodes by textbook', async () => {
-    const cytoscapeModule = await import('cytoscape');
-    const cytoscape = vi.mocked(cytoscapeModule.default);
+  it('adds filtered nodes to cytoscape', () => {
+    render(<KnowledgeGraph graph={mockGraph} textbookFilter="required-1" />);
+    expect(mockCyInstance.add).toHaveBeenCalled();
+    const addedElements = mockCyInstance.add.mock.calls[0][0];
+    const nodeIds = addedElements
+      .filter((el: any) => !el.data.source)
+      .map((el: any) => el.data.id);
+    expect(nodeIds).toEqual(['set-concept', 'set-operations', 'function-concept']);
+  });
 
+  it('filters nodes by textbook', () => {
     const multiTextbookGraph = {
       nodes: [
         { id: 'set-concept', name: '集合的概念', category: '集合与逻辑', textbooks: ['required-1'], x: 50, y: 50 },
@@ -84,33 +92,23 @@ describe('KnowledgeGraph', () => {
     };
 
     render(<KnowledgeGraph graph={multiTextbookGraph} textbookFilter="required-1" />);
-
-    expect(cytoscape).toHaveBeenCalled();
-    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
-    const nodeIds = callArgs.elements
-      .filter((el: any) => !el.data.source) // nodes only (no edges)
+    const addedElements = mockCyInstance.add.mock.calls[0][0];
+    const nodeIds = addedElements
+      .filter((el: any) => !el.data.source)
       .map((el: any) => el.data.id);
     expect(nodeIds).toEqual(['set-concept']);
   });
 
-  it('shows all nodes when no textbookFilter is set', async () => {
-    const cytoscapeModule = await import('cytoscape');
-    const cytoscape = vi.mocked(cytoscapeModule.default);
-
+  it('shows all nodes when no textbookFilter is set', () => {
     render(<KnowledgeGraph graph={mockGraph} />);
-
-    expect(cytoscape).toHaveBeenCalled();
-    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
-    const nodeIds = callArgs.elements
+    const addedElements = mockCyInstance.add.mock.calls[0][0];
+    const nodeIds = addedElements
       .filter((el: any) => !el.data.source)
       .map((el: any) => el.data.id);
     expect(nodeIds).toHaveLength(mockGraph.nodes.length);
   });
 
-  it('filters nodes for selective-1', async () => {
-    const cytoscapeModule = await import('cytoscape');
-    const cytoscape = vi.mocked(cytoscapeModule.default);
-
+  it('filters nodes for selective-1', () => {
     const triTextbookGraph = {
       nodes: [
         { id: 'set-concept', name: '集合', category: '集合与逻辑', textbooks: ['required-1'], x: 0, y: 0 },
@@ -121,19 +119,14 @@ describe('KnowledgeGraph', () => {
     };
 
     render(<KnowledgeGraph graph={triTextbookGraph} textbookFilter="selective-1" />);
-
-    expect(cytoscape).toHaveBeenCalled();
-    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
-    const nodeIds = callArgs.elements
+    const addedElements = mockCyInstance.add.mock.calls[0][0];
+    const nodeIds = addedElements
       .filter((el: any) => !el.data.source)
       .map((el: any) => el.data.id);
     expect(nodeIds).toEqual(['space-vector-concept']);
   });
 
-  it('filters nodes for selective-2', async () => {
-    const cytoscapeModule = await import('cytoscape');
-    const cytoscape = vi.mocked(cytoscapeModule.default);
-
+  it('filters nodes for selective-2', () => {
     const quadTextbookGraph = {
       nodes: [
         { id: 'set-concept', name: '集合', category: '集合与逻辑', textbooks: ['required-1'], x: 0, y: 0 },
@@ -144,19 +137,14 @@ describe('KnowledgeGraph', () => {
     };
 
     render(<KnowledgeGraph graph={quadTextbookGraph} textbookFilter="selective-2" />);
-
-    expect(cytoscape).toHaveBeenCalled();
-    const callArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
-    const nodeIds = callArgs.elements
+    const addedElements = mockCyInstance.add.mock.calls[0][0];
+    const nodeIds = addedElements
       .filter((el: any) => !el.data.source)
       .map((el: any) => el.data.id);
     expect(nodeIds).toEqual(['sequence-concept', 'derivative-concept']);
   });
 
-  it('responds to textbook-change custom event', async () => {
-    const cytoscapeModule = await import('cytoscape');
-    const cytoscape = vi.mocked(cytoscapeModule.default);
-
+  it('responds to textbook-change custom event', () => {
     const multiTextbookGraph = {
       nodes: [
         { id: 'set-concept', name: '集合的概念', category: '集合与逻辑', textbooks: ['required-1'], x: 50, y: 50 },
@@ -172,8 +160,9 @@ describe('KnowledgeGraph', () => {
       window.dispatchEvent(new CustomEvent('textbook-change', { detail: 'required-2' }));
     });
 
-    const lastCallArgs = cytoscape.mock.calls[cytoscape.mock.calls.length - 1][0] as any;
-    const nodeIds = lastCallArgs.elements
+    // After event, cy.add should have been called again with filtered nodes
+    const lastAddCall = mockCyInstance.add.mock.calls[mockCyInstance.add.mock.calls.length - 1][0];
+    const nodeIds = lastAddCall
       .filter((el: any) => !el.data.source)
       .map((el: any) => el.data.id);
     expect(nodeIds).toEqual(['vector-concept']);
