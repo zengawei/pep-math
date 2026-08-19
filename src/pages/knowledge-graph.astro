@@ -1,6 +1,5 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import KnowledgeGraph from '../components/KnowledgeGraph';
 import fs from 'fs';
 import path from 'path';
 
@@ -14,6 +13,9 @@ const textbooks = [
   { id: 'selective-2', name: '选择性必修 第二册' },
   { id: 'selective-3', name: '选择性必修 第三册' },
 ];
+
+// Extract unique categories
+const categories = [...new Set(graph.nodes.map(function(n) { return n.category; }))];
 ---
 <BaseLayout title="知识图谱">
   <h1 class="text-2xl font-bold mb-2">知识图谱</h1>
@@ -21,26 +23,136 @@ const textbooks = [
     可视化展示知识点之间的关联关系。点击节点可跳转到知识点详情页。
   </p>
 
-  <div class="mb-4">
-    <label class="text-sm font-medium mr-2" for="textbook-select">选择教材：</label>
-    <select id="textbook-select" class="border rounded px-2 py-1 text-sm">
-      {textbooks.map(tb => (
-        <option value={tb.id}>{tb.name}</option>
+  <div class="mb-4 flex flex-wrap items-center gap-4">
+    <div>
+      <label class="text-sm font-medium mr-2" for="textbook-select">教材：</label>
+      <select id="textbook-select" class="border rounded px-2 py-1 text-sm">
+        {textbooks.map(tb => (
+          <option value={tb.id}>{tb.name}</option>
+        ))}
+      </select>
+    </div>
+    <div id="category-filters" class="flex flex-wrap gap-2">
+      <button class="cat-btn px-3 py-1 rounded text-sm bg-blue-600 text-white" data-cat="all">全部</button>
+      {categories.map(cat => (
+        <button class="cat-btn px-3 py-1 rounded text-sm bg-gray-200 text-gray-700" data-cat={cat}>{cat}</button>
       ))}
-    </select>
+    </div>
   </div>
 
-  <KnowledgeGraph graph={graph} textbookFilter="required-1" client:load />
-
-  <script is:inline>
-    document.getElementById('textbook-select').addEventListener('change', function(e) {
-      var textbookId = e.target.value;
-      window.dispatchEvent(new CustomEvent('textbook-change', { detail: textbookId }));
-    });
-  </script>
+  <div id="cy" class="border rounded-lg" style="width:100%;height:500px;"></div>
 
   <div class="mt-4 text-sm text-gray-500">
     <p>节点数：{graph.nodes.length} | 边数：{graph.edges.length}</p>
-    <p class="mt-1">💡 提示：可按知识类别筛选显示，滚轮缩放，拖拽平移</p>
+    <p class="mt-1">💡 提示：可按知识类别和教材筛选，点击节点查看详情，滚轮缩放，拖拽平移</p>
   </div>
+
+  <script type="application/json" id="graph-data">
+    {JSON.stringify(graph)}
+  </script>
+  <script is:inline src="/pep-math/cytoscape.min.js"></script>
+  <script is:inline>
+    (function() {
+      var graphData = JSON.parse(document.getElementById('graph-data').textContent);
+      var categoryColors = {
+        '集合与逻辑': '#3B82F6', '函数': '#10B981', '不等式': '#F59E0B',
+        '方程': '#8B5CF6', '三角函数': '#EF4444', '向量': '#06B6D4',
+        '空间向量': '#0EA5E9', '立体几何': '#6366F1', '解析几何': '#EC4899',
+        '数与代数': '#14B8A6', '概率与统计': '#F97316', '复数': '#A855F7',
+        '数列': '#8B5CF6', '导数': '#EC4899', '计数原理': '#F97316'
+      };
+
+      var activeTextbook = 'required-1';
+      var activeCategory = 'all';
+      var cy = null;
+
+      function scalePositions(nodes, w, h) {
+        if (!nodes.length) return nodes;
+        var xs = nodes.map(function(n) { return n.x || 0; });
+        var ys = nodes.map(function(n) { return n.y || 0; });
+        var minX = Math.min.apply(null, xs), maxX = Math.max.apply(null, xs);
+        var minY = Math.min.apply(null, ys), maxY = Math.max.apply(null, ys);
+        var dataW = (maxX - minX) || 1, dataH = (maxY - minY) || 1;
+        var pad = 60;
+        var sx = (w - pad * 2) / dataW, sy = (h - pad * 2) / dataH;
+        var scale = Math.min(sx, sy);
+        var ox = pad + ((w - pad * 2) - dataW * scale) / 2;
+        var oy = pad + ((h - pad * 2) - dataH * scale) / 2;
+        return nodes.map(function(n) {
+          return { id: n.id, name: n.name, category: n.category, textbooks: n.textbooks,
+            x: (n.x || 0) * scale + ox - minX * scale,
+            y: (n.y || 0) * scale + oy - minY * scale };
+        });
+      }
+
+      function buildGraph() {
+        var filtered = graphData.nodes.filter(function(n) {
+          var tbMatch = n.textbooks.indexOf(activeTextbook) !== -1;
+          var catMatch = activeCategory === 'all' || n.category === activeCategory;
+          return tbMatch && catMatch;
+        });
+        var ids = {};
+        filtered.forEach(function(n) { ids[n.id] = true; });
+        var edges = graphData.edges.filter(function(e) {
+          return ids[e.source] && ids[e.target];
+        });
+
+        var container = document.getElementById('cy');
+        var w = container.clientWidth || 800, h = container.clientHeight || 500;
+        var scaled = scalePositions(filtered, w, h);
+
+        if (cy) cy.destroy();
+        cy = cytoscape({
+          container: container,
+          elements: scaled.map(function(n) {
+            return { data: { id: n.id, label: n.name, category: n.category }, position: { x: n.x, y: n.y } };
+          }).concat(edges.map(function(e) {
+            return { data: { source: e.source, target: e.target, type: e.type } };
+          })),
+          style: [
+            { selector: 'node', style: {
+              'label': 'data(label)',
+              'background-color': function(ele) { return categoryColors[ele.data('category')] || '#6B7280'; },
+              'width': 40, 'height': 40,
+              'text-valign': 'bottom', 'text-margin-y': 5, 'font-size': '10px',
+              'cursor': 'pointer'
+            }},
+            { selector: 'edge', style: {
+              'width': 2, 'line-color': '#CBD5E1',
+              'target-arrow-color': '#CBD5E1', 'target-arrow-shape': 'triangle',
+              'curve-style': 'bezier'
+            }}
+          ],
+          layout: { name: 'preset' },
+          userZoomingEnabled: true,
+          userPanningEnabled: true
+        });
+
+        cy.on('tap', 'node', function(evt) {
+          window.location.href = '/pep-math/knowledge/' + evt.target.id();
+        });
+      }
+
+      // Category filter buttons
+      document.querySelectorAll('.cat-btn').forEach(function(btn) {
+        btn.addEventListener('click', function() {
+          document.querySelectorAll('.cat-btn').forEach(function(b) {
+            b.className = b.className.replace('bg-blue-600 text-white', 'bg-gray-200 text-gray-700');
+          });
+          btn.className = btn.className.replace('bg-gray-200 text-gray-700', 'bg-blue-600 text-white');
+          activeCategory = btn.getAttribute('data-cat');
+          buildGraph();
+        });
+      });
+
+      // Textbook select
+      document.getElementById('textbook-select').addEventListener('change', function(e) {
+        activeTextbook = e.target.value;
+        buildGraph();
+      });
+
+      // Initial build
+      buildGraph();
+    })();
+  </script>
 </BaseLayout>

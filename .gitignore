@@ -3,5 +3,6 @@ dist/
 .astro/
 public/data/
 public/pagefind/
+public/cytoscape.min.js
 *.log
 .DS_Store
