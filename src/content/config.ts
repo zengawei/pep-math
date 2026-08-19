@@ -35,9 +35,31 @@ const definitionSchema = z.object({
   related_knowledge_points: z.array(z.string()).min(1),
 });
 
+const nceeSchema = z.object({
+  type: z.literal('ncee'),
+  ncee_id: z.string(),
+  year: z.number().int().min(2016).max(2025),
+  paper: z.string(),
+  paper_code: z.string(),
+  question_number: z.number().int().min(1),
+  question_type: z.enum(['choice', 'fill_blank', 'solution']),
+  sub_type: z.string().optional(),
+  difficulty: z.enum(['basic', 'medium', 'hard']),
+  score: z.number().optional(),
+  knowledge_points: z.array(z.string()).min(1),
+  textbook_refs: z.array(z.object({
+    textbook: z.enum(['required-1', 'required-2', 'selective-1', 'selective-2', 'selective-3']),
+    chapter: z.number().int().min(1),
+    section: z.number().int().min(1).optional(),
+  })).default([]),
+  is_deprecated: z.boolean().default(false),
+  source: z.literal('高考真题'),
+  region: z.string().optional(),
+});
+
 const textbookContent = defineCollection({
   type: 'content',
-  schema: z.discriminatedUnion('type', [exerciseSchema, exampleSchema, definitionSchema]),
+  schema: z.discriminatedUnion('type', [exerciseSchema, exampleSchema, definitionSchema, nceeSchema]),
 });
 
 const knowledgePoints = defineCollection({
@@ -68,4 +90,4 @@ export const collections = {
 };
 
 // 导出 schema 供构建脚本使用
-export { exerciseSchema, exampleSchema, definitionSchema };
+export { exerciseSchema, exampleSchema, definitionSchema, nceeSchema };
