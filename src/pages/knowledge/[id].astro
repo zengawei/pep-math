@@ -128,21 +128,30 @@ if (fs.existsSync(exercisesByKpFile)) {
         <h2 class="text-lg font-bold mb-2 border-b pb-1">📝 相关习题</h2>
         <p class="text-sm text-gray-500 mb-2">共 {exercises.length} 道习题，按难度排序</p>
         <ul class="space-y-1">
-          {exercises.map((ex: any) => (
-            <li class="flex items-center gap-2 text-sm">
-              <a href={`/pep-math/textbook/${ex.textbook}/chapter/${ex.chapter}/section/${ex.section}`}
-                 class="text-blue-600 hover:underline">
-                {ex.textbook} 第{ex.chapter}章 第{ex.section}节 第{ex.number}题
-              </a>
-              <span class={`px-1 rounded text-xs ${
-                ex.difficulty === 'basic' ? 'bg-green-100 text-green-800' :
-                ex.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
-                'bg-red-100 text-red-800'
-              }`}>
-                {ex.difficulty === 'basic' ? '基础' : ex.difficulty === 'medium' ? '中等' : '拔尖'}
-              </span>
-            </li>
-          ))}
+          {exercises.map((ex: any) => {
+            const isReview = ex.section === 0 || ex.category === 'review';
+            const linkHref = isReview
+              ? `/pep-math/textbook/${ex.textbook}/chapter/${ex.chapter}/section/1`
+              : `/pep-math/textbook/${ex.textbook}/chapter/${ex.chapter}/section/${ex.section}`;
+            const label = isReview
+              ? `${ex.textbook} 第${ex.chapter}章 复习 第${ex.number}题`
+              : `${ex.textbook} 第${ex.chapter}章 第${ex.section}节 第${ex.number}题`;
+            return (
+              <li class="flex items-center gap-2 text-sm">
+                <a href={linkHref} class="text-blue-600 hover:underline">
+                  {label}
+                </a>
+                <span class={`px-1 rounded text-xs ${
+                  ex.difficulty === 'basic' ? 'bg-green-100 text-green-800' :
+                  ex.difficulty === 'medium' ? 'bg-yellow-100 text-yellow-800' :
+                  'bg-red-100 text-red-800'
+                }`}>
+                  {ex.difficulty === 'basic' ? '基础' : ex.difficulty === 'medium' ? '中等' : '拔尖'}
+                </span>
+                {isReview && <span class="px-1 rounded text-xs bg-purple-100 text-purple-800">复习</span>}
+              </li>
+            );
+          })}
         </ul>
       </section>
     )}
