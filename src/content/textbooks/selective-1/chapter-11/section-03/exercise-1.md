@@ -6,6 +6,7 @@ section: 3
 number: 1
 difficulty: medium
 category: practice
+group: A
 is_exam_question: false
 knowledge_points:
   - vector-prove-parallel-perpendicular

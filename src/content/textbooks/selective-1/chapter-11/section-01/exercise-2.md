@@ -6,6 +6,7 @@ section: 1
 number: 2
 difficulty: basic
 category: practice
+group: A
 is_exam_question: false
 knowledge_points:
   - space-vector-operations

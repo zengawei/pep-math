@@ -35,7 +35,7 @@ describe('Selective-1 content integrity', () => {
     };
 
     const exercises = findFiles(textbooksDir, 'exercise-');
-    expect(exercises.length).toBeGreaterThanOrEqual(26);
+    expect(exercises.length).toBeGreaterThanOrEqual(110);
 
     for (const file of exercises) {
       const raw = fs.readFileSync(file, 'utf-8');
@@ -81,6 +81,82 @@ describe('Selective-1 content integrity', () => {
         for (const kp of data.related_knowledge_points) {
           expect(kpIds.has(kp), `Missing KP: ${kp} referenced in ${file}`).toBe(true);
         }
+      }
+    }
+  });
+
+  it('each section has sufficient exercises (>=8 per section)', () => {
+    const chapters = ['chapter-11', 'chapter-12', 'chapter-13'];
+    for (const ch of chapters) {
+      const chDir = path.join(textbooksDir, ch);
+      const sections = fs.readdirSync(chDir).filter(f =>
+        fs.statSync(path.join(chDir, f)).isDirectory() && f.startsWith('section-')
+      );
+      for (const sec of sections) {
+        const secDir = path.join(chDir, sec);
+        const exercises = fs.readdirSync(secDir).filter(f => f.startsWith('exercise-') && f.endsWith('.md'));
+        expect(exercises.length, `${ch}/${sec} should have >= 8 exercises, got ${exercises.length}`).toBeGreaterThanOrEqual(8);
+      }
+    }
+  });
+
+  it('each section has sufficient examples (>=4 per section)', () => {
+    const chapters = ['chapter-11', 'chapter-12', 'chapter-13'];
+    for (const ch of chapters) {
+      const chDir = path.join(textbooksDir, ch);
+      const sections = fs.readdirSync(chDir).filter(f =>
+        fs.statSync(path.join(chDir, f)).isDirectory() && f.startsWith('section-')
+      );
+      for (const sec of sections) {
+        const secDir = path.join(chDir, sec);
+        const examples = fs.readdirSync(secDir).filter(f => f.startsWith('example-') && f.endsWith('.md'));
+        expect(examples.length, `${ch}/${sec} should have >= 4 examples, got ${examples.length}`).toBeGreaterThanOrEqual(4);
+      }
+    }
+  });
+
+  it('each chapter has review exercises (>=25 per chapter)', () => {
+    const chapters = ['chapter-11', 'chapter-12', 'chapter-13'];
+    for (const ch of chapters) {
+      const reviewDir = path.join(textbooksDir, ch, 'review');
+      expect(fs.existsSync(reviewDir), `${ch}/review directory should exist`).toBe(true);
+      const reviews = fs.readdirSync(reviewDir).filter(f => f.startsWith('review-exercise-') && f.endsWith('.md'));
+      expect(reviews.length, `${ch} should have >= 25 review exercises, got ${reviews.length}`).toBeGreaterThanOrEqual(25);
+
+      for (const file of reviews) {
+        const raw = fs.readFileSync(path.join(reviewDir, file), 'utf-8');
+        const { data } = matter(raw);
+        expect(data.type).toBe('exercise');
+        expect(data.category).toBe('review');
+        expect(data.source).toBe('人教A版2019');
+        expect(data.chapter).toBe(parseInt(ch.replace('chapter-', '')));
+        expect(data.section).toBe(0);
+      }
+    }
+  });
+
+  it('all exercises have category and group fields', () => {
+    const findFiles = (dir: string): string[] => {
+      const results: string[] = [];
+      const items = fs.readdirSync(dir);
+      for (const item of items) {
+        const fullPath = path.join(dir, item);
+        if (fs.statSync(fullPath).isDirectory()) {
+          results.push(...findFiles(fullPath, 'exercise-'));
+        } else if (item.startsWith('exercise-') || item.startsWith('review-exercise-')) {
+          results.push(fullPath);
+        }
+      }
+      return results;
+    };
+
+    const exercises = findFiles(textbooksDir);
+    for (const file of exercises) {
+      const raw = fs.readFileSync(file, 'utf-8');
+      const { data } = matter(raw);
+      expect(data.category, `${file} missing category`).toMatch(/^(practice|review|reference)$/);
+      if (data.category === 'practice') {
+        expect(data.group, `${file} missing group`).toMatch(/^(A|B|C)$/);
       }
     }
   });

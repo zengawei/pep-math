@@ -6,6 +6,7 @@ section: 2
 number: 3
 difficulty: hard
 category: practice
+group: A
 is_exam_question: false
 knowledge_points:
   - derivative-monotonicity
