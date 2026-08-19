@@ -98,11 +98,19 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
           style: {
             'label': 'data(label)',
             'background-color': (ele: any) => categoryColors[ele.data('category')] || '#6B7280',
-            'width': 40,
-            'height': 40,
+            'width': 50,
+            'height': 50,
             'text-valign': 'bottom',
-            'text-margin-y': 5,
-            'font-size': '10px',
+            'text-margin-y': 8,
+            'font-size': '11px',
+            'cursor': 'pointer',
+          } as any,
+        },
+        {
+          selector: 'node:hover',
+          style: {
+            'overlay-opacity': 0.15,
+            'overlay-color': '#000',
           } as any,
         },
         {
@@ -116,7 +124,7 @@ export default function KnowledgeGraph({ graph, textbookFilter }: KnowledgeGraph
           } as any,
         },
       ],
-      layout: { name: 'preset' },
+      layout: { name: 'cose', padding: 30, nodeRepulsion: 8000, idealEdgeLength: 100 },
       userZoomingEnabled: true,
       userPanningEnabled: true,
     });

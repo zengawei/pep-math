@@ -48,13 +48,13 @@ describe('KnowledgeGraph', () => {
     expect(buttons.length).toBeGreaterThanOrEqual(3); // 全部 + 集合与逻辑 + 函数
   });
 
-  it('initializes cytoscape with preset layout', async () => {
+  it('initializes cytoscape with cose layout', async () => {
     const cytoscapeModule = await import('cytoscape');
     const cytoscape = vi.mocked(cytoscapeModule.default);
     render(<KnowledgeGraph graph={mockGraph} textbookFilter="required-1" />);
     expect(cytoscape).toHaveBeenCalled();
     const callArgs = cytoscape.mock.calls[0][0] as any;
-    expect(callArgs.layout.name).toBe('preset');
+    expect(callArgs.layout.name).toBe('cose');
   });
 
   it('registers tap handler on nodes', () => {
