@@ -6,6 +6,7 @@ section: 4
 number: 2
 difficulty: medium
 category: practice
+group: A
 is_exam_question: false
 knowledge_points:
   - expected-value-variance

@@ -6,6 +6,7 @@ section: 2
 number: 1
 difficulty: basic
 category: practice
+group: A
 is_exam_question: false
 knowledge_points:
   - discrete-random-variable
