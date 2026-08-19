@@ -32,9 +32,9 @@ const textbooks = [
 
   <KnowledgeGraph graph={graph} textbookFilter="required-1" client:load />
 
-  <script>
-    document.getElementById('textbook-select')?.addEventListener('change', (e) => {
-      const textbookId = (e.target as HTMLSelectElement).value;
+  <script is:inline>
+    document.getElementById('textbook-select').addEventListener('change', function(e) {
+      var textbookId = e.target.value;
       window.dispatchEvent(new CustomEvent('textbook-change', { detail: textbookId }));
     });
   </script>

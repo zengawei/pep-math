@@ -99,42 +99,41 @@ for (const kp of knowledgePoints) {
     ))}
   </div>
 
-  <script>
-    let activeCategory = 'all';
-    let activeTextbook = 'all';
+  <script is:inline>
+    var activeCategory = 'all';
+    var activeTextbook = 'all';
 
     function applyFilters() {
-      document.querySelectorAll('.kp-card').forEach(card => {
-        const el = card as HTMLElement;
-        const cat = el.dataset.category || '';
-        const tbs = (el.dataset.textbooks || '').split(',');
+      document.querySelectorAll('.kp-card').forEach(function(card) {
+        var cat = card.dataset.category || '';
+        var tbs = (card.dataset.textbooks || '').split(',');
 
-        const catMatch = activeCategory === 'all' || cat === activeCategory;
-        const tbMatch = activeTextbook === 'all' || tbs.includes(activeTextbook);
+        var catMatch = activeCategory === 'all' || cat === activeCategory;
+        var tbMatch = activeTextbook === 'all' || tbs.includes(activeTextbook);
 
-        el.style.display = (catMatch && tbMatch) ? '' : 'none';
+        card.style.display = (catMatch && tbMatch) ? '' : 'none';
       });
     }
 
-    function setActiveButton(group: string, btn: Element) {
-      const cls = group === 'category' ? 'category-filter' : 'textbook-filter';
-      document.querySelectorAll(`.${cls}`).forEach(b => {
+    function setActiveButton(group, btn) {
+      var cls = group === 'category' ? 'category-filter' : 'textbook-filter';
+      document.querySelectorAll('.' + cls).forEach(function(b) {
         b.className = b.className.replace('bg-blue-600 text-white', 'bg-gray-200 text-gray-700');
       });
       btn.className = btn.className.replace('bg-gray-200 text-gray-700', 'bg-blue-600 text-white');
     }
 
-    document.querySelectorAll('.category-filter').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeCategory = (btn as HTMLElement).dataset.category || 'all';
+    document.querySelectorAll('.category-filter').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        activeCategory = btn.dataset.category || 'all';
         setActiveButton('category', btn);
         applyFilters();
       });
     });
 
-    document.querySelectorAll('.textbook-filter').forEach(btn => {
-      btn.addEventListener('click', () => {
-        activeTextbook = (btn as HTMLElement).dataset.textbook || 'all';
+    document.querySelectorAll('.textbook-filter').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        activeTextbook = btn.dataset.textbook || 'all';
         setActiveButton('textbook', btn);
         applyFilters();
       });
