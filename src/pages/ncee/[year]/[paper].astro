@@ -1,0 +1,224 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import yaml from 'js-yaml';
+import { marked } from 'marked';
+
+export function getStaticPaths() {
+  const nceeDir = path.resolve('src/content/textbooks/ncee');
+  const paths = [];
+
+  const yearDirs = fs.readdirSync(nceeDir).filter(d => /^\d{4}$/.test(d));
+  for (const yearDir of yearDirs) {
+    const yearPath = path.join(nceeDir, yearDir);
+    const paperDirs = fs.readdirSync(yearPath).filter(d =>
+      fs.statSync(path.join(yearPath, d)).isDirectory()
+    );
+    for (const paperDir of paperDirs) {
+      paths.push({
+        params: { year: yearDir, paper: paperDir },
+      });
+    }
+  }
+  return paths;
+}
+
+const { year, paper } = Astro.params;
+const paperDir = path.resolve('src/content/textbooks/ncee', year!, paper!);
+const paperCode = `${year}-${paper}`;
+
+// Read _index.yml
+const indexPath = path.join(paperDir, '_index.yml');
+const indexData = yaml.load(fs.readFileSync(indexPath, 'utf-8')) as any;
+
+// Read all question frontmatters
+const mdFiles = fs.readdirSync(paperDir)
+  .filter(f => /^q\d{2}\.md$/.test(f))
+  .sort();
+
+const questions = mdFiles.map(f => {
+  const raw = fs.readFileSync(path.join(paperDir, f), 'utf-8');
+  const { data, content } = matter(raw);
+  return {
+    filename: f,
+    ncee_id: data.ncee_id,
+    question_number: data.question_number,
+    question_type: data.question_type,
+    difficulty: data.difficulty,
+    score: data.score,
+    knowledge_points: data.knowledge_points || [],
+    is_deprecated: data.is_deprecated || false,
+    content: content,
+  };
+}).sort((a, b) => a.question_number - b.question_number);
+
+// Group by type
+const choiceQs = questions.filter(q => q.question_type === 'choice');
+const fillQs = questions.filter(q => q.question_type === 'fill_blank');
+const solutionQs = questions.filter(q => q.question_type === 'solution');
+
+const choiceScore = choiceQs.reduce((s, q) => s + (q.score || 0), 0);
+const fillScore = fillQs.reduce((s, q) => s + (q.score || 0), 0);
+const solutionScore = solutionQs.reduce((s, q) => s + (q.score || 0), 0);
+
+function difficultyLabel(d: string) {
+  return d === 'basic' ? '基础' : d === 'medium' ? '中等' : '拔尖';
+}
+function difficultyClass(d: string) {
+  return d === 'basic' ? 'bg-green-100 text-green-800' : d === 'medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800';
+}
+
+function renderMarkdown(content: string): string {
+  return marked.parse(content) as string;
+}
+---
+<BaseLayout title={indexData.paper}>
+  <div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-6">
+      <a href="/pep-math/ncee" class="text-sm text-blue-600 hover:underline">← 返回真题总览</a>
+      <h1 class="text-2xl font-bold mt-2">{indexData.paper}</h1>
+      <div class="flex gap-4 text-sm text-gray-500 mt-1">
+        <span>总分 {indexData.total_score || 150}</span>
+        <span>{questions.length} 题</span>
+        {indexData.region && <span>{indexData.region}</span>}
+      </div>
+    </div>
+
+    <!-- Question sections -->
+    {choiceQs.length > 0 && (
+      <section class="mb-6">
+        <h2 class="text-lg font-bold mb-2 border-b pb-1">
+          一、选择题（每小题 5 分，共 {choiceScore} 分）
+        </h2>
+        <div class="space-y-2">
+          {choiceQs.map(q => (
+            <div class="border rounded-lg overflow-hidden" id={`q-${q.question_number}`}>
+              <div class="flex items-center justify-between px-3 py-2 bg-gray-50 cursor-pointer hover:bg-gray-100" data-collapse={q.question_number}>
+                <div class="flex items-center gap-2">
+                  <span class="font-medium text-sm">第 {q.question_number} 题</span>
+                  <span class={`px-1.5 rounded text-xs ${difficultyClass(q.difficulty)}`}>{difficultyLabel(q.difficulty)}</span>
+                  <span class="text-xs text-gray-400">{q.score} 分</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="flex gap-1">
+                    {q.knowledge_points.map((kp: string) => (
+                      <a href={`/pep-math/knowledge/${kp}`} class="text-xs text-blue-500 hover:underline">{kp}</a>
+                    ))}
+                  </div>
+                  <a href={`/pep-math/ncee/question/${q.ncee_id}`} class="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded hover:bg-blue-100">详情 →</a>
+                  <span class="collapse-icon text-gray-400 text-xs">▶</span>
+                </div>
+              </div>
+              <div class="question-content hidden px-3 py-2 text-sm" data-content={q.question_number}>
+                <div set:html={renderMarkdown(q.content)} class="prose prose-sm max-w-none"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {fillQs.length > 0 && (
+      <section class="mb-6">
+        <h2 class="text-lg font-bold mb-2 border-b pb-1">
+          二、填空题（每小题 5 分，共 {fillScore} 分）
+        </h2>
+        <div class="space-y-2">
+          {fillQs.map(q => (
+            <div class="border rounded-lg overflow-hidden" id={`q-${q.question_number}`}>
+              <div class="flex items-center justify-between px-3 py-2 bg-gray-50 cursor-pointer hover:bg-gray-100" data-collapse={q.question_number}>
+                <div class="flex items-center gap-2">
+                  <span class="font-medium text-sm">第 {q.question_number} 题</span>
+                  <span class={`px-1.5 rounded text-xs ${difficultyClass(q.difficulty)}`}>{difficultyLabel(q.difficulty)}</span>
+                  <span class="text-xs text-gray-400">{q.score} 分</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="flex gap-1">
+                    {q.knowledge_points.map((kp: string) => (
+                      <a href={`/pep-math/knowledge/${kp}`} class="text-xs text-blue-500 hover:underline">{kp}</a>
+                    ))}
+                  </div>
+                  <a href={`/pep-math/ncee/question/${q.ncee_id}`} class="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded hover:bg-blue-100">详情 →</a>
+                  <span class="collapse-icon text-gray-400 text-xs">▶</span>
+                </div>
+              </div>
+              <div class="question-content hidden px-3 py-2 text-sm" data-content={q.question_number}>
+                <div set:html={renderMarkdown(q.content)} class="prose prose-sm max-w-none"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+
+    {solutionQs.length > 0 && (
+      <section class="mb-6">
+        <h2 class="text-lg font-bold mb-2 border-b pb-1">
+          三、解答题（共 {solutionScore} 分）
+        </h2>
+        <div class="space-y-2">
+          {solutionQs.map(q => (
+            <div class="border rounded-lg overflow-hidden" id={`q-${q.question_number}`}>
+              <div class="flex items-center justify-between px-3 py-2 bg-gray-50 cursor-pointer hover:bg-gray-100" data-collapse={q.question_number}>
+                <div class="flex items-center gap-2">
+                  <span class="font-medium text-sm">第 {q.question_number} 题</span>
+                  <span class={`px-1.5 rounded text-xs ${difficultyClass(q.difficulty)}`}>{difficultyLabel(q.difficulty)}</span>
+                  <span class="text-xs text-gray-400">{q.score} 分</span>
+                </div>
+                <div class="flex items-center gap-2">
+                  <div class="flex gap-1">
+                    {q.knowledge_points.map((kp: string) => (
+                      <a href={`/pep-math/knowledge/${kp}`} class="text-xs text-blue-500 hover:underline">{kp}</a>
+                    ))}
+                  </div>
+                  <a href={`/pep-math/ncee/question/${q.ncee_id}`} class="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded hover:bg-blue-100">详情 →</a>
+                  <span class="collapse-icon text-gray-400 text-xs">▶</span>
+                </div>
+              </div>
+              <div class="question-content hidden px-3 py-2 text-sm" data-content={q.question_number}>
+                <div set:html={renderMarkdown(q.content)} class="prose prose-sm max-w-none"></div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
+  </div>
+
+  <!-- Collapse toggle + KaTeX rendering -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      function renderMathIn(el) {
+        if (typeof renderMathInElement === 'function') {
+          renderMathInElement(el, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+            ],
+            throwOnError: false,
+          });
+        }
+      }
+
+      document.querySelectorAll('[data-collapse]').forEach(function(el) {
+        el.addEventListener('click', function(e) {
+          if (e.target.tagName === 'A') return;
+          var qn = el.dataset.collapse;
+          var content = document.querySelector('[data-content="' + qn + '"]');
+          var icon = el.querySelector('.collapse-icon');
+          if (content.classList.contains('hidden')) {
+            content.classList.remove('hidden');
+            icon.textContent = '▼';
+            renderMathIn(content);
+          } else {
+            content.classList.add('hidden');
+            icon.textContent = '▶';
+          }
+        });
+      });
+    });
+  </script>
+</BaseLayout>

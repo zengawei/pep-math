@@ -1,0 +1,192 @@
+---
+import BaseLayout from '../../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+import matter from 'gray-matter';
+import yaml from 'js-yaml';
+import { marked } from 'marked';
+
+export function getStaticPaths() {
+  const nceeDir = path.resolve('src/content/textbooks/ncee');
+  const paths = [];
+
+  const yearDirs = fs.readdirSync(nceeDir).filter(d => /^\d{4}$/.test(d));
+  for (const yearDir of yearDirs) {
+    const yearPath = path.join(nceeDir, yearDir);
+    const paperDirs = fs.readdirSync(yearPath).filter(d =>
+      fs.statSync(path.join(yearPath, d)).isDirectory()
+    );
+    for (const paperDir of paperDirs) {
+      const paperPath = path.join(yearPath, paperDir);
+      const mdFiles = fs.readdirSync(paperPath).filter(f => /^q\d{2}\.md$/.test(f));
+      for (const f of mdFiles) {
+        const raw = fs.readFileSync(path.join(paperPath, f), 'utf-8');
+        const { data } = matter(raw);
+        if (data.ncee_id) {
+          paths.push({
+            params: { ncee_id: data.ncee_id },
+            props: { filePath: path.join(paperPath, f), paperPath },
+          });
+        }
+      }
+    }
+  }
+  return paths;
+}
+
+const { filePath, paperPath } = Astro.props;
+const raw = fs.readFileSync(filePath, 'utf-8');
+const { data, content } = matter(raw);
+
+// Read paper index
+const indexPath = path.join(paperPath, '_index.yml');
+const indexData = yaml.load(fs.readFileSync(indexPath, 'utf-8')) as any;
+
+// Get all questions in this paper for prev/next navigation
+const allPaperQuestions = fs.readdirSync(paperPath)
+  .filter(f => /^q\d{2}\.md$/.test(f))
+  .map(f => {
+    const r = fs.readFileSync(path.join(paperPath, f), 'utf-8');
+    const d = matter(r).data;
+    return { ncee_id: d.ncee_id, question_number: d.question_number, paper_code: d.paper_code, year: d.year };
+  })
+  .sort((a, b) => a.question_number - b.question_number);
+
+const currentIdx = allPaperQuestions.findIndex(q => q.ncee_id === data.ncee_id);
+const prevQ = currentIdx > 0 ? allPaperQuestions[currentIdx - 1] : null;
+const nextQ = currentIdx < allPaperQuestions.length - 1 ? allPaperQuestions[currentIdx + 1] : null;
+
+const paperSlug = data.paper_code.replace(/^\d+-/, '');
+const paperUrl = `/pep-math/ncee/${data.year}/${paperSlug}`;
+
+function difficultyStars(d: string) {
+  return d === 'basic' ? '★☆☆' : d === 'medium' ? '★★☆' : '★★★';
+}
+function difficultyLabel(d: string) {
+  return d === 'basic' ? '基础' : d === 'medium' ? '中等' : '拔尖';
+}
+function difficultyClass(d: string) {
+  return d === 'basic' ? 'bg-green-100 text-green-800' : d === 'medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800';
+}
+
+const renderedContent = marked.parse(content) as string;
+const isDeprecated = data.is_deprecated === true;
+
+const textbookNames: Record<string, string> = {
+  'required-1': '必修 第一册',
+  'required-2': '必修 第二册',
+  'selective-1': '选择性必修 第一册',
+  'selective-2': '选择性必修 第二册',
+  'selective-3': '选择性必修 第三册',
+};
+---
+<BaseLayout title={`${data.paper} 第 ${data.question_number} 题`}>
+  <div class="max-w-3xl">
+    <!-- Deprecated banner -->
+    {isDeprecated && (
+      <div class="mb-4 p-3 bg-red-100 border border-red-300 rounded text-red-800 font-medium">
+        ⚠️ 该题目已废弃，内容仅供参考。
+      </div>
+    )}
+
+    <!-- Header -->
+    <div class="mb-4">
+      <a href={paperUrl} class="text-sm text-blue-600 hover:underline">← 返回 {data.paper}</a>
+      <h1 class="text-xl font-bold mt-2">{data.paper} 第 {data.question_number} 题</h1>
+      <div class="flex flex-wrap gap-2 mt-2 text-sm">
+        <span class={`px-2 py-0.5 rounded ${difficultyClass(data.difficulty)}`}>
+          {difficultyLabel(data.difficulty)} {difficultyStars(data.difficulty)}
+        </span>
+        <span class="px-2 py-0.5 rounded bg-gray-100 text-gray-700">
+          {data.question_type === 'choice' ? '选择题' : data.question_type === 'fill_blank' ? '填空题' : '解答题'}
+        </span>
+        {data.score && <span class="px-2 py-0.5 rounded bg-gray-100 text-gray-700">{data.score} 分</span>}
+      </div>
+    </div>
+
+    {!isDeprecated && (
+      <>
+        <!-- Question content -->
+        <section class="mb-6">
+          <div set:html={renderedContent} id="question-content" class="prose prose-sm max-w-none"></div>
+        </section>
+
+        <!-- Knowledge points -->
+        {data.knowledge_points && data.knowledge_points.length > 0 && (
+          <section class="mb-4">
+            <h2 class="text-sm font-bold text-gray-500 mb-2">🔗 关联知识点</h2>
+            <div class="flex flex-wrap gap-2">
+              {data.knowledge_points.map((kp: string) => (
+                <a href={`/pep-math/knowledge/${kp}`} class="px-2 py-1 bg-blue-50 text-blue-700 rounded text-sm hover:bg-blue-100">
+                  {kp}
+                </a>
+              ))}
+            </div>
+          </section>
+        )}
+
+        <!-- Textbook refs -->
+        {data.textbook_refs && data.textbook_refs.length > 0 && (
+          <section class="mb-4">
+            <h2 class="text-sm font-bold text-gray-500 mb-2">📚 关联教材章节</h2>
+            <div class="flex flex-wrap gap-2">
+              {data.textbook_refs.map((ref: any) => {
+                const tbName = textbookNames[ref.textbook] || ref.textbook;
+                const sectionStr = ref.section ? ` 第${ref.section}节` : '';
+                const href = ref.section
+                  ? `/pep-math/textbook/${ref.textbook}/chapter/${ref.chapter}/section/${ref.section}`
+                  : `/pep-math/textbook/${ref.textbook}`;
+                return (
+                  <a href={href} class="px-2 py-1 bg-purple-50 text-purple-700 rounded text-sm hover:bg-purple-100">
+                    {tbName} 第{ref.chapter}章{sectionStr}
+                  </a>
+                );
+              })}
+            </div>
+          </section>
+        )}
+      </>
+    )}
+
+    <!-- Navigation -->
+    <nav class="mt-8 pt-4 border-t flex justify-between items-center text-sm">
+      <a href={paperUrl} class="text-blue-600 hover:underline">← 返回试卷</a>
+      <div class="flex gap-4">
+        {prevQ && (
+          <a href={`/pep-math/ncee/question/${prevQ.ncee_id}`} class="text-blue-600 hover:underline">
+            ← 第 {prevQ.question_number} 题
+          </a>
+        )}
+        {nextQ && (
+          <a href={`/pep-math/ncee/question/${nextQ.ncee_id}`} class="text-blue-600 hover:underline">
+            第 {nextQ.question_number} 题 →
+          </a>
+        )}
+      </div>
+    </nav>
+  </div>
+
+  <!-- KaTeX rendering -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      var el = document.getElementById('question-content');
+      if (el && typeof renderMathInElement === 'function') {
+        try {
+          renderMathInElement(el, {
+            delimiters: [
+              {left: '$$', right: '$$', display: true},
+              {left: '$', right: '$', display: false},
+            ],
+            throwOnError: false,
+          });
+        } catch(e) {
+          console.error('[pep-math] 公式渲染失败:', {
+            ncee_id: window.location.pathname.split('/').pop(),
+            error: e.message,
+            ncee_context: '真题详情页'
+          });
+        }
+      }
+    });
+  </script>
+</BaseLayout>

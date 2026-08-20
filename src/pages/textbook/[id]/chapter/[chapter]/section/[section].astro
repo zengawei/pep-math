@@ -49,6 +49,13 @@ const sectionDataFile = path.resolve(
 );
 const sectionData = JSON.parse(fs.readFileSync(sectionDataFile, 'utf-8'));
 
+// Load NCEE questions for this chapter
+const nceeByChapterFile = path.resolve(`public/data/ncee/by-chapter/${id}/ch${chapterNum}.json`);
+let nceeQuestions: any[] = [];
+if (fs.existsSync(nceeByChapterFile)) {
+  nceeQuestions = JSON.parse(fs.readFileSync(nceeByChapterFile, 'utf-8'));
+}
+
 // Build navigation data
 const textbooksDir = path.resolve('src/content/textbooks');
 const textbookDir = path.join(textbooksDir, id!);
@@ -181,8 +188,108 @@ const allChapters = fs.readdirSync(textbookDir)
           </p>
         </section>
       )}
+
+      <!-- NCEE Questions -->
+      {nceeQuestions.length > 0 && (
+        <section class="mb-6">
+          <h2 class="text-lg font-bold mb-2 border-b pb-1">🎯 高考真题</h2>
+          <p class="text-sm text-gray-500 mb-2">共 {nceeQuestions.length} 道真题涉及本章内容</p>
+          <div class="flex gap-2 mb-3">
+            <select id="ncee-ch-filter-type" class="border rounded px-2 py-1 text-xs">
+              <option value="">全部题型</option>
+              <option value="choice">选择题</option>
+              <option value="fill_blank">填空题</option>
+              <option value="solution">解答题</option>
+            </select>
+            <select id="ncee-ch-filter-diff" class="border rounded px-2 py-1 text-xs">
+              <option value="">全部难度</option>
+              <option value="basic">基础</option>
+              <option value="medium">中等</option>
+              <option value="hard">拔尖</option>
+            </select>
+          </div>
+          <div id="ncee-ch-list" class="space-y-1"></div>
+          <div id="ncee-ch-pagination" class="flex gap-1 mt-3 flex-wrap"></div>
+        </section>
+      )}
     </div>
   </div>
+
+  {nceeQuestions.length > 0 && (
+    <script is:inline set:html={`
+      (function() {
+        var questions = ${JSON.stringify(nceeQuestions)};
+        var PAGE_SIZE = 20;
+        var currentPage = 1;
+        var filtered = questions.slice();
+
+        function diffLabel(d) { return d === 'basic' ? '基础' : d === 'medium' ? '中等' : '拔尖'; }
+        function diffClass(d) { return d === 'basic' ? 'bg-green-100 text-green-800' : d === 'medium' ? 'bg-yellow-100 text-yellow-800' : 'bg-red-100 text-red-800'; }
+        function typeLabel(t) { return t === 'choice' ? '选择' : t === 'fill_blank' ? '填空' : '解答'; }
+
+        function applyFilters() {
+          var typeVal = document.getElementById('ncee-ch-filter-type').value;
+          var diffVal = document.getElementById('ncee-ch-filter-diff').value;
+          filtered = questions.filter(function(q) {
+            if (typeVal && q.question_type !== typeVal) return false;
+            if (diffVal && q.difficulty !== diffVal) return false;
+            return true;
+          });
+          currentPage = 1;
+          render();
+        }
+
+        function render() {
+          var list = document.getElementById('ncee-ch-list');
+          var pag = document.getElementById('ncee-ch-pagination');
+          var start = (currentPage - 1) * PAGE_SIZE;
+          var page = filtered.slice(start, start + PAGE_SIZE);
+          var totalPages = Math.ceil(filtered.length / PAGE_SIZE) || 1;
+
+          var byYear = {};
+          page.forEach(function(q) {
+            if (!byYear[q.year]) byYear[q.year] = [];
+            byYear[q.year].push(q);
+          });
+
+          var html = '';
+          Object.keys(byYear).sort(function(a,b) { return b - a; }).forEach(function(year) {
+            html += '<div class="text-xs font-medium text-gray-400 mt-2 mb-1">' + year + '年</div>';
+            byYear[year].forEach(function(q) {
+              html += '<div class="flex items-center justify-between text-sm py-1 px-2 rounded hover:bg-gray-50">';
+              html += '<div class="flex items-center gap-2">';
+              html += '<span class="text-xs text-gray-400">' + q.paper + '</span>';
+              html += '<span class="text-xs">第' + q.question_number + '题</span>';
+              html += '<span class="px-1 rounded text-xs ' + diffClass(q.difficulty) + '">' + diffLabel(q.difficulty) + '</span>';
+              html += '<span class="px-1 rounded text-xs bg-gray-100 text-gray-600">' + typeLabel(q.question_type) + '</span>';
+              html += '</div>';
+              html += '<a href="/pep-math/ncee/question/' + q.ncee_id + '" class="text-xs text-blue-600 hover:underline">详情 →</a>';
+              html += '</div>';
+            });
+          });
+
+          if (filtered.length === 0) html = '<p class="text-sm text-gray-400">无匹配结果</p>';
+          list.innerHTML = html;
+
+          var pagHtml = '';
+          if (totalPages > 1) {
+            if (currentPage > 1) pagHtml += '<button onclick="nceeChGoPage(' + (currentPage-1) + ')" class="px-2 py-1 text-xs border rounded hover:bg-gray-50">← 上一页</button>';
+            for (var i = 1; i <= totalPages; i++) {
+              var active = i === currentPage ? 'bg-blue-600 text-white' : 'border hover:bg-gray-50';
+              pagHtml += '<button onclick="nceeChGoPage(' + i + ')" class="px-2 py-1 text-xs rounded ' + active + '">' + i + '</button>';
+            }
+            if (currentPage < totalPages) pagHtml += '<button onclick="nceeChGoPage(' + (currentPage+1) + ')" class="px-2 py-1 text-xs border rounded hover:bg-gray-50">下一页 →</button>';
+          }
+          pag.innerHTML = pagHtml;
+        }
+
+        window.nceeChGoPage = function(p) { currentPage = p; render(); };
+        document.getElementById('ncee-ch-filter-type').addEventListener('change', applyFilters);
+        document.getElementById('ncee-ch-filter-diff').addEventListener('change', applyFilters);
+        render();
+      })();
+    `} />
+  )}
 
   <!-- Exercise/example click-to-expand with KaTeX math rendering -->
   <script is:inline>

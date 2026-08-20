@@ -1,0 +1,355 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import fs from 'fs';
+import path from 'path';
+
+const dataDir = path.resolve('public/data/ncee');
+const summary = JSON.parse(fs.readFileSync(path.join(dataDir, 'summary.json'), 'utf-8'));
+
+// Build paper list grouped by year from by-year JSONs
+const years = Object.keys(summary.years).map(Number).sort((a, b) => b - a);
+const yearData: Record<number, { papers: Array<{ paper_code: string; paper: string; question_count: number; total_score: number }>; question_count: number; paper_count: number }> = {};
+
+for (const year of years) {
+  const byYearFile = path.join(dataDir, 'by-year', `${year}.json`);
+  if (!fs.existsSync(byYearFile)) continue;
+  const questions = JSON.parse(fs.readFileSync(byYearFile, 'utf-8'));
+
+  const paperMap: Record<string, { paper: string; question_count: number }> = {};
+  for (const q of questions) {
+    if (!paperMap[q.paper_code]) {
+      paperMap[q.paper_code] = { paper: q.paper, question_count: 0 };
+    }
+    paperMap[q.paper_code].question_count++;
+  }
+
+  const papers = Object.entries(paperMap)
+    .map(([code, info]) => ({
+      paper_code: code,
+      paper: info.paper,
+      question_count: info.question_count,
+      total_score: 150,
+    }))
+    .sort((a, b) => a.paper_code.localeCompare(b.paper_code));
+
+  yearData[year] = { papers, question_count: questions.length, paper_count: papers.length };
+}
+
+// Collect all knowledge points for filter dropdown
+const allKps: Record<string, number> = summary.by_kp_count || {};
+const kpEntries = Object.entries(allKps).sort((a, b) => b[1] - a[1]);
+---
+<BaseLayout title="高考数学真题">
+  <div class="max-w-3xl">
+    <!-- Header -->
+    <div class="mb-6">
+      <h1 class="text-2xl font-bold">📋 高考数学真题</h1>
+      <p class="text-gray-600 mt-1">
+        {summary.years && `${Math.min(...years)}-${Math.max(...years)}，共 ${summary.total_papers} 套试卷，${summary.total_questions} 道题目`}
+      </p>
+    </div>
+
+    <!-- Filters -->
+    <div class="mb-6 bg-gray-50 rounded-lg p-4">
+      <div class="flex flex-wrap gap-3 items-end">
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">年份</label>
+          <select id="filter-year" class="border rounded px-2 py-1 text-sm">
+            <option value="">全部</option>
+            {years.map(y => <option value={y}>{y}</option>)}
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">试卷类型</label>
+          <select id="filter-paper-type" class="border rounded px-2 py-1 text-sm">
+            <option value="">全部</option>
+            <option value="national">全国卷</option>
+            <option value="provincial">省级卷</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">难度</label>
+          <select id="filter-difficulty" class="border rounded px-2 py-1 text-sm">
+            <option value="">全部</option>
+            <option value="basic">基础</option>
+            <option value="medium">中等</option>
+            <option value="hard">拔尖</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">题型</label>
+          <select id="filter-question-type" class="border rounded px-2 py-1 text-sm">
+            <option value="">全部</option>
+            <option value="choice">选择题</option>
+            <option value="fill_blank">填空题</option>
+            <option value="solution">解答题</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs font-medium text-gray-500 mb-1">知识点</label>
+          <select id="filter-kp" class="border rounded px-2 py-1 text-sm max-w-48">
+            <option value="">全部</option>
+            {kpEntries.map(([kp, count]) => <option value={kp}>{kp} ({count})</option>)}
+          </select>
+        </div>
+        <button id="clear-filters" class="px-3 py-1 text-sm text-red-600 hover:text-red-800 border border-red-300 rounded hover:bg-red-50">
+          清空筛选 ✕
+        </button>
+      </div>
+      <p class="text-xs text-gray-400 mt-2">💡 多条件同时满足（AND），筛选状态同步到 URL，可复制链接分享</p>
+    </div>
+
+    <!-- No results message (hidden by default) -->
+    <div id="no-results" class="hidden mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded text-yellow-800 text-sm">
+      未找到匹配的真题，请调整筛选条件。
+    </div>
+
+    <!-- Year groups -->
+    <div id="year-groups">
+      {years.map(year => {
+        const data = yearData[year];
+        if (!data) return null;
+        return (
+          <div class="year-group mb-4" data-year={year}>
+            <div class="flex items-center gap-2 mb-2 cursor-pointer select-none" data-toggle={year}>
+              <span class="text-lg font-bold text-blue-700">📅 {year}</span>
+              <span class="text-sm text-gray-500">{data.paper_count} 套试卷 · {data.question_count} 道题</span>
+              <span class="toggle-icon text-gray-400 text-sm">▼</span>
+            </div>
+            <div class="paper-list space-y-1 pl-4" data-year-list={year}>
+              {data.papers.map(p => (
+                <div class="paper-item flex items-center justify-between py-1.5 px-3 bg-white rounded border hover:border-blue-300 text-sm"
+                  data-paper-code={p.paper_code}
+                  data-paper-type={p.paper_code.includes('national') || p.paper_code.includes('new-gao-kao') ? 'national' : 'provincial'}>
+                  <div class="flex items-center gap-2">
+                    <span>📄</span>
+                    <a href={`/pep-math/ncee/${year}/${p.paper_code.replace(/^\d+-/, '')}`} class="text-blue-600 hover:underline font-medium">
+                      {p.paper}
+                    </a>
+                  </div>
+                  <div class="flex items-center gap-3 text-gray-500">
+                    <span>{p.question_count} 题</span>
+                    <span>{p.total_score} 分</span>
+                    <a href={`/pep-math/ncee/${year}/${p.paper_code.replace(/^\d+-/, '')}`} class="text-xs px-2 py-0.5 bg-blue-50 text-blue-600 rounded hover:bg-blue-100">
+                      查看详情
+                    </a>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        );
+      })}
+    </div>
+  </div>
+
+  <!-- Load by-year data for client-side filtering -->
+  <script is:inline>
+    document.addEventListener('DOMContentLoaded', function() {
+      var filterYear = document.getElementById('filter-year');
+      var filterPaperType = document.getElementById('filter-paper-type');
+      var filterDifficulty = document.getElementById('filter-difficulty');
+      var filterQuestionType = document.getElementById('filter-question-type');
+      var filterKp = document.getElementById('filter-kp');
+      var clearBtn = document.getElementById('clear-filters');
+      var noResults = document.getElementById('no-results');
+      var yearGroups = document.getElementById('year-groups');
+
+      // Cache for loaded year data
+      var yearDataCache = {};
+      var allFiltersActive = {}; // year -> filtered question list
+
+      // Read initial filters from URL
+      function readUrlFilters() {
+        var params = new URLSearchParams(window.location.search);
+        var validYears = Array.from(document.querySelectorAll('.year-group')).map(function(el) { return el.dataset.year; });
+        var validKps = Array.from(filterKp.options).map(function(o) { return o.value; }).filter(Boolean);
+        var validDifficulties = ['basic', 'medium', 'hard'];
+        var validQuestionTypes = ['choice', 'fill_blank', 'solution'];
+        var validPaperTypes = ['national', 'provincial'];
+
+        var y = params.get('year');
+        if (y && validYears.indexOf(y) !== -1) filterYear.value = y;
+        else filterYear.value = '';
+
+        var pt = params.get('paper_type');
+        if (pt && validPaperTypes.indexOf(pt) !== -1) filterPaperType.value = pt;
+        else filterPaperType.value = '';
+
+        var d = params.get('difficulty');
+        if (d && validDifficulties.indexOf(d) !== -1) filterDifficulty.value = d;
+        else filterDifficulty.value = '';
+
+        var qt = params.get('question_type');
+        if (qt && validQuestionTypes.indexOf(qt) !== -1) filterQuestionType.value = qt;
+        else filterQuestionType.value = '';
+
+        var kp = params.get('kp');
+        if (kp && validKps.indexOf(kp) !== -1) filterKp.value = kp;
+        else filterKp.value = '';
+      }
+
+      function updateUrl() {
+        var params = new URLSearchParams();
+        if (filterYear.value) params.set('year', filterYear.value);
+        if (filterPaperType.value) params.set('paper_type', filterPaperType.value);
+        if (filterDifficulty.value) params.set('difficulty', filterDifficulty.value);
+        if (filterQuestionType.value) params.set('question_type', filterQuestionType.value);
+        if (filterKp.value) params.set('kp', filterKp.value);
+        var qs = params.toString();
+        var newUrl = window.location.pathname + (qs ? '?' + qs : '');
+        history.replaceState(null, '', newUrl);
+      }
+
+      // Load year data on demand
+      function loadYearData(year, callback) {
+        if (yearDataCache[year]) { callback(yearDataCache[year]); return; }
+        var xhr = new XMLHttpRequest();
+        xhr.open('GET', '/pep-math/data/ncee/by-year/' + year + '.json');
+        xhr.onload = function() {
+          try {
+            var data = JSON.parse(xhr.responseText);
+            yearDataCache[year] = data;
+            callback(data);
+          } catch(e) {
+            console.error('[pep-math] 真题索引加载失败:', { url: '/data/ncee/by-year/' + year + '.json', error: 'JSON parse error', ncee_context: '真题总览页' });
+          }
+        };
+        xhr.onerror = function() {
+          console.error('[pep-math] 真题索引加载失败:', { url: '/data/ncee/by-year/' + year + '.json', error: 'network error', ncee_context: '真题总览页' });
+        };
+        xhr.send();
+      }
+
+      // Apply filters
+      function applyFilters() {
+        var yearVal = filterYear.value;
+        var paperTypeVal = filterPaperType.value;
+        var diffVal = filterDifficulty.value;
+        var qtVal = filterQuestionType.value;
+        var kpVal = filterKp.value;
+
+        updateUrl();
+
+        // If no detail filters, show all
+        if (!diffVal && !qtVal && !kpVal) {
+          // Just filter by year and paper type
+          var groups = document.querySelectorAll('.year-group');
+          var anyVisible = false;
+          groups.forEach(function(g) {
+            var gy = g.dataset.year;
+            var yearMatch = !yearVal || gy === yearVal;
+            g.style.display = yearMatch ? '' : 'none';
+            if (yearMatch) {
+              anyVisible = true;
+              // Filter paper items by paper type
+              if (paperTypeVal) {
+                var items = g.querySelectorAll('.paper-item');
+                var anyPaperVisible = false;
+                items.forEach(function(item) {
+                  var match = item.dataset.paperType === paperTypeVal;
+                  item.style.display = match ? '' : 'none';
+                  if (match) anyPaperVisible = true;
+                });
+                if (!anyPaperVisible) g.style.display = 'none';
+              } else {
+                g.querySelectorAll('.paper-item').forEach(function(item) { item.style.display = ''; });
+              }
+            }
+          });
+          noResults.classList.toggle('hidden', anyVisible);
+          return;
+        }
+
+        // Need to load year data for detail filtering
+        var targetYears = yearVal ? [yearVal] : Array.from(document.querySelectorAll('.year-group')).map(function(el) { return el.dataset.year; });
+        var loaded = 0;
+        var total = targetYears.length;
+
+        targetYears.forEach(function(y) {
+          loadYearData(y, function(data) {
+            // Filter questions
+            var filtered = data.filter(function(q) {
+              if (diffVal && q.difficulty !== diffVal) return false;
+              if (qtVal && q.question_type !== qtVal) return false;
+              if (kpVal && (!q.knowledge_points || q.knowledge_points.indexOf(kpVal) === -1) && (!q.knowledge_points || q.knowledge_points.indexOf(kpVal) === -1)) return false;
+              return true;
+            });
+
+            // Group by paper
+            var paperMap = {};
+            filtered.forEach(function(q) {
+              if (!paperMap[q.paper_code]) paperMap[q.paper_code] = { paper: q.paper, count: 0 };
+              paperMap[q.paper_code].count++;
+            });
+
+            // Update paper list visibility
+            var group = document.querySelector('.year-group[data-year="' + y + '"]');
+            if (!group) { loaded++; return; }
+            group.style.display = '';
+
+            var items = group.querySelectorAll('.paper-item');
+            var anyVisible = false;
+            items.forEach(function(item) {
+              var pc = item.dataset.paperCode;
+              var ptMatch = !paperTypeVal || item.dataset.paperType === paperTypeVal;
+              var hasQ = paperMap[pc] && paperMap[pc].count > 0;
+              var show = ptMatch && hasQ;
+              item.style.display = show ? '' : 'none';
+              if (show) {
+                anyVisible = true;
+                // Update count display
+                var countEl = item.querySelector('.text-gray-500 span');
+                if (countEl) countEl.textContent = paperMap[pc].count + ' 题';
+              }
+            });
+            if (!anyVisible) group.style.display = 'none';
+
+            loaded++;
+            if (loaded === total) {
+              var anyGroupVisible = false;
+              document.querySelectorAll('.year-group').forEach(function(g) {
+                if (g.style.display !== 'none') anyGroupVisible = true;
+              });
+              noResults.classList.toggle('hidden', anyGroupVisible);
+            }
+          });
+        });
+      }
+
+      // Toggle year groups
+      document.querySelectorAll('[data-toggle]').forEach(function(el) {
+        el.addEventListener('click', function() {
+          var year = el.dataset.toggle;
+          var list = document.querySelector('[data-year-list="' + year + '"]');
+          var icon = el.querySelector('.toggle-icon');
+          if (list.style.display === 'none') {
+            list.style.display = '';
+            icon.textContent = '▼';
+          } else {
+            list.style.display = 'none';
+            icon.textContent = '▶';
+          }
+        });
+      });
+
+      // Filter event listeners
+      [filterYear, filterPaperType, filterDifficulty, filterQuestionType, filterKp].forEach(function(el) {
+        el.addEventListener('change', applyFilters);
+      });
+
+      clearBtn.addEventListener('click', function() {
+        filterYear.value = '';
+        filterPaperType.value = '';
+        filterDifficulty.value = '';
+        filterQuestionType.value = '';
+        filterKp.value = '';
+        applyFilters();
+      });
+
+      // Initialize from URL
+      readUrlFilters();
+      applyFilters();
+    });
+  </script>
+</BaseLayout>

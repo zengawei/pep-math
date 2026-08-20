@@ -23,6 +23,7 @@ interface GraphNode {
   name: string;
   category: string;
   textbooks: string[];
+  ncee_count?: number;
   x?: number;
   y?: number;
 }
@@ -112,11 +113,26 @@ if (import.meta.url === `file://${process.argv[1]}`) {
   const contentDir = path.resolve('src/content/knowledge-points');
   const graph = buildKnowledgeGraph(contentDir);
 
+  // Add NCEE counts from by-kp index
+  const nceeByKpDir = path.resolve('public/data/ncee/by-kp');
+  if (fs.existsSync(nceeByKpDir)) {
+    const kpFiles = fs.readdirSync(nceeByKpDir).filter(f => f.endsWith('.json'));
+    for (const f of kpFiles) {
+      const kpId = f.replace('.json', '');
+      const questions = JSON.parse(fs.readFileSync(path.join(nceeByKpDir, f), 'utf-8'));
+      const node = graph.nodes.find(n => n.id === kpId);
+      if (node) {
+        node.ncee_count = questions.length;
+      }
+    }
+  }
+
   const outputDir = path.resolve('public/data');
   fs.mkdirSync(outputDir, { recursive: true });
   fs.writeFileSync(
     path.join(outputDir, 'knowledge-graph.json'),
     JSON.stringify(graph, null, 2)
   );
-  console.log(`✅ Knowledge graph: ${graph.nodes.length} nodes, ${graph.edges.length} edges`);
+  const nodesWithNcee = graph.nodes.filter(n => (n.ncee_count || 0) > 0).length;
+  console.log(`✅ Knowledge graph: ${graph.nodes.length} nodes, ${graph.edges.length} edges (${nodesWithNcee} with NCEE counts)`);
 }
