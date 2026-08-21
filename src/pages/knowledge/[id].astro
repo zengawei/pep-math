@@ -17,11 +17,12 @@ export async function getStaticPaths() {
 const { kp } = Astro.props;
 const { data } = kp;
 
-// Load related exercises from pre-built JSON
+// Load related exercises from pre-built JSON (exclude NCEE entries — they have their own section)
 const exercisesByKpFile = path.resolve(`public/data/exercises-by-kp/${data.id}.json`);
 let exercises: any[] = [];
 if (fs.existsSync(exercisesByKpFile)) {
-  exercises = JSON.parse(fs.readFileSync(exercisesByKpFile, 'utf-8'));
+  exercises = JSON.parse(fs.readFileSync(exercisesByKpFile, 'utf-8'))
+    .filter((ex: any) => ex.source !== 'ncee' && ex.chapter > 0);
 }
 
 // Load NCEE questions for this knowledge point
